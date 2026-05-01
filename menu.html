@@ -3,21 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>L'Âme du Grill Anatolien - Accueil</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="L'Âme du Grill Anatolien — Cuisine traditionnelle au charbon de bois et hospitalité turque.">
+    <title>L'Âme du Grill Anatolien · Accueil</title>
+
+    <link rel="preconnect" href="<https://fonts.googleapis.com>">
+    <link rel="preconnect" href="<https://fonts.gstatic.com>" crossorigin>
+    <link href="<https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;500;600;700&display=swap>" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <!-- Header -->
     <header>
         <div class="logo">◈</div>
+
         <nav>
             <ul>
-                <li><a href="index.html">Accueil</a></li>
+                <li><a href="index.html" class="active">Accueil</a></li>
                 <li><a href="menu.html">Menu</a></li>
                 <li><a href="experience.html">Expérience</a></li>
                 <li><a href="boissons.html">Boissons</a></li>
@@ -25,31 +28,56 @@
                 <li><a href="reservation.html">Réservation</a></li>
             </ul>
         </nav>
+
         <div class="menu-btn">☰</div>
     </header>
 
     <main>
+
+        <!-- Hero -->
         <section class="hero">
             <h1>L'ÂME<br>DU GRILL<br>ANATOLIEN</h1>
             <p class="subtitle">Héritage. Saveurs. Générosité.</p>
             <a href="experience.html" class="btn">Découvrir notre univers →</a>
         </section>
 
+        <!-- Cartes de présentation -->
         <section class="features">
-            <div class="feature-card">
-                <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Lieu d'histoire">
+            <a href="experience.html" class="feature-card">
+                <img src="<https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80>" alt="Lieu d'histoire" loading="lazy">
                 <h3>Un lieu<br>chargé d'histoire</h3>
-            </div>
-            <div class="feature-card">
-                <img src="https://images.unsplash.com/photo-1544025162-81111420d4d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Saveurs authentiques">
+            </a>
+
+            <a href="menu.html" class="feature-card">
+                <img src="<https://images.unsplash.com/photo-1544025162-81111420d4d8?auto=format&fit=crop&w=800&q=80>" alt="Saveurs authentiques" loading="lazy">
                 <h3>Des saveurs<br>authentiques</h3>
-            </div>
-            <div class="feature-card">
-                <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Expérience intemporelle">
+            </a>
+
+            <a href="reservation.html" class="feature-card">
+                <img src="<https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=800&q=80>" alt="Expérience intemporelle" loading="lazy">
                 <h3>Une expérience<br>intemporelle</h3>
-            </div>
+            </a>
         </section>
+
     </main>
+
+    <!-- Burger mobile -->
+    <script>
+        const burger = document.querySelector('.menu-btn');
+        const navList = document.querySelector('nav ul');
+
+        burger.addEventListener('click', () => {
+            navList.classList.toggle('open');
+            burger.textContent = navList.classList.contains('open') ? '✕' : '☰';
+        });
+
+        navList.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navList.classList.remove('open');
+                burger.textContent = '☰';
+            });
+        });
+    </script>
 
 </body>
 </html>
