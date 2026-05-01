@@ -1,0 +1,86 @@
+/* =========================================
+   03. EXPÉRIENCE / CONCEPT
+   ========================================= */
+.experience-hero {
+    position: relative;
+    height: 70vh;
+    /* Image de substitution représentant la pierre/l'histoire antique */
+    background-image: linear-gradient(to right, rgba(28,26,23,0.9) 0%, rgba(28,26,23,0.4) 60%, rgba(28,26,23,0.8) 100%), url('https://images.unsplash.com/photo-1599933371654-20d0eb3f124c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    padding: 0 5%;
+    margin-top: 80px; /* Compense la hauteur du header fixe */
+}
+
+.experience-hero-text {
+    max-width: 550px;
+}
+
+.experience-hero-text h2 {
+    font-size: 3.5rem;
+    color: var(--cream);
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    line-height: 1.1;
+    letter-spacing: 2px;
+}
+
+.experience-hero-text p {
+    color: var(--stone-beige);
+    margin-bottom: 2.5rem;
+    font-size: 1rem;
+}
+
+/* La grille des 3 piliers en dessous */
+.experience-features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px; /* Crée la bordure fine de séparation */
+    background-color: rgba(203, 181, 148, 0.2); /* Couleur de la bordure */
+    border-bottom: 1px solid rgba(203, 181, 148, 0.2);
+}
+
+.exp-feature-card {
+    background-color: var(--charcoal);
+    padding: 5rem 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+}
+
+/* La première carte a un fond texturé selon le moodboard */
+.exp-feature-card.textured {
+    background-image: linear-gradient(rgba(28,26,23,0.85), rgba(28,26,23,0.85)), url('https://images.unsplash.com/photo-1600180758890-6b94519a8ba6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
+    background-size: cover;
+    background-position: center;
+}
+
+.exp-feature-card h3 {
+    color: var(--cream);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.exp-feature-card p {
+    color: var(--stone-beige);
+    font-size: 0.9rem;
+    max-width: 280px;
+    margin: 0 auto;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .experience-hero-text h2 {
+        font-size: 2.5rem;
+    }
+    .experience-features {
+        grid-template-columns: 1fr;
+    }
+}
