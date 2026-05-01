@@ -3,216 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>L'Âme du Grill Anatolien</title>
+    <title>L'Âme du Grill Anatolien - Accueil</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <style>
-        /* =========================================
-           08. UNIVERS VISUEL (SYSTÈME DE DESIGN)
-           ========================================= */
-        :root {
-            /* Palette de couleurs */
-            --charcoal: #1C1A17;
-            --ember-orange: #C75D2C;
-            --aged-brass: #B08A4F;
-            --cream: #EFE4D2;
-            --deep-burgundy: #5C1F1F;
-            --stone-beige: #CBB594;
-
-            /* Typographie */
-            --font-headings: 'Playfair Display', serif;
-            --font-body: 'Inter', sans-serif;
-        }
-
-        /* Réinitialisation de base */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: var(--charcoal);
-            color: var(--cream);
-            font-family: var(--font-body);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-family: var(--font-headings);
-            font-weight: normal;
-        }
-
-        a {
-            color: var(--cream);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        a:hover {
-            color: var(--aged-brass);
-        }
-
-        /* =========================================
-           NAVIGATION
-           ========================================= */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 2rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: linear-gradient(to bottom, rgba(28,26,23,0.9) 0%, rgba(28,26,23,0) 100%);
-            z-index: 1000;
-        }
-
-        .logo {
-            font-family: var(--font-headings);
-            font-size: 1.5rem;
-            color: var(--aged-brass);
-            letter-spacing: 2px;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        nav ul li a {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 500;
-        }
-
-        .menu-btn {
-            display: none; /* Pour la version mobile plus tard */
-            color: var(--cream);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* =========================================
-           01. ACCUEIL / HOMEPAGE
-           ========================================= */
-        .hero {
-            height: 100vh;
-            background-image: linear-gradient(to right, rgba(28,26,23,0.9) 0%, rgba(28,26,23,0.4) 50%, rgba(28,26,23,0.8) 100%), url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 0 10%;
-        }
-
-        .hero h1 {
-            font-size: 4.5rem;
-            line-height: 1.1;
-            margin-bottom: 1rem;
-            max-width: 600px;
-            color: var(--cream);
-        }
-
-        .hero p.subtitle {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--stone-beige);
-            margin-bottom: 3rem;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 1rem 2rem;
-            border: 1px solid var(--aged-brass);
-            color: var(--aged-brass);
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            transition: all 0.3s ease;
-            width: fit-content;
-            cursor: pointer;
-            background: transparent;
-        }
-
-        .btn:hover {
-            background-color: var(--aged-brass);
-            color: var(--charcoal);
-        }
-
-        /* =========================================
-           FEATURES (Les 3 images en bas)
-           ========================================= */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2px; /* Pour créer l'effet de bordure fine entre les images */
-            background-color: #333; /* Couleur de la ligne de séparation */
-            padding: 2px 5%;
-            margin-top: -100px; /* Remonte légèrement sur le hero */
-            position: relative;
-            z-index: 10;
-        }
-
-        .feature-card {
-            position: relative;
-            height: 300px;
-            background-color: var(--charcoal);
-            overflow: hidden;
-            display: flex;
-            align-items: flex-end;
-            padding: 2rem;
-            text-align: center;
-            justify-content: center;
-        }
-
-        .feature-card img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.4;
-            transition: opacity 0.5s ease;
-            z-index: 1;
-        }
-
-        .feature-card:hover img {
-            opacity: 0.6;
-        }
-
-        .feature-card h3 {
-            position: relative;
-            z-index: 2;
-            font-size: 1.2rem;
-            color: var(--cream);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        /* =========================================
-           RESPONSIVE DESIGN (Mobiles & Tablettes)
-           ========================================= */
-        @media (max-width: 900px) {
-            .hero h1 { font-size: 3rem; }
-            nav ul { display: none; }
-            .menu-btn { display: block; }
-            .features {
-                grid-template-columns: 1fr;
-                margin-top: 0;
-                padding: 0;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -220,12 +17,13 @@
         <div class="logo">◈</div>
         <nav>
             <ul>
-                <li><a href="#accueil">Accueil</a></li>
-                <li><a href="#menu">Menu</a></li>
-                <li><a href="#experience">Expérience</a></li>
-                <li><a href="#boissons">Boissons</a></li>
-                <li><a href="#galerie">Galerie</a></li>
-                <li><a href="#reservation">Réservation</a></li>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="experience.html">Expérience</a></li>
+                <li><a href="boissons.html">Boissons</a></li>
+                <li><a href="galerie.html">Galerie</a></li>
+                <li><a href="histoire.html">Histoire</a></li>
+                <li><a href="reservation.html">Réservation</a></li>
             </ul>
         </nav>
         <div class="menu-btn">☰</div>
@@ -235,24 +33,35 @@
         <section id="accueil" class="hero">
             <h1>L'ÂME<br>DU GRILL<br>ANATOLIEN</h1>
             <p class="subtitle">Héritage. Saveurs. Générosité.</p>
-            <a href="#univers" class="btn">Découvrir notre univers →</a>
+            <div style="display: flex; gap: 1rem;">
+                <a href="reservation.html" class="btn" style="background-color: var(--ember-orange); border-color: var(--ember-orange); color: white;">Réserver une table</a>
+                <a href="experience.html" class="btn">Notre Concept</a>
+            </div>
         </section>
 
         <section class="features">
-            <div class="feature-card">
+            <a href="histoire.html" class="feature-card">
                 <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Lieu d'histoire">
                 <h3>Un lieu<br>chargé d'histoire</h3>
-            </div>
-            <div class="feature-card">
+            </a>
+            
+            <a href="menu.html" class="feature-card">
                 <img src="https://images.unsplash.com/photo-1544025162-81111420d4d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Saveurs authentiques">
                 <h3>Des saveurs<br>authentiques</h3>
-            </div>
-            <div class="feature-card">
+            </a>
+            
+            <a href="experience.html" class="feature-card">
                 <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Expérience intemporelle">
                 <h3>Une expérience<br>intemporelle</h3>
-            </div>
+            </a>
         </section>
     </main>
+
+    <footer style="padding: 4rem 5%; background-color: #161412; text-align: center; border-top: 1px solid rgba(203, 181, 148, 0.1);">
+        <p style="color: var(--stone-beige); font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase;">
+            &copy; 2023 L'Âme du Grill Anatolien — Design inspiré du Moodboard
+        </p>
+    </footer>
 
 </body>
 </html>
