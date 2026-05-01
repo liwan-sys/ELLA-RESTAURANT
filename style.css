@@ -244,6 +244,47 @@ nav ul li a.active::after {
     color: var(--gold);
 }
 
+/* Sélecteur de langue */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.lang-switch {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+}
+
+.lang-switch button {
+    background: transparent;
+    border: none;
+    color: var(--stone-beige);
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 0.3rem 0.5rem;
+    cursor: pointer;
+    transition: color 0.3s var(--ease-out);
+    font-weight: 500;
+}
+
+.lang-switch button:hover {
+    color: var(--cream);
+}
+
+.lang-switch button.active {
+    color: var(--gold);
+}
+
+.lang-switch .lang-sep {
+    color: rgba(203, 181, 148, 0.3);
+    font-size: 0.7rem;
+    pointer-events: none;
+}
+
 /* =========================================
    HERO (ACCUEIL)
    ========================================= */
@@ -1441,6 +1482,15 @@ footer .copyright {
    RESPONSIVE
    ========================================= */
 @media (max-width: 900px) {
+    .header-right {
+        gap: 1rem;
+    }
+
+    .lang-switch button {
+        padding: 0.2rem 0.3rem;
+        font-size: 0.65rem;
+    }
+
     nav ul {
         display: none;
         position: fixed;

@@ -15,58 +15,67 @@
 <body>
 
     <header>
-        <a href="index.html" class="logo" aria-label="Accueil">ELLA</a>
+        <a href="index.html" class="logo" aria-label="Ella">ELLA</a>
 
         <nav id="primary-nav">
             <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="menu.html">Menu</a></li>
-                <li><a href="experience.html" class="active">Expérience</a></li>
-                <li><a href="boissons.html">Boissons</a></li>
-                <li><a href="galerie.html">Galerie</a></li>
-                <li><a href="histoire.html">Histoire</a></li>
-                <li><a href="reservation.html">Réservation</a></li>
+                <li><a href="index.html" data-i18n="nav.home">Accueil</a></li>
+                <li><a href="menu.html" data-i18n="nav.menu">Menu</a></li>
+                <li><a href="experience.html" class="active" data-i18n="nav.experience">Expérience</a></li>
+                <li><a href="boissons.html" data-i18n="nav.drinks">Boissons</a></li>
+                <li><a href="galerie.html" data-i18n="nav.gallery">Galerie</a></li>
+                <li><a href="histoire.html" data-i18n="nav.history">Histoire</a></li>
+                <li><a href="reservation.html" data-i18n="nav.reservation">Réservation</a></li>
             </ul>
         </nav>
 
-        <button class="menu-btn" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="primary-nav">☰</button>
+        <div class="header-right">
+            <div class="lang-switch" role="group" aria-label="Choix de langue">
+                <button type="button" data-lang="fr" aria-pressed="true">FR</button>
+                <span class="lang-sep">·</span>
+                <button type="button" data-lang="en" aria-pressed="false">EN</button>
+                <span class="lang-sep">·</span>
+                <button type="button" data-lang="tr" aria-pressed="false">TR</button>
+            </div>
+            <button class="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="primary-nav">☰</button>
+        </div>
     </header>
 
     <main>
         <section class="experience-hero" aria-labelledby="exp-title">
             <div class="experience-hero-text">
-                <span class="eyebrow">L'expérience Ella</span>
-                <h2 id="exp-title">Une expérience<br>à <em>vivre</em></h2>
-                <p>Au-delà du repas, Ella vous invite à un voyage sensoriel : le crépitement du charbon, le parfum des épices, la chaleur d'un service attentionné. Tout y est conçu pour vous transporter au cœur de l'Anatolie.</p>
-                <a href="reservation.html" class="btn">Réserver une table</a>
+                <span class="eyebrow" data-i18n="exp.eyebrow">L'expérience Ella</span>
+                <h2 id="exp-title"><span data-i18n="exp.title.l1">Une expérience</span><br><span data-i18n="exp.title.l2">à</span> <em data-i18n="exp.title.l3">vivre</em></h2>
+                <p data-i18n="exp.intro">Au-delà du repas, Ella vous invite à un voyage sensoriel : le crépitement du charbon, le parfum des épices, la chaleur d'un service attentionné. Tout y est conçu pour vous transporter au cœur de l'Anatolie.</p>
+                <a href="reservation.html" class="btn" data-i18n="exp.cta">Réserver une table</a>
             </div>
         </section>
 
         <section class="experience-features" aria-label="Nos piliers">
             <div class="exp-feature-card reveal">
                 <span class="number">01</span>
-                <h3>Le Feu</h3>
-                <p>Toutes nos viandes sont saisies au mangal, sur charbon de bois de chêne, comme dans les villages d'Anatolie.</p>
+                <h3 data-i18n="exp.f1.title">Le Feu</h3>
+                <p data-i18n="exp.f1.text">Toutes nos viandes sont saisies au mangal, sur charbon de bois de chêne, comme dans les villages d'Anatolie.</p>
             </div>
 
             <div class="exp-feature-card textured reveal reveal-delay-1">
                 <span class="number">02</span>
-                <h3>L'Héritage</h3>
-                <p>Des recettes transmises depuis trois générations, fidèles à l'esprit des grandes tables familiales turques.</p>
+                <h3 data-i18n="exp.f2.title">L'Héritage</h3>
+                <p data-i18n="exp.f2.text">Des recettes transmises depuis trois générations, fidèles à l'esprit des grandes tables familiales turques.</p>
             </div>
 
             <div class="exp-feature-card reveal reveal-delay-2">
                 <span class="number">03</span>
-                <h3>L'Hospitalité</h3>
-                <p>Chez nous, chaque convive devient un invité. Le partage, le thé offert, les sourires : c'est l'âme turque.</p>
+                <h3 data-i18n="exp.f3.title">L'Hospitalité</h3>
+                <p data-i18n="exp.f3.text">Chez nous, chaque convive devient un invité. Le partage, le thé offert, les sourires : c'est l'âme turque.</p>
             </div>
         </section>
 
         <section class="page-section">
             <div class="page-header reveal">
-                <span class="eyebrow">Au cœur de la cuisine</span>
-                <h2>Le Mangal</h2>
-                <p>Au centre de notre cuisine se trouve le mangal, ce gril ancestral où le charbon de bois de chêne libère ses arômes profonds. C'est ici que naissent les saveurs fumées et tendres de nos kebabs, dans le respect d'un savoir-faire séculaire.</p>
+                <span class="eyebrow" data-i18n="exp.mangal.eyebrow">Au cœur de la cuisine</span>
+                <h2 data-i18n="exp.mangal.title">Le Mangal</h2>
+                <p data-i18n="exp.mangal.text">Au centre de notre cuisine se trouve le mangal, ce gril ancestral où le charbon de bois de chêne libère ses arômes profonds. C'est ici que naissent les saveurs fumées et tendres de nos kebabs, dans le respect d'un savoir-faire séculaire.</p>
             </div>
         </section>
     </main>
@@ -74,15 +83,16 @@
     <footer>
         <div class="footer-brand">ELLA</div>
         <div class="footer-links">
-            <a href="menu.html">Menu</a>
-            <a href="histoire.html">Histoire</a>
-            <a href="reservation.html">Réservation</a>
+            <a href="menu.html" data-i18n="nav.menu">Menu</a>
+            <a href="histoire.html" data-i18n="nav.history">Histoire</a>
+            <a href="reservation.html" data-i18n="nav.reservation">Réservation</a>
         </div>
-        <p>14 rue du Faubourg Saint-Denis · 75010 Paris</p>
-        <p>01 47 70 20 95 · Ouvert 7j/7 de 11h à minuit</p>
-        <p class="copyright">© 2026 Ella · L'Âme du Grill Anatolien</p>
+        <p data-i18n="footer.address">14 rue du Faubourg Saint-Denis · 75010 Paris</p>
+        <p data-i18n="footer.contact">01 47 70 20 95 · Ouvert 7j/7 de 11h à minuit</p>
+        <p class="copyright" data-i18n="footer.copyright">© 2026 Ella · L'Âme du Grill Anatolien</p>
     </footer>
 
+    <script src="i18n.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

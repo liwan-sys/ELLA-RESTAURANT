@@ -15,29 +15,38 @@
 <body>
 
     <header>
-        <a href="index.html" class="logo" aria-label="Accueil">ELLA</a>
+        <a href="index.html" class="logo" aria-label="Ella">ELLA</a>
 
         <nav id="primary-nav">
             <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="menu.html">Menu</a></li>
-                <li><a href="experience.html">Expérience</a></li>
-                <li><a href="boissons.html">Boissons</a></li>
-                <li><a href="galerie.html" class="active">Galerie</a></li>
-                <li><a href="histoire.html">Histoire</a></li>
-                <li><a href="reservation.html">Réservation</a></li>
+                <li><a href="index.html" data-i18n="nav.home">Accueil</a></li>
+                <li><a href="menu.html" data-i18n="nav.menu">Menu</a></li>
+                <li><a href="experience.html" data-i18n="nav.experience">Expérience</a></li>
+                <li><a href="boissons.html" data-i18n="nav.drinks">Boissons</a></li>
+                <li><a href="galerie.html" class="active" data-i18n="nav.gallery">Galerie</a></li>
+                <li><a href="histoire.html" data-i18n="nav.history">Histoire</a></li>
+                <li><a href="reservation.html" data-i18n="nav.reservation">Réservation</a></li>
             </ul>
         </nav>
 
-        <button class="menu-btn" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="primary-nav">☰</button>
+        <div class="header-right">
+            <div class="lang-switch" role="group" aria-label="Choix de langue">
+                <button type="button" data-lang="fr" aria-pressed="true">FR</button>
+                <span class="lang-sep">·</span>
+                <button type="button" data-lang="en" aria-pressed="false">EN</button>
+                <span class="lang-sep">·</span>
+                <button type="button" data-lang="tr" aria-pressed="false">TR</button>
+            </div>
+            <button class="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="primary-nav">☰</button>
+        </div>
     </header>
 
     <main>
         <section class="gallery-section">
             <div class="gallery-header reveal">
-                <span class="eyebrow">Galerie</span>
-                <h2>Atmosphère</h2>
-                <p>Quelques fragments de notre univers : la chaleur du feu, la douceur des lumières et la générosité des assiettes.</p>
+                <span class="eyebrow" data-i18n="gallery.eyebrow">Galerie</span>
+                <h2 data-i18n="gallery.title">Atmosphère</h2>
+                <p data-i18n="gallery.intro">Quelques fragments de notre univers : la chaleur du feu, la douceur des lumières et la générosité des assiettes.</p>
             </div>
 
             <div class="gallery-grid reveal reveal-delay-1">
@@ -75,15 +84,16 @@
     <footer>
         <div class="footer-brand">ELLA</div>
         <div class="footer-links">
-            <a href="menu.html">Menu</a>
-            <a href="histoire.html">Histoire</a>
-            <a href="reservation.html">Réservation</a>
+            <a href="menu.html" data-i18n="nav.menu">Menu</a>
+            <a href="histoire.html" data-i18n="nav.history">Histoire</a>
+            <a href="reservation.html" data-i18n="nav.reservation">Réservation</a>
         </div>
-        <p>14 rue du Faubourg Saint-Denis · 75010 Paris</p>
-        <p>01 47 70 20 95 · Ouvert 7j/7 de 11h à minuit</p>
-        <p class="copyright">© 2026 Ella · L'Âme du Grill Anatolien</p>
+        <p data-i18n="footer.address">14 rue du Faubourg Saint-Denis · 75010 Paris</p>
+        <p data-i18n="footer.contact">01 47 70 20 95 · Ouvert 7j/7 de 11h à minuit</p>
+        <p class="copyright" data-i18n="footer.copyright">© 2026 Ella · L'Âme du Grill Anatolien</p>
     </footer>
 
+    <script src="i18n.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

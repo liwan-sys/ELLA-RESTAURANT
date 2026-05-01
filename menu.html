@@ -15,35 +15,44 @@
 <body>
 
     <header>
-        <a href="index.html" class="logo" aria-label="Accueil">ELLA</a>
+        <a href="index.html" class="logo" aria-label="Ella">ELLA</a>
 
         <nav id="primary-nav">
             <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="menu.html" class="active">Menu</a></li>
-                <li><a href="experience.html">Expérience</a></li>
-                <li><a href="boissons.html">Boissons</a></li>
-                <li><a href="galerie.html">Galerie</a></li>
-                <li><a href="histoire.html">Histoire</a></li>
-                <li><a href="reservation.html">Réservation</a></li>
+                <li><a href="index.html" data-i18n="nav.home">Accueil</a></li>
+                <li><a href="menu.html" class="active" data-i18n="nav.menu">Menu</a></li>
+                <li><a href="experience.html" data-i18n="nav.experience">Expérience</a></li>
+                <li><a href="boissons.html" data-i18n="nav.drinks">Boissons</a></li>
+                <li><a href="galerie.html" data-i18n="nav.gallery">Galerie</a></li>
+                <li><a href="histoire.html" data-i18n="nav.history">Histoire</a></li>
+                <li><a href="reservation.html" data-i18n="nav.reservation">Réservation</a></li>
             </ul>
         </nav>
 
-        <button class="menu-btn" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="primary-nav">☰</button>
+        <div class="header-right">
+            <div class="lang-switch" role="group" aria-label="Choix de langue">
+                <button type="button" data-lang="fr" aria-pressed="true">FR</button>
+                <span class="lang-sep">·</span>
+                <button type="button" data-lang="en" aria-pressed="false">EN</button>
+                <span class="lang-sep">·</span>
+                <button type="button" data-lang="tr" aria-pressed="false">TR</button>
+            </div>
+            <button class="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="primary-nav">☰</button>
+        </div>
     </header>
 
     <main>
         <section class="page-section">
             <div class="page-header reveal">
-                <span class="eyebrow">La carte</span>
-                <h2>Notre Carte</h2>
-                <p>Une cuisine fidèle aux traditions anatoliennes, où chaque plat est cuit au feu de bois et inspiré des recettes familiales transmises de génération en génération.</p>
+                <span class="eyebrow" data-i18n="menu.eyebrow">La carte</span>
+                <h2 data-i18n="menu.title">Notre Carte</h2>
+                <p data-i18n="menu.intro">Une cuisine fidèle aux traditions anatoliennes, où chaque plat est cuit au feu de bois et inspiré des recettes familiales transmises de génération en génération.</p>
             </div>
 
             <div class="menu-grid reveal reveal-delay-1">
 
                 <div class="menu-category">
-                    <h3>Mezzes Froids</h3>
+                    <h3 data-i18n="menu.cat.cold">Mezzes Froids</h3>
 
                     <div class="menu-item">
                         <div class="menu-item-info">
@@ -79,7 +88,7 @@
                 </div>
 
                 <div class="menu-category">
-                    <h3>Mezzes Chauds</h3>
+                    <h3 data-i18n="menu.cat.hot">Mezzes Chauds</h3>
 
                     <div class="menu-item">
                         <div class="menu-item-info">
@@ -115,7 +124,7 @@
                 </div>
 
                 <div class="menu-category">
-                    <h3>Grillades · Du Mangal</h3>
+                    <h3 data-i18n="menu.cat.grill">Grillades · Du Mangal</h3>
 
                     <div class="menu-item">
                         <div class="menu-item-info">
@@ -167,7 +176,7 @@
                 </div>
 
                 <div class="menu-category">
-                    <h3>Spécialités de la maison</h3>
+                    <h3 data-i18n="menu.cat.specialties">Spécialités de la maison</h3>
 
                     <div class="menu-item">
                         <div class="menu-item-info">
@@ -219,7 +228,7 @@
                 </div>
 
                 <div class="menu-category">
-                    <h3>Desserts</h3>
+                    <h3 data-i18n="menu.cat.desserts">Desserts</h3>
 
                     <div class="menu-item">
                         <div class="menu-item-info">
@@ -255,7 +264,7 @@
                 </div>
 
                 <div class="menu-category">
-                    <h3>Menus &amp; Formules</h3>
+                    <h3 data-i18n="menu.cat.formulas">Menus &amp; Formules</h3>
 
                     <div class="menu-item">
                         <div class="menu-item-info">
@@ -289,15 +298,16 @@
     <footer>
         <div class="footer-brand">ELLA</div>
         <div class="footer-links">
-            <a href="menu.html">Menu</a>
-            <a href="histoire.html">Histoire</a>
-            <a href="reservation.html">Réservation</a>
+            <a href="menu.html" data-i18n="nav.menu">Menu</a>
+            <a href="histoire.html" data-i18n="nav.history">Histoire</a>
+            <a href="reservation.html" data-i18n="nav.reservation">Réservation</a>
         </div>
-        <p>14 rue du Faubourg Saint-Denis · 75010 Paris</p>
-        <p>01 47 70 20 95 · Ouvert 7j/7 de 11h à minuit</p>
-        <p class="copyright">© 2026 Ella · L'Âme du Grill Anatolien</p>
+        <p data-i18n="footer.address">14 rue du Faubourg Saint-Denis · 75010 Paris</p>
+        <p data-i18n="footer.contact">01 47 70 20 95 · Ouvert 7j/7 de 11h à minuit</p>
+        <p class="copyright" data-i18n="footer.copyright">© 2026 Ella · L'Âme du Grill Anatolien</p>
     </footer>
 
+    <script src="i18n.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

@@ -15,84 +15,93 @@
 <body>
 
     <header>
-        <a href="index.html" class="logo" aria-label="Accueil">ELLA</a>
+        <a href="index.html" class="logo" aria-label="Ella">ELLA</a>
 
         <nav id="primary-nav">
             <ul>
-                <li><a href="index.html" class="active">Accueil</a></li>
-                <li><a href="menu.html">Menu</a></li>
-                <li><a href="experience.html">Expérience</a></li>
-                <li><a href="boissons.html">Boissons</a></li>
-                <li><a href="galerie.html">Galerie</a></li>
-                <li><a href="histoire.html">Histoire</a></li>
-                <li><a href="reservation.html">Réservation</a></li>
+                <li><a href="index.html" class="active" data-i18n="nav.home">Accueil</a></li>
+                <li><a href="menu.html" data-i18n="nav.menu">Menu</a></li>
+                <li><a href="experience.html" data-i18n="nav.experience">Expérience</a></li>
+                <li><a href="boissons.html" data-i18n="nav.drinks">Boissons</a></li>
+                <li><a href="galerie.html" data-i18n="nav.gallery">Galerie</a></li>
+                <li><a href="histoire.html" data-i18n="nav.history">Histoire</a></li>
+                <li><a href="reservation.html" data-i18n="nav.reservation">Réservation</a></li>
             </ul>
         </nav>
 
-        <button class="menu-btn" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="primary-nav">☰</button>
+        <div class="header-right">
+            <div class="lang-switch" role="group" aria-label="Choix de langue">
+                <button type="button" data-lang="fr" aria-pressed="true">FR</button>
+                <span class="lang-sep">·</span>
+                <button type="button" data-lang="en" aria-pressed="false">EN</button>
+                <span class="lang-sep">·</span>
+                <button type="button" data-lang="tr" aria-pressed="false">TR</button>
+            </div>
+            <button class="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="primary-nav">☰</button>
+        </div>
     </header>
 
     <main>
         <section class="hero" aria-labelledby="hero-title">
-            <span class="hero-eyebrow">Restaurant turc · 10ème Paris</span>
-            <h1 id="hero-title">L'Âme<br>du Grill<br><em>Anatolien</em></h1>
-            <p class="subtitle">Héritage. Saveurs. Générosité.</p>
+            <span class="hero-eyebrow" data-i18n="hero.eyebrow">Restaurant turc · 10ème Paris</span>
+            <h1 id="hero-title"><span data-i18n="hero.title.l1">L'Âme</span><br><span data-i18n="hero.title.l2">du Grill</span><br><em data-i18n="hero.title.l3">Anatolien</em></h1>
+            <p class="subtitle" data-i18n="hero.subtitle">Héritage. Saveurs. Générosité.</p>
             <div class="btn-container">
-                <a href="reservation.html" class="btn btn-primary">Réserver une table</a>
-                <a href="menu.html" class="btn">Voir le menu</a>
+                <a href="reservation.html" class="btn btn-primary" data-i18n="hero.cta.book">Réserver une table</a>
+                <a href="menu.html" class="btn" data-i18n="hero.cta.menu">Voir le menu</a>
             </div>
-            <span class="scroll-indicator" aria-hidden="true">Découvrir</span>
+            <span class="scroll-indicator" aria-hidden="true" data-i18n="hero.scroll">Découvrir</span>
         </section>
 
         <section class="features" aria-label="Notre univers">
             <a href="experience.html" class="feature-card reveal">
-                <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80" alt="Salle du restaurant" loading="lazy">
-                <h3>Un lieu<br>chargé d'histoire</h3>
-                <span class="feature-arrow">Découvrir →</span>
+                <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy">
+                <h3 data-i18n="feature.1.title">Un lieu<br>chargé d'histoire</h3>
+                <span class="feature-arrow" data-i18n="feature.1.arrow">Découvrir →</span>
             </a>
 
             <a href="menu.html" class="feature-card reveal reveal-delay-1">
-                <img src="https://images.unsplash.com/photo-1544025162-81111420d4d8?auto=format&fit=crop&w=800&q=80" alt="Grillades" loading="lazy">
-                <h3>Des saveurs<br>authentiques</h3>
-                <span class="feature-arrow">Voir le menu →</span>
+                <img src="https://images.unsplash.com/photo-1544025162-81111420d4d8?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy">
+                <h3 data-i18n="feature.2.title">Des saveurs<br>authentiques</h3>
+                <span class="feature-arrow" data-i18n="feature.2.arrow">Voir le menu →</span>
             </a>
 
             <a href="reservation.html" class="feature-card reveal reveal-delay-2">
-                <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=800&q=80" alt="Réserver" loading="lazy">
-                <h3>Une expérience<br>intemporelle</h3>
-                <span class="feature-arrow">Réserver →</span>
+                <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy">
+                <h3 data-i18n="feature.3.title">Une expérience<br>intemporelle</h3>
+                <span class="feature-arrow" data-i18n="feature.3.arrow">Réserver →</span>
             </a>
         </section>
 
         <section class="reviews" aria-labelledby="reviews-title">
             <div class="reviews-header reveal">
-                <h2 id="reviews-title">Ce qu'ils en disent</h2>
+                <h2 id="reviews-title" data-i18n="reviews.title">Ce qu'ils en disent</h2>
                 <div class="reviews-stats">
                     <div class="stat">
-                        <span class="stat-value">4,4 / 5</span>
-                        <span class="stat-label">+ de 1 500 avis</span>
+                        <span class="stat-value" data-i18n="reviews.stat1.value">4,4 / 5</span>
+                        <span class="stat-label" data-i18n="reviews.stat1.label">+ de 1 500 avis</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-value">9,3 / 10</span>
-                        <span class="stat-label">Note TheFork</span>
+                        <span class="stat-value" data-i18n="reviews.stat2.value">9,3 / 10</span>
+                        <span class="stat-label" data-i18n="reviews.stat2.label">Note TheFork</span>
                     </div>
                 </div>
             </div>
 
             <div class="reviews-grid">
                 <blockquote class="review-card reveal">
-                    <p>Le meilleur künefe de ma vie. Le service était excellent et le personnel très chaleureux.</p>
-                    <cite>— Avis Tripadvisor</cite>
+                    <p data-i18n="reviews.1.quote">Le meilleur künefe de ma vie. Le service était excellent et le personnel très chaleureux.</p>
+                    <cite data-i18n="reviews.1.cite">— Avis Tripadvisor</cite>
                 </blockquote>
 
                 <blockquote class="review-card reveal reveal-delay-1">
-                    <p>Tout était délicieux, et le dessert à tomber. Une véritable expérience turque, généreuse et authentique.</p>
-                    <cite>— Avis TheFork</cite>
+                    <p data-i18n="reviews.2.quote">Tout était délicieux, et le dessert à tomber. Une véritable expérience turque, généreuse et authentique.</p>
+                    <cite data-i18n="reviews.2.cite">— Avis TheFork</cite>
                 </blockquote>
 
                 <blockquote class="review-card reveal reveal-delay-2">
-                    <p>Un des meilleurs döner kebab que j'ai mangé en dehors de la Turquie. Viandes grillées au charbon, kofte haché au couteau : du vrai savoir-faire.</p>
-                    <cite>— Avis Yelp</cite>
+                    <p data-i18n="reviews.3.quote">Un des meilleurs döner kebab que j'ai mangé en dehors de la Turquie. Viandes grillées au charbon, kofte haché au couteau : du vrai savoir-faire.</p>
+                    <cite data-i18n="reviews.3.cite">— Avis Yelp</cite>
                 </blockquote>
             </div>
         </section>
@@ -101,15 +110,16 @@
     <footer>
         <div class="footer-brand">ELLA</div>
         <div class="footer-links">
-            <a href="menu.html">Menu</a>
-            <a href="histoire.html">Histoire</a>
-            <a href="reservation.html">Réservation</a>
+            <a href="menu.html" data-i18n="nav.menu">Menu</a>
+            <a href="histoire.html" data-i18n="nav.history">Histoire</a>
+            <a href="reservation.html" data-i18n="nav.reservation">Réservation</a>
         </div>
-        <p>14 rue du Faubourg Saint-Denis · 75010 Paris</p>
-        <p>01 47 70 20 95 · Ouvert 7j/7 de 11h à minuit</p>
-        <p class="copyright">© 2026 Ella · L'Âme du Grill Anatolien</p>
+        <p data-i18n="footer.address">14 rue du Faubourg Saint-Denis · 75010 Paris</p>
+        <p data-i18n="footer.contact">01 47 70 20 95 · Ouvert 7j/7 de 11h à minuit</p>
+        <p class="copyright" data-i18n="footer.copyright">© 2026 Ella · L'Âme du Grill Anatolien</p>
     </footer>
 
+    <script src="i18n.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

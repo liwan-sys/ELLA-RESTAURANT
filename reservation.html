@@ -15,21 +15,30 @@
 <body>
 
     <header>
-        <a href="index.html" class="logo" aria-label="Accueil">ELLA</a>
+        <a href="index.html" class="logo" aria-label="Ella">ELLA</a>
 
         <nav id="primary-nav">
             <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="menu.html">Menu</a></li>
-                <li><a href="experience.html">Expérience</a></li>
-                <li><a href="boissons.html">Boissons</a></li>
-                <li><a href="galerie.html">Galerie</a></li>
-                <li><a href="histoire.html">Histoire</a></li>
-                <li><a href="reservation.html" class="active">Réservation</a></li>
+                <li><a href="index.html" data-i18n="nav.home">Accueil</a></li>
+                <li><a href="menu.html" data-i18n="nav.menu">Menu</a></li>
+                <li><a href="experience.html" data-i18n="nav.experience">Expérience</a></li>
+                <li><a href="boissons.html" data-i18n="nav.drinks">Boissons</a></li>
+                <li><a href="galerie.html" data-i18n="nav.gallery">Galerie</a></li>
+                <li><a href="histoire.html" data-i18n="nav.history">Histoire</a></li>
+                <li><a href="reservation.html" class="active" data-i18n="nav.reservation">Réservation</a></li>
             </ul>
         </nav>
 
-        <button class="menu-btn" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="primary-nav">☰</button>
+        <div class="header-right">
+            <div class="lang-switch" role="group" aria-label="Choix de langue">
+                <button type="button" data-lang="fr" aria-pressed="true">FR</button>
+                <span class="lang-sep">·</span>
+                <button type="button" data-lang="en" aria-pressed="false">EN</button>
+                <span class="lang-sep">·</span>
+                <button type="button" data-lang="tr" aria-pressed="false">TR</button>
+            </div>
+            <button class="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="primary-nav">☰</button>
+        </div>
     </header>
 
     <main>
@@ -37,86 +46,86 @@
             <div class="reservation-grid">
 
                 <div class="reservation-content reveal">
-                    <span class="eyebrow">Réserver</span>
-                    <h2>Réserver une table</h2>
-                    <p>Pour partager un moment chez Ella, indiquez-nous votre préférence. Nous confirmerons votre réservation par e-mail ou téléphone dans les plus brefs délais.</p>
+                    <span class="eyebrow" data-i18n="res.eyebrow">Réserver</span>
+                    <h2 data-i18n="res.title">Réserver une table</h2>
+                    <p data-i18n="res.intro">Pour partager un moment chez Ella, indiquez-nous votre préférence. Nous confirmerons votre réservation par e-mail ou téléphone dans les plus brefs délais.</p>
 
                     <form class="reservation-form" id="reservation-form" novalidate>
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="nom">Nom</label>
+                                <label for="nom" data-i18n="res.f.name">Nom</label>
                                 <input type="text" id="nom" name="nom" required autocomplete="name">
                             </div>
                             <div class="form-group">
-                                <label for="email">E-mail</label>
+                                <label for="email" data-i18n="res.f.email">E-mail</label>
                                 <input type="email" id="email" name="email" required autocomplete="email">
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="telephone">Téléphone</label>
+                                <label for="telephone" data-i18n="res.f.phone">Téléphone</label>
                                 <input type="tel" id="telephone" name="telephone" required autocomplete="tel">
                             </div>
                             <div class="form-group">
-                                <label for="convives">Nombre de convives</label>
+                                <label for="convives" data-i18n="res.f.guests">Nombre de convives</label>
                                 <select id="convives" name="convives" required>
-                                    <option value="">— Choisir —</option>
-                                    <option value="1">1 personne</option>
-                                    <option value="2">2 personnes</option>
-                                    <option value="3">3 personnes</option>
-                                    <option value="4">4 personnes</option>
-                                    <option value="5">5 personnes</option>
-                                    <option value="6">6 personnes</option>
-                                    <option value="7+">7 personnes ou plus</option>
+                                    <option value="" data-i18n="res.f.guests.placeholder">— Choisir —</option>
+                                    <option value="1" data-i18n="res.f.guest.1">1 personne</option>
+                                    <option value="2" data-i18n="res.f.guest.2">2 personnes</option>
+                                    <option value="3" data-i18n="res.f.guest.3">3 personnes</option>
+                                    <option value="4" data-i18n="res.f.guest.4">4 personnes</option>
+                                    <option value="5" data-i18n="res.f.guest.5">5 personnes</option>
+                                    <option value="6" data-i18n="res.f.guest.6">6 personnes</option>
+                                    <option value="7+" data-i18n="res.f.guest.7">7 personnes ou plus</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="date">Date</label>
+                                <label for="date" data-i18n="res.f.date">Date</label>
                                 <input type="date" id="date" name="date" required>
                             </div>
                             <div class="form-group">
-                                <label for="heure">Heure</label>
+                                <label for="heure" data-i18n="res.f.time">Heure</label>
                                 <input type="time" id="heure" name="heure" required>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="message">Demande spéciale (facultatif)</label>
-                            <textarea id="message" name="message" placeholder="Allergies, anniversaire, place près de la cheminée…"></textarea>
+                            <label for="message" data-i18n="res.f.message">Demande spéciale (facultatif)</label>
+                            <textarea id="message" name="message" placeholder="Allergies, anniversaire, place près de la cheminée…" data-i18n-attr="placeholder:res.f.message.placeholder"></textarea>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Envoyer ma demande</button>
+                        <button type="submit" class="btn btn-primary" data-i18n="res.f.submit">Envoyer ma demande</button>
 
-                        <p class="form-success" id="form-success">Merci ! Votre demande de réservation a bien été envoyée. Nous vous recontacterons sous peu.</p>
+                        <p class="form-success" id="form-success" data-i18n="res.f.success">Merci ! Votre demande de réservation a bien été envoyée. Nous vous recontacterons sous peu.</p>
                     </form>
                 </div>
 
                 <aside class="contact-info reveal reveal-delay-1">
                     <div class="info-block">
-                        <h3>Adresse</h3>
+                        <h3 data-i18n="res.info.address">Adresse</h3>
                         <p>Restaurant Ella</p>
                         <p>14 rue du Faubourg Saint-Denis</p>
                         <p>75010 Paris, France</p>
                     </div>
 
                     <div class="info-block">
-                        <h3>Téléphone</h3>
+                        <h3 data-i18n="res.info.phone">Téléphone</h3>
                         <p><a href="tel:+33147702095">01 47 70 20 95</a></p>
                     </div>
 
                     <div class="info-block">
-                        <h3>Horaires</h3>
-                        <p>Ouvert 7j/7</p>
-                        <p>De 11h00 à minuit</p>
+                        <h3 data-i18n="res.info.hours">Horaires</h3>
+                        <p data-i18n="res.info.hours.line1">Ouvert 7j/7</p>
+                        <p data-i18n="res.info.hours.line2">De 11h00 à minuit</p>
                     </div>
 
                     <div class="info-block">
-                        <h3>Réservation directe</h3>
-                        <p><a href="https://www.thefork.fr/restaurant/ella-r206567" target="_blank" rel="noopener">Réserver via TheFork</a></p>
+                        <h3 data-i18n="res.info.direct">Réservation directe</h3>
+                        <p><a href="https://www.thefork.fr/restaurant/ella-r206567" target="_blank" rel="noopener" data-i18n="res.info.direct.link">Réserver via TheFork</a></p>
                     </div>
                 </aside>
 
@@ -124,9 +133,9 @@
 
             <div class="map-section reveal">
                 <div class="map-header">
-                    <span class="eyebrow">Nous trouver</span>
-                    <h3>À deux pas de la Porte Saint-Denis</h3>
-                    <p>Métro : Strasbourg–Saint-Denis (lignes 4, 8, 9) · Château d'Eau (ligne 4)</p>
+                    <span class="eyebrow" data-i18n="res.map.eyebrow">Nous trouver</span>
+                    <h3 data-i18n="res.map.title">À deux pas de la Porte Saint-Denis</h3>
+                    <p data-i18n="res.map.intro">Métro : Strasbourg–Saint-Denis (lignes 4, 8, 9) · Château d'Eau (ligne 4)</p>
                 </div>
                 <div class="map-frame">
                     <iframe
@@ -140,7 +149,7 @@
                         allowfullscreen></iframe>
                 </div>
                 <a href="https://www.google.com/maps/dir/?api=1&destination=14+rue+du+Faubourg+Saint-Denis+75010+Paris" target="_blank" rel="noopener" class="btn map-btn">
-                    Itinéraire <span aria-hidden="true">→</span>
+                    <span data-i18n="res.map.button">Itinéraire</span> <span aria-hidden="true">→</span>
                 </a>
             </div>
         </section>
@@ -149,15 +158,16 @@
     <footer>
         <div class="footer-brand">ELLA</div>
         <div class="footer-links">
-            <a href="menu.html">Menu</a>
-            <a href="histoire.html">Histoire</a>
-            <a href="reservation.html">Réservation</a>
+            <a href="menu.html" data-i18n="nav.menu">Menu</a>
+            <a href="histoire.html" data-i18n="nav.history">Histoire</a>
+            <a href="reservation.html" data-i18n="nav.reservation">Réservation</a>
         </div>
-        <p>14 rue du Faubourg Saint-Denis · 75010 Paris</p>
-        <p>01 47 70 20 95 · Ouvert 7j/7 de 11h à minuit</p>
-        <p class="copyright">© 2026 Ella · L'Âme du Grill Anatolien</p>
+        <p data-i18n="footer.address">14 rue du Faubourg Saint-Denis · 75010 Paris</p>
+        <p data-i18n="footer.contact">01 47 70 20 95 · Ouvert 7j/7 de 11h à minuit</p>
+        <p class="copyright" data-i18n="footer.copyright">© 2026 Ella · L'Âme du Grill Anatolien</p>
     </footer>
 
+    <script src="i18n.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

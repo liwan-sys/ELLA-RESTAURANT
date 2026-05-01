@@ -15,21 +15,30 @@
 <body>
 
     <header>
-        <a href="index.html" class="logo" aria-label="Accueil">ELLA</a>
+        <a href="index.html" class="logo" aria-label="Ella">ELLA</a>
 
         <nav id="primary-nav">
             <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="menu.html">Menu</a></li>
-                <li><a href="experience.html">Expérience</a></li>
-                <li><a href="boissons.html">Boissons</a></li>
-                <li><a href="galerie.html">Galerie</a></li>
-                <li><a href="histoire.html" class="active">Histoire</a></li>
-                <li><a href="reservation.html">Réservation</a></li>
+                <li><a href="index.html" data-i18n="nav.home">Accueil</a></li>
+                <li><a href="menu.html" data-i18n="nav.menu">Menu</a></li>
+                <li><a href="experience.html" data-i18n="nav.experience">Expérience</a></li>
+                <li><a href="boissons.html" data-i18n="nav.drinks">Boissons</a></li>
+                <li><a href="galerie.html" data-i18n="nav.gallery">Galerie</a></li>
+                <li><a href="histoire.html" class="active" data-i18n="nav.history">Histoire</a></li>
+                <li><a href="reservation.html" data-i18n="nav.reservation">Réservation</a></li>
             </ul>
         </nav>
 
-        <button class="menu-btn" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="primary-nav">☰</button>
+        <div class="header-right">
+            <div class="lang-switch" role="group" aria-label="Choix de langue">
+                <button type="button" data-lang="fr" aria-pressed="true">FR</button>
+                <span class="lang-sep">·</span>
+                <button type="button" data-lang="en" aria-pressed="false">EN</button>
+                <span class="lang-sep">·</span>
+                <button type="button" data-lang="tr" aria-pressed="false">TR</button>
+            </div>
+            <button class="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="primary-nav">☰</button>
+        </div>
     </header>
 
     <main>
@@ -37,15 +46,15 @@
             <div class="history-grid">
 
                 <div class="history-text reveal">
-                    <span class="eyebrow">Une grande table</span>
-                    <h2>Notre Histoire</h2>
-                    <p>Au 14 rue du Faubourg Saint-Denis, dans le 10ème arrondissement de Paris, Ella fait vivre les saveurs authentiques de la cuisine turque, kurde et anatolienne. Un restaurant familial pensé comme une grande table, ouvert 7 jours sur 7, du déjeuner jusqu'à minuit.</p>
+                    <span class="eyebrow" data-i18n="hist.eyebrow">Une grande table</span>
+                    <h2 data-i18n="hist.title">Notre Histoire</h2>
+                    <p data-i18n="hist.p1">Au 14 rue du Faubourg Saint-Denis, dans le 10ème arrondissement de Paris, Ella fait vivre les saveurs authentiques de la cuisine turque, kurde et anatolienne. Un restaurant familial pensé comme une grande table, ouvert 7 jours sur 7, du déjeuner jusqu'à minuit.</p>
 
-                    <h3>Le Chef</h3>
-                    <p>Notre chef perpétue les recettes de sa grand-mère, originaire d'Anatolie. Chaque plat est pensé comme un hommage : aux mains qui ont pétri, aux charbons qui ont rougi, aux invités qui ont ri. Ici, le kofte est haché au couteau — jamais à la machine — et chaque pide est cuit dans le four traditionnel.</p>
+                    <h3 data-i18n="hist.chef.title">Le Chef</h3>
+                    <p data-i18n="hist.chef.text">Notre chef perpétue les recettes de sa grand-mère, originaire d'Anatolie. Chaque plat est pensé comme un hommage : aux mains qui ont pétri, aux charbons qui ont rougi, aux invités qui ont ri. Ici, le kofte est haché au couteau — jamais à la machine — et chaque pide est cuit dans le four traditionnel.</p>
 
-                    <h3>Notre Philosophie</h3>
-                    <p>Le respect du produit, la simplicité du geste, la générosité du partage. Nous travaillons des viandes halal sélectionnées, des légumes de saison, et des épices rapportées directement des marchés d'Anatolie.</p>
+                    <h3 data-i18n="hist.philo.title">Notre Philosophie</h3>
+                    <p data-i18n="hist.philo.text">Le respect du produit, la simplicité du geste, la générosité du partage. Nous travaillons des viandes halal sélectionnées, des légumes de saison, et des épices rapportées directement des marchés d'Anatolie.</p>
                 </div>
 
                 <div class="history-img-wrapper history-img-main reveal reveal-delay-1">
@@ -57,9 +66,9 @@
                         <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80" alt="Plat traditionnel" loading="lazy">
                     </div>
                     <div class="history-text">
-                        <h3>Une cuisine vivante</h3>
-                        <p>Nos pains sont cuits chaque jour au four à bois. Nos yaourts, fermentés maison. Nos kebabs, hachés au couteau. Tout est fait sur place, à la main, dans le respect d'une tradition qui n'a jamais cessé de vivre.</p>
-                        <p>Chez Ella, vous ne dînez pas : vous êtes reçus.</p>
+                        <h3 data-i18n="hist.living.title">Une cuisine vivante</h3>
+                        <p data-i18n="hist.living.text1">Nos pains sont cuits chaque jour au four à bois. Nos yaourts, fermentés maison. Nos kebabs, hachés au couteau. Tout est fait sur place, à la main, dans le respect d'une tradition qui n'a jamais cessé de vivre.</p>
+                        <p data-i18n="hist.living.text2">Chez Ella, vous ne dînez pas : vous êtes reçus.</p>
                     </div>
                 </div>
 
@@ -70,15 +79,16 @@
     <footer>
         <div class="footer-brand">ELLA</div>
         <div class="footer-links">
-            <a href="menu.html">Menu</a>
-            <a href="histoire.html">Histoire</a>
-            <a href="reservation.html">Réservation</a>
+            <a href="menu.html" data-i18n="nav.menu">Menu</a>
+            <a href="histoire.html" data-i18n="nav.history">Histoire</a>
+            <a href="reservation.html" data-i18n="nav.reservation">Réservation</a>
         </div>
-        <p>14 rue du Faubourg Saint-Denis · 75010 Paris</p>
-        <p>01 47 70 20 95 · Ouvert 7j/7 de 11h à minuit</p>
-        <p class="copyright">© 2026 Ella · L'Âme du Grill Anatolien</p>
+        <p data-i18n="footer.address">14 rue du Faubourg Saint-Denis · 75010 Paris</p>
+        <p data-i18n="footer.contact">01 47 70 20 95 · Ouvert 7j/7 de 11h à minuit</p>
+        <p class="copyright" data-i18n="footer.copyright">© 2026 Ella · L'Âme du Grill Anatolien</p>
     </footer>
 
+    <script src="i18n.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
