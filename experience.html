@@ -8,7 +8,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Italiana&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -35,31 +35,36 @@
     <main>
         <section class="experience-hero" aria-labelledby="exp-title">
             <div class="experience-hero-text">
-                <h2 id="exp-title">Une expérience<br>à vivre</h2>
+                <span class="eyebrow">L'expérience Ella</span>
+                <h2 id="exp-title">Une expérience<br>à <em>vivre</em></h2>
                 <p>Au-delà du repas, Ella vous invite à un voyage sensoriel : le crépitement du charbon, le parfum des épices, la chaleur d'un service attentionné. Tout y est conçu pour vous transporter au cœur de l'Anatolie.</p>
                 <a href="reservation.html" class="btn">Réserver une table</a>
             </div>
         </section>
 
         <section class="experience-features" aria-label="Nos piliers">
-            <div class="exp-feature-card">
+            <div class="exp-feature-card reveal">
+                <span class="number">01</span>
                 <h3>Le Feu</h3>
                 <p>Toutes nos viandes sont saisies au mangal, sur charbon de bois de chêne, comme dans les villages d'Anatolie.</p>
             </div>
 
-            <div class="exp-feature-card textured">
+            <div class="exp-feature-card textured reveal reveal-delay-1">
+                <span class="number">02</span>
                 <h3>L'Héritage</h3>
                 <p>Des recettes transmises depuis trois générations, fidèles à l'esprit des grandes tables familiales turques.</p>
             </div>
 
-            <div class="exp-feature-card">
+            <div class="exp-feature-card reveal reveal-delay-2">
+                <span class="number">03</span>
                 <h3>L'Hospitalité</h3>
                 <p>Chez nous, chaque convive devient un invité. Le partage, le thé offert, les sourires : c'est l'âme turque.</p>
             </div>
         </section>
 
         <section class="page-section">
-            <div class="page-header">
+            <div class="page-header reveal">
+                <span class="eyebrow">Au cœur de la cuisine</span>
                 <h2>Le Mangal</h2>
                 <p>Au centre de notre cuisine se trouve le mangal, ce gril ancestral où le charbon de bois de chêne libère ses arômes profonds. C'est ici que naissent les saveurs fumées et tendres de nos kebabs, dans le respect d'un savoir-faire séculaire.</p>
             </div>
@@ -67,13 +72,15 @@
     </main>
 
     <footer>
+        <div class="footer-brand">ELLA</div>
         <div class="footer-links">
             <a href="menu.html">Menu</a>
             <a href="histoire.html">Histoire</a>
             <a href="reservation.html">Réservation</a>
         </div>
-        <p>14 rue du Faubourg Saint-Denis · 75010 Paris · 01 47 70 20 95</p>
-        <p>© 2026 Ella · L&#39;Âme du Grill Anatolien</p>
+        <p>14 rue du Faubourg Saint-Denis · 75010 Paris</p>
+        <p>01 47 70 20 95 · Ouvert 7j/7 de 11h à minuit</p>
+        <p class="copyright">© 2026 Ella · L'Âme du Grill Anatolien</p>
     </footer>
 
     <script src="script.js"></script>
