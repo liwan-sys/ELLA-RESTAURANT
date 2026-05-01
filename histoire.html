@@ -1,87 +1,80 @@
-/* =========================================
-   06. HISTOIRE / CHEF
-   ========================================= */
-.history-section {
-    background-color: var(--charcoal);
-    padding: 5rem 5%;
-}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="L'histoire d'Ella : un restaurant turc-anatolien né d'un héritage familial et de l'amour du feu de bois.">
+    <title>Ella · Notre Histoire</title>
 
-.history-grid {
-    display: grid;
-    grid-template-columns: 0.8fr 1.2fr;
-    gap: 2rem;
-    margin-bottom: 3rem;
-}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-.history-text {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-.history-text h2 {
-    font-size: 2.5rem;
-    color: var(--cream);
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
+    <header>
+        <a href="index.html" class="logo" aria-label="Accueil">ELLA</a>
 
-.history-text h3 {
-    font-size: 1.2rem;
-    color: var(--aged-brass);
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
+        <nav id="primary-nav">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="experience.html">Expérience</a></li>
+                <li><a href="boissons.html">Boissons</a></li>
+                <li><a href="galerie.html">Galerie</a></li>
+                <li><a href="histoire.html" class="active">Histoire</a></li>
+                <li><a href="reservation.html">Réservation</a></li>
+            </ul>
+        </nav>
 
-.history-text p {
-    color: var(--stone-beige);
-    font-size: 0.95rem;
-    line-height: 1.8;
-}
+        <button class="menu-btn" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="primary-nav">☰</button>
+    </header>
 
-.history-img-wrapper {
-    width: 100%;
-    min-height: 300px;
-    overflow: hidden;
-}
+    <main>
+        <section class="history-section">
+            <div class="history-grid">
 
-.history-img-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.85;
-    transition: opacity 0.3s ease;
-}
+                <div class="history-text">
+                    <h2>Notre Histoire</h2>
+                    <p>Ella est né d'un rêve : retrouver, au cœur de Paris, les saveurs de l'enfance et la chaleur des grandes tables familiales d'Anatolie. Un projet porté par trois générations de cuisiniers passionnés.</p>
 
-.history-img-wrapper img:hover {
-    opacity: 1;
-}
+                    <h3>Le Chef</h3>
+                    <p>Notre chef perpétue les recettes de sa grand-mère, originaire de Gaziantep, capitale gastronomique de la Turquie. Chaque plat est pensé comme un hommage : aux mains qui ont pétri, aux charbons qui ont rougi, aux invités qui ont ri.</p>
 
-.history-img-main {
-    grid-column: 2 / 3;
-}
+                    <h3>Notre Philosophie</h3>
+                    <p>Le respect du produit, la simplicité du geste, la générosité du partage. Nous travaillons des viandes sélectionnées, des légumes de saison, et des épices rapportées directement des marchés d'Anatolie.</p>
+                </div>
 
-.history-bottom-row {
-    grid-column: 1 / -1;          /* ← FIX : marche en desktop ET mobile */
-    display: grid;
-    grid-template-columns: 0.8fr 1.2fr;
-    gap: 2rem;
-}
+                <div class="history-img-wrapper history-img-main">
+                    <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=1000&q=80" alt="Chef en cuisine" loading="lazy">
+                </div>
 
-@media (max-width: 900px) {
-    .history-grid {
-        grid-template-columns: 1fr;
-    }
-    .history-img-main {
-        grid-column: 1 / -1;
-    }
-    .history-bottom-row {
-        grid-template-columns: 1fr;
-    }
-    .history-text {
-        margin-bottom: 2rem;
-    }
-}
+                <div class="history-bottom-row">
+                    <div class="history-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80" alt="Plat traditionnel" loading="lazy">
+                    </div>
+                    <div class="history-text">
+                        <h3>Une cuisine vivante</h3>
+                        <p>Nos pains sont cuits chaque jour au four à bois. Nos yaourts, fermentés maison. Nos kebabs, hachés au couteau. Tout est fait sur place, à la main, dans le respect d'une tradition qui n'a jamais cessé de vivre.</p>
+                        <p>Chez Ella, vous ne dînez pas : vous êtes reçus.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="menu.html">Menu</a>
+            <a href="histoire.html">Histoire</a>
+            <a href="reservation.html">Réservation</a>
+        </div>
+        <p>© 2026 Ella · L'Âme du Grill Anatolien · Paris</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

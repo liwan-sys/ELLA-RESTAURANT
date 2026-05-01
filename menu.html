@@ -3,81 +3,281 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="L'Âme du Grill Anatolien — Cuisine traditionnelle au charbon de bois et hospitalité turque.">
-    <title>L'Âme du Grill Anatolien · Accueil</title>
+    <meta name="description" content="Découvrez la carte d'Ella : mezzes, grillades au charbon de bois, spécialités anatoliennes et desserts traditionnels turcs.">
+    <title>Ella · Menu</title>
 
-    <link rel="preconnect" href="<https://fonts.googleapis.com>">
-    <link rel="preconnect" href="<https://fonts.gstatic.com>" crossorigin>
-    <link href="<https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;500;600;700&display=swap>" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Header -->
     <header>
-        <div class="logo">◈</div>
+        <a href="index.html" class="logo" aria-label="Accueil">ELLA</a>
 
-        <nav>
+        <nav id="primary-nav">
             <ul>
-                <li><a href="index.html" class="active">Accueil</a></li>
-                <li><a href="menu.html">Menu</a></li>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="menu.html" class="active">Menu</a></li>
                 <li><a href="experience.html">Expérience</a></li>
                 <li><a href="boissons.html">Boissons</a></li>
                 <li><a href="galerie.html">Galerie</a></li>
+                <li><a href="histoire.html">Histoire</a></li>
                 <li><a href="reservation.html">Réservation</a></li>
             </ul>
         </nav>
 
-        <div class="menu-btn">☰</div>
+        <button class="menu-btn" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="primary-nav">☰</button>
     </header>
 
     <main>
+        <section class="page-section">
+            <div class="page-header">
+                <h2>Notre Carte</h2>
+                <p>Une cuisine fidèle aux traditions anatoliennes, où chaque plat est cuit au feu de bois et inspiré des recettes familiales transmises de génération en génération.</p>
+            </div>
 
-        <!-- Hero -->
-        <section class="hero">
-            <h1>L'ÂME<br>DU GRILL<br>ANATOLIEN</h1>
-            <p class="subtitle">Héritage. Saveurs. Générosité.</p>
-            <a href="experience.html" class="btn">Découvrir notre univers →</a>
+            <div class="menu-grid">
+
+                <div class="menu-category">
+                    <h3>Mezzes Froids</h3>
+
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Houmous</div>
+                            <div class="menu-item-desc">Purée de pois chiches, tahini, citron, huile d'olive</div>
+                        </div>
+                        <div class="menu-item-price">9 €</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Haydari</div>
+                            <div class="menu-item-desc">Yaourt épais, ail, menthe, herbes fraîches</div>
+                        </div>
+                        <div class="menu-item-price">8 €</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Patlıcan Salatası</div>
+                            <div class="menu-item-desc">Caviar d'aubergines fumées au charbon de bois</div>
+                        </div>
+                        <div class="menu-item-price">10 €</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Çoban Salatası</div>
+                            <div class="menu-item-desc">Tomates, concombre, oignon rouge, persil, citron</div>
+                        </div>
+                        <div class="menu-item-price">9 €</div>
+                    </div>
+                </div>
+
+                <div class="menu-category">
+                    <h3>Mezzes Chauds</h3>
+
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Sigara Böreği</div>
+                            <div class="menu-item-desc">Feuilletés croustillants au fromage frais et persil</div>
+                        </div>
+                        <div class="menu-item-price">9 €</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Falafel d'Anatolie</div>
+                            <div class="menu-item-desc">Galettes de pois chiches aux épices, sauce tahini</div>
+                        </div>
+                        <div class="menu-item-price">10 €</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Mantı</div>
+                            <div class="menu-item-desc">Raviolis turcs, yaourt à l'ail, beurre paprika</div>
+                        </div>
+                        <div class="menu-item-price">14 €</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Lahmacun</div>
+                            <div class="menu-item-desc">Galette fine garnie d'agneau haché et tomate</div>
+                        </div>
+                        <div class="menu-item-price">11 €</div>
+                    </div>
+                </div>
+
+                <div class="menu-category">
+                    <h3>Grillades · Du Mangal</h3>
+
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Adana Kebab</div>
+                            <div class="menu-item-desc">Brochette d'agneau haché épicée, riz pilaf, légumes grillés</div>
+                        </div>
+                        <div class="menu-item-price">22 €</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Urfa Kebab</div>
+                            <div class="menu-item-desc">Brochette d'agneau haché doux, sumac, oignons</div>
+                        </div>
+                        <div class="menu-item-price">22 €</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Şiş Kebab d'Agneau</div>
+                            <div class="menu-item-desc">Cubes d'agneau marinés, grillés au charbon de bois</div>
+                        </div>
+                        <div class="menu-item-price">26 €</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Tavuk Şiş</div>
+                            <div class="menu-item-desc">Brochette de poulet mariné au yaourt et épices</div>
+                        </div>
+                        <div class="menu-item-price">19 €</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Pirzola</div>
+                            <div class="menu-item-desc">Côtelettes d'agneau grillées, thym, romarin</div>
+                        </div>
+                        <div class="menu-item-price">28 €</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Karışık Izgara</div>
+                            <div class="menu-item-desc">Assortiment de grillades pour 2 personnes</div>
+                        </div>
+                        <div class="menu-item-price">52 €</div>
+                    </div>
+                </div>
+
+                <div class="menu-category">
+                    <h3>Spécialités &amp; Poissons</h3>
+
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">İskender</div>
+                            <div class="menu-item-desc">Émincé d'agneau, pain pide, sauce tomate, beurre fondu, yaourt</div>
+                        </div>
+                        <div class="menu-item-price">24 €</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Testi Kebab</div>
+                            <div class="menu-item-desc">Ragoût d'agneau cuit en jarre de terre cuite scellée</div>
+                        </div>
+                        <div class="menu-item-price">28 €</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Levrek Izgara</div>
+                            <div class="menu-item-desc">Bar entier grillé au charbon de bois, légumes du jour</div>
+                        </div>
+                        <div class="menu-item-price">29 €</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Çiğ Köfte</div>
+                            <div class="menu-item-desc">Boulettes de boulgour épicées, salade, citron</div>
+                        </div>
+                        <div class="menu-item-price">14 €</div>
+                    </div>
+                </div>
+
+                <div class="menu-category">
+                    <h3>Desserts</h3>
+
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Baklava aux Pistaches</div>
+                            <div class="menu-item-desc">Feuilles de filo, pistaches de Gaziantep, sirop de miel</div>
+                        </div>
+                        <div class="menu-item-price">9 €</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Künefe</div>
+                            <div class="menu-item-desc">Cheveux d'ange, fromage fondant, sirop, pistaches</div>
+                        </div>
+                        <div class="menu-item-price">11 €</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Sütlaç</div>
+                            <div class="menu-item-desc">Riz au lait gratiné à la cannelle</div>
+                        </div>
+                        <div class="menu-item-price">7 €</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Glace au Salep</div>
+                            <div class="menu-item-desc">Glace traditionnelle turque, mastic, pistaches</div>
+                        </div>
+                        <div class="menu-item-price">8 €</div>
+                    </div>
+                </div>
+
+                <div class="menu-category">
+                    <h3>Menus &amp; Formules</h3>
+
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Menu Déjeuner</div>
+                            <div class="menu-item-desc">Entrée + Plat + Dessert (du mardi au vendredi midi)</div>
+                        </div>
+                        <div class="menu-item-price">24 €</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Menu Anatolie</div>
+                            <div class="menu-item-desc">Plateau de mezzes + grillade au choix + dessert</div>
+                        </div>
+                        <div class="menu-item-price">42 €</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <div class="menu-item-name">Menu Découverte</div>
+                            <div class="menu-item-desc">7 mezzes, plateau de grillades, baklava, café turc</div>
+                        </div>
+                        <div class="menu-item-price">58 €</div>
+                    </div>
+                </div>
+
+            </div>
         </section>
-
-        <!-- Cartes de présentation -->
-        <section class="features">
-            <a href="experience.html" class="feature-card">
-                <img src="<https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80>" alt="Lieu d'histoire" loading="lazy">
-                <h3>Un lieu<br>chargé d'histoire</h3>
-            </a>
-
-            <a href="menu.html" class="feature-card">
-                <img src="<https://images.unsplash.com/photo-1544025162-81111420d4d8?auto=format&fit=crop&w=800&q=80>" alt="Saveurs authentiques" loading="lazy">
-                <h3>Des saveurs<br>authentiques</h3>
-            </a>
-
-            <a href="reservation.html" class="feature-card">
-                <img src="<https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=800&q=80>" alt="Expérience intemporelle" loading="lazy">
-                <h3>Une expérience<br>intemporelle</h3>
-            </a>
-        </section>
-
     </main>
 
-    <!-- Burger mobile -->
-    <script>
-        const burger = document.querySelector('.menu-btn');
-        const navList = document.querySelector('nav ul');
+    <footer>
+        <div class="footer-links">
+            <a href="menu.html">Menu</a>
+            <a href="histoire.html">Histoire</a>
+            <a href="reservation.html">Réservation</a>
+        </div>
+        <p>© 2026 Ella · L'Âme du Grill Anatolien · Paris</p>
+    </footer>
 
-        burger.addEventListener('click', () => {
-            navList.classList.toggle('open');
-            burger.textContent = navList.classList.contains('open') ? '✕' : '☰';
-        });
-
-        navList.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                navList.classList.remove('open');
-                burger.textContent = '☰';
-            });
-        });
-    </script>
-
+    <script src="script.js"></script>
 </body>
 </html>

@@ -1,58 +1,138 @@
-/* =========================================
-   07. RÉSERVATION / CONTACT
-   ========================================= */
-.reservation-section {
-    background-color: var(--charcoal);
-    padding: 5rem 5%;
-    min-height: 100vh;
-}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Réservez votre table au restaurant Ella, l'âme du grill anatolien à Paris.">
+    <title>Ella · Réservation</title>
 
-.reservation-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-.reservation-content h2 {
-    font-size: 2.5rem;
-    color: var(--cream);
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-.reservation-content > p {
-    color: var(--stone-beige);
-    margin-bottom: 3rem;
-    font-size: 0.95rem;
-    max-width: 400px;
-}
+    <header>
+        <a href="index.html" class="logo" aria-label="Accueil">ELLA</a>
 
-/* Formulaire */
-.reservation-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    margin-bottom: 4rem;
-}
+        <nav id="primary-nav">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="experience.html">Expérience</a></li>
+                <li><a href="boissons.html">Boissons</a></li>
+                <li><a href="galerie.html">Galerie</a></li>
+                <li><a href="histoire.html">Histoire</a></li>
+                <li><a href="reservation.html" class="active">Réservation</a></li>
+            </ul>
+        </nav>
 
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
+        <button class="menu-btn" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="primary-nav">☰</button>
+    </header>
 
-.form-group label {
-    color: var(--stone-beige);
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
+    <main>
+        <section class="reservation-section">
+            <div class="reservation-grid">
 
-.form-group input,
-.form-group select {
-    background-color: transparent;
-    border: 1px solid rgba(203, 181, 148, 0.2); /* Ligne fine Stone Beige */
-    padding: 1rem;
-    color: var(--cream);
-    font-family:
+                <div class="reservation-content">
+                    <h2>Réserver une table</h2>
+                    <p>Pour partager un moment chez Ella, indiquez-nous votre préférence. Nous confirmerons votre réservation par e-mail ou téléphone dans les plus brefs délais.</p>
+
+                    <form class="reservation-form" id="reservation-form" novalidate>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nom">Nom</label>
+                                <input type="text" id="nom" name="nom" required autocomplete="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">E-mail</label>
+                                <input type="email" id="email" name="email" required autocomplete="email">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="telephone">Téléphone</label>
+                                <input type="tel" id="telephone" name="telephone" required autocomplete="tel">
+                            </div>
+                            <div class="form-group">
+                                <label for="convives">Nombre de convives</label>
+                                <select id="convives" name="convives" required>
+                                    <option value="">— Choisir —</option>
+                                    <option value="1">1 personne</option>
+                                    <option value="2">2 personnes</option>
+                                    <option value="3">3 personnes</option>
+                                    <option value="4">4 personnes</option>
+                                    <option value="5">5 personnes</option>
+                                    <option value="6">6 personnes</option>
+                                    <option value="7+">7 personnes ou plus</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="date">Date</label>
+                                <input type="date" id="date" name="date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="heure">Heure</label>
+                                <input type="time" id="heure" name="heure" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Demande spéciale (facultatif)</label>
+                            <textarea id="message" name="message" placeholder="Allergies, anniversaire, place près de la cheminée…"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Envoyer ma demande</button>
+
+                        <p class="form-success" id="form-success">Merci ! Votre demande de réservation a bien été envoyée. Nous vous recontacterons sous peu.</p>
+                    </form>
+                </div>
+
+                <aside class="contact-info">
+                    <div class="info-block">
+                        <h3>Adresse</h3>
+                        <p>Restaurant Ella</p>
+                        <p>Paris, France</p>
+                    </div>
+
+                    <div class="info-block">
+                        <h3>Téléphone</h3>
+                        <p><a href="tel:+33000000000">+33 (0)1 00 00 00 00</a></p>
+                    </div>
+
+                    <div class="info-block">
+                        <h3>Horaires</h3>
+                        <p>Mardi – Samedi</p>
+                        <p>Déjeuner : 12h00 – 14h30</p>
+                        <p>Dîner : 19h00 – 23h00</p>
+                        <p>Fermé dimanche &amp; lundi</p>
+                    </div>
+
+                    <div class="info-block">
+                        <h3>Réservation directe</h3>
+                        <p><a href="https://www.thefork.fr/restaurant/ella-r206567" target="_blank" rel="noopener">Réserver via TheFork</a></p>
+                    </div>
+                </aside>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="menu.html">Menu</a>
+            <a href="histoire.html">Histoire</a>
+            <a href="reservation.html">Réservation</a>
+        </div>
+        <p>© 2026 Ella · L'Âme du Grill Anatolien · Paris</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Carte des boissons d'Ella : raki, vins turcs, ayran, cocktails et thés traditionnels.">
+    <title>Ella · Boissons</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo" aria-label="Accueil">ELLA</a>
+
+        <nav id="primary-nav">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="experience.html">Expérience</a></li>
+                <li><a href="boissons.html" class="active">Boissons</a></li>
+                <li><a href="galerie.html">Galerie</a></li>
+                <li><a href="histoire.html">Histoire</a></li>
+                <li><a href="reservation.html">Réservation</a></li>
+            </ul>
+        </nav>
+
+        <button class="menu-btn" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="primary-nav">☰</button>
+    </header>
+
+    <main>
+        <section class="drinks-section">
+            <div class="drinks-container">
+
+                <div>
+                    <div class="drinks-header">
+                        <h2>Notre Cave</h2>
+                        <p>Une sélection de raki, vins turcs et boissons traditionnelles pour accompagner chaque plat avec authenticité.</p>
+                    </div>
+
+                    <div class="drinks-tabs" role="tablist">
+                        <button class="tab-btn active" data-tab="raki" role="tab" aria-selected="true">Raki</button>
+                        <button class="tab-btn" data-tab="vins" role="tab" aria-selected="false">Vins</button>
+                        <button class="tab-btn" data-tab="cocktails" role="tab" aria-selected="false">Cocktails</button>
+                        <button class="tab-btn" data-tab="sans-alcool" role="tab" aria-selected="false">Sans alcool</button>
+                        <button class="tab-btn" data-tab="thes" role="tab" aria-selected="false">Thés &amp; cafés</button>
+                    </div>
+
+                    <div class="drink-list active" id="raki" role="tabpanel">
+                        <div class="drink-item">
+                            <div>
+                                <div class="drink-name">Yeni Rakı</div>
+                                <div class="drink-desc">Le classique anisé, 5 cl</div>
+                            </div>
+                            <div class="drink-price">8 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div>
+                                <div class="drink-name">Tekirdağ Altın Seri</div>
+                                <div class="drink-desc">Distillation premium, 5 cl</div>
+                            </div>
+                            <div class="drink-price">12 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div>
+                                <div class="drink-name">Efe Triple Distillation</div>
+                                <div class="drink-desc">Doux, raffiné, 5 cl</div>
+                            </div>
+                            <div class="drink-price">11 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div>
+                                <div class="drink-name">Plateau Rakı &amp; Mezzes</div>
+                                <div class="drink-desc">Carafe 35 cl, sélection de 4 mezzes</div>
+                            </div>
+                            <div class="drink-price">42 €</div>
+                        </div>
+                    </div>
+
+                    <div class="drink-list" id="vins" role="tabpanel">
+                        <div class="drink-item">
+                            <div>
+                                <div class="drink-name">Kavaklıdere Yakut</div>
+                                <div class="drink-desc">Rouge d'Anatolie centrale, 75 cl</div>
+                            </div>
+                            <div class="drink-price">36 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div>
+                                <div class="drink-name">Doluca Antik</div>
+                                <div class="drink-desc">Rouge, cuvée premium, 75 cl</div>
+                            </div>
+                            <div class="drink-price">42 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div>
+                                <div class="drink-name">Kayra Narince</div>
+                                <div class="drink-desc">Blanc sec d'Anatolie, 75 cl</div>
+                            </div>
+                            <div class="drink-price">34 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div>
+                                <div class="drink-name">Verre de vin (rouge / blanc / rosé)</div>
+                                <div class="drink-desc">12 cl</div>
+                            </div>
+                            <div class="drink-price">7 €</div>
+                        </div>
+                    </div>
+
+                    <div class="drink-list" id="cocktails" role="tabpanel">
+                        <div class="drink-item">
+                            <div>
+                                <div class="drink-name">Ella Spritz</div>
+                                <div class="drink-desc">Raki, pamplemousse, eau gazeuse, romarin</div>
+                            </div>
+                            <div class="drink-price">12 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div>
+                                <div class="drink-name">Bosphore</div>
+                                <div class="drink-desc">Gin, citron, sirop de rose, basilic</div>
+                            </div>
+                            <div class="drink-price">13 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div>
+                                <div class="drink-name">Anatolia Sour</div>
+                                <div class="drink-desc">Whisky, miel de pin, citron, blanc d'œuf</div>
+                            </div>
+                            <div class="drink-price">14 €</div>
+                        </div>
+                    </div>
+
+                    <div class="drink-list" id="sans-alcool" role="tabpanel">
+                        <div class="drink-item">
+                            <div>
+                                <div class="drink-name">Ayran</div>
+                                <div class="drink-desc">Yaourt battu, eau, sel · 33 cl</div>
+                            </div>
+                            <div class="drink-price">5 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div>
+                                <div class="drink-name">Şalgam</div>
+                                <div class="drink-desc">Jus de carottes noires fermentées</div>
+                            </div>
+                            <div class="drink-price">6 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div>
+                                <div class="drink-name">Limonata maison</div>
+                                <div class="drink-desc">Citron pressé, menthe fraîche</div>
+                            </div>
+                            <div class="drink-price">6 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div>
+                                <div class="drink-name">Eau Sırma 75 cl</div>
+                                <div class="drink-desc">Plate ou pétillante</div>
+                            </div>
+                            <div class="drink-price">5 €</div>
+                        </div>
+                    </div>
+
+                    <div class="drink-list" id="thes" role="tabpanel">
+                        <div class="drink-item">
+                            <div>
+                                <div class="drink-name">Çay</div>
+                                <div class="drink-desc">Thé noir turc servi en verre tulipe</div>
+                            </div>
+                            <div class="drink-price">3,50 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div>
+                                <div class="drink-name">Café Turc</div>
+                                <div class="drink-desc">Servi avec un loukoum</div>
+                            </div>
+                            <div class="drink-price">4 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div>
+                                <div class="drink-name">Salep</div>
+                                <div class="drink-desc">Boisson chaude à la racine d'orchidée, cannelle</div>
+                            </div>
+                            <div class="drink-price">5 €</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="drinks-images">
+                    <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=800&q=80" alt="Cocktail" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=800&q=80" alt="Verres de vin" loading="lazy">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="menu.html">Menu</a>
+            <a href="histoire.html">Histoire</a>
+            <a href="reservation.html">Réservation</a>
+        </div>
+        <p>© 2026 Ella · L'Âme du Grill Anatolien · Paris</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

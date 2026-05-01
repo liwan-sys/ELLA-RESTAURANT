@@ -1,92 +1,80 @@
-/* =========================================
-   03. EXPÉRIENCE / CONCEPT
-   ========================================= */
-.experience-hero {
-    position: relative;
-    min-height: 70svh;
-    background-image:
-        linear-gradient(to right, rgba(28,26,23,0.9) 0%, rgba(28,26,23,0.4) 60%, rgba(28,26,23,0.8) 100%),
-        url('<https://images.unsplash.com/photo-1599933371654-20d0eb3f124c?auto=format&fit=crop&w=1920&q=80>');
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
-    padding: 0 5%;
-    /* margin-top retiré : le hero passe sous le nav transparent, comme l'accueil */
-}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="L'expérience Ella : un voyage sensoriel au cœur des traditions anatoliennes, du feu de bois à l'hospitalité turque.">
+    <title>Ella · Expérience</title>
 
-.experience-hero-text {
-    max-width: 550px;
-}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-.experience-hero-text h2 {
-    font-size: 3.5rem;
-    color: var(--cream);
-    margin-bottom: 1.5rem;
-    text-transform: uppercase;
-    line-height: 1.1;
-    letter-spacing: 2px;
-}
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-.experience-hero-text p {
-    color: var(--stone-beige);
-    margin-bottom: 2.5rem;
-    font-size: 1rem;
-}
+    <header>
+        <a href="index.html" class="logo" aria-label="Accueil">ELLA</a>
 
-/* Grille des 3 piliers */
-.experience-features {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background-color: rgba(203, 181, 148, 0.2);
-    border-top: 1px solid rgba(203, 181, 148, 0.2);
-    border-bottom: 1px solid rgba(203, 181, 148, 0.2);
-}
+        <nav id="primary-nav">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="experience.html" class="active">Expérience</a></li>
+                <li><a href="boissons.html">Boissons</a></li>
+                <li><a href="galerie.html">Galerie</a></li>
+                <li><a href="histoire.html">Histoire</a></li>
+                <li><a href="reservation.html">Réservation</a></li>
+            </ul>
+        </nav>
 
-.exp-feature-card {
-    background-color: var(--charcoal);
-    padding: 5rem 2rem;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 300px;
-}
+        <button class="menu-btn" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="primary-nav">☰</button>
+    </header>
 
-.exp-feature-card.textured {
-    background-image:
-        linear-gradient(rgba(28,26,23,0.6), rgba(28,26,23,0.6)),
-        url('<https://images.unsplash.com/photo-1600180758890-6b94519a8ba6?auto=format&fit=crop&w=800&q=80>');
-    background-size: cover;
-    background-position: center;
-}
+    <main>
+        <section class="experience-hero" aria-labelledby="exp-title">
+            <div class="experience-hero-text">
+                <h2 id="exp-title">Une expérience<br>à vivre</h2>
+                <p>Au-delà du repas, Ella vous invite à un voyage sensoriel : le crépitement du charbon, le parfum des épices, la chaleur d'un service attentionné. Tout y est conçu pour vous transporter au cœur de l'Anatolie.</p>
+                <a href="reservation.html" class="btn">Réserver une table</a>
+            </div>
+        </section>
 
-.exp-feature-card h3 {
-    color: var(--cream);
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-}
+        <section class="experience-features" aria-label="Nos piliers">
+            <div class="exp-feature-card">
+                <h3>Le Feu</h3>
+                <p>Toutes nos viandes sont saisies au mangal, sur charbon de bois de chêne, comme dans les villages d'Anatolie.</p>
+            </div>
 
-.exp-feature-card p {
-    color: var(--stone-beige);
-    font-size: 0.9rem;
-    max-width: 280px;
-    margin: 0 auto;
-}
+            <div class="exp-feature-card textured">
+                <h3>L'Héritage</h3>
+                <p>Des recettes transmises depuis trois générations, fidèles à l'esprit des grandes tables familiales turques.</p>
+            </div>
 
-@media (max-width: 900px) {
-    .experience-hero {
-        min-height: 60svh;
-        padding-top: 100px;   /* compense le header sur mobile, où le hero est sous le burger */
-    }
-    .experience-hero-text h2 {
-        font-size: 2.5rem;
-    }
-    .experience-features {
-        grid-template-columns: 1fr;
-    }
-}
+            <div class="exp-feature-card">
+                <h3>L'Hospitalité</h3>
+                <p>Chez nous, chaque convive devient un invité. Le partage, le thé offert, les sourires : c'est l'âme turque.</p>
+            </div>
+        </section>
+
+        <section class="page-section">
+            <div class="page-header">
+                <h2>Le Mangal</h2>
+                <p>Au centre de notre cuisine se trouve le mangal, ce gril ancestral où le charbon de bois de chêne libère ses arômes profonds. C'est ici que naissent les saveurs fumées et tendres de nos kebabs, dans le respect d'un savoir-faire séculaire.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="menu.html">Menu</a>
+            <a href="histoire.html">Histoire</a>
+            <a href="reservation.html">Réservation</a>
+        </div>
+        <p>© 2026 Ella · L'Âme du Grill Anatolien · Paris</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
