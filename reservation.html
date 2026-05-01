@@ -1,0 +1,58 @@
+/* =========================================
+   07. RÉSERVATION / CONTACT
+   ========================================= */
+.reservation-section {
+    background-color: var(--charcoal);
+    padding: 5rem 5%;
+    min-height: 100vh;
+}
+
+.reservation-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+}
+
+.reservation-content h2 {
+    font-size: 2.5rem;
+    color: var(--cream);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.reservation-content > p {
+    color: var(--stone-beige);
+    margin-bottom: 3rem;
+    font-size: 0.95rem;
+    max-width: 400px;
+}
+
+/* Formulaire */
+.reservation-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    color: var(--stone-beige);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.form-group input,
+.form-group select {
+    background-color: transparent;
+    border: 1px solid rgba(203, 181, 148, 0.2); /* Ligne fine Stone Beige */
+    padding: 1rem;
+    color: var(--cream);
+    font-family:
