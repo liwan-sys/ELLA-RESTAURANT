@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Ella · Cuisine — Tableau de bord</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Manrope:wght@400..700&display=swap" rel="stylesheet">
+
+    <style>
+      :root {
+        --night: #0E0C0A;
+        --charcoal: #1C1A17;
+        --charcoal-soft: #14110D;
+        --ember-orange: #C75D2C;
+        --ember-glow: #E89B40;
+        --gold: #D4A661;
+        --cream: #EFE4D2;
+        --stone-beige: #CBB594;
+        --stone-muted: rgba(203, 181, 148, 0.6);
+        --green: #5B9B6E;
+        --red: #C85A5A;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        background: var(--charcoal);
+        color: var(--cream);
+        font-family: 'Manrope', sans-serif;
+        min-height: 100vh;
+        padding: 1rem;
+      }
+      header {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 1rem 1.5rem; margin-bottom: 1.5rem;
+        background: var(--night);
+        border-bottom: 1px solid rgba(212,166,97,0.3);
+      }
+      h1 {
+        font-family: 'Fraunces', serif; font-weight: 500;
+        font-size: 1.6rem; color: var(--cream);
+      }
+      .badge {
+        background: var(--ember-orange); color: var(--cream);
+        padding: 0.3rem 0.8rem; border-radius: 99px;
+        font-size: 0.85rem; font-weight: 600;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+        gap: 1rem;
+      }
+      .card {
+        background: var(--charcoal-soft);
+        border: 2px solid rgba(212,166,97,0.3);
+        padding: 1.4rem;
+        position: relative;
+        transition: border-color 0.3s, transform 0.2s;
+      }
+      .card.urgent { border-color: var(--red); animation: pulse 1.5s infinite; }
+      .card.upcoming { border-color: var(--ember-glow); }
+      .card.done { opacity: 0.4; border-color: var(--green); }
+      @keyframes pulse {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(200,90,90,0.5); }
+        50% { box-shadow: 0 0 0 8px rgba(200,90,90,0); }
+      }
+      .card-header {
+        display: flex; justify-content: space-between;
+        align-items: flex-start; margin-bottom: 1rem;
+        padding-bottom: 0.8rem;
+        border-bottom: 1px solid rgba(212,166,97,0.15);
+      }
+      .card-name { font-size: 1.15rem; font-weight: 600; color: var(--cream); }
+      .card-time {
+        font-family: 'Fraunces', serif; font-style: italic;
+        color: var(--ember-glow); font-size: 1.5rem;
+      }
+      .card-meta {
+        font-size: 0.85rem; color: var(--stone-beige);
+        display: flex; gap: 1rem; margin-bottom: 0.8rem; flex-wrap: wrap;
+      }
+      .card-meta a { color: var(--gold); text-decoration: none; }
+      .countdown {
+        display: inline-block; padding: 0.2rem 0.6rem;
+        background: rgba(232,155,64,0.15); color: var(--ember-glow);
+        font-weight: 600; font-size: 0.85rem;
+      }
+      .countdown.urgent { background: rgba(200,90,90,0.25); color: var(--red); }
+      .items { margin: 0.6rem 0 1rem; }
+      .item-row {
+        display: grid; grid-template-columns: auto 1fr auto;
+        gap: 0.8rem; padding: 0.4rem 0;
+        border-bottom: 1px dashed rgba(203,181,148,0.1);
+        font-size: 0.92rem;
+      }
+      .item-qty {
+        font-weight: 700; color: var(--ember-glow);
+        min-width: 30px;
+      }
+      .item-total {
+        margin-top: 0.6rem; padding-top: 0.6rem;
+        text-align: right; font-weight: 600;
+        color: var(--ember-glow);
+      }
+      .no-preorder {
+        font-style: italic; color: var(--stone-muted);
+        padding: 0.8rem 0;
+      }
+      .message {
+        background: rgba(212,166,97,0.1);
+        border-left: 3px solid var(--gold);
+        padding: 0.6rem 0.8rem; margin: 0.6rem 0;
+        font-style: italic; font-size: 0.9rem; color: var(--stone-beige);
+      }
+      .actions {
+        display: flex; gap: 0.5rem; margin-top: 1rem;
+      }
+      .btn {
+        flex: 1; padding: 0.7rem; cursor: pointer;
+        border: 1px solid var(--gold); background: transparent;
+        color: var(--gold); font-family: inherit; font-size: 0.85rem;
+        font-weight: 600; transition: all 0.2s;
+      }
+      .btn:hover { background: var(--gold); color: var(--charcoal); }
+      .btn.btn-done { border-color: var(--green); color: var(--green); }
+      .btn.btn-done:hover { background: var(--green); color: var(--cream); }
+      .empty {
+        grid-column: 1 / -1;
+        text-align: center; padding: 4rem 2rem;
+        color: var(--stone-muted); font-style: italic;
+      }
+      .filters {
+        display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;
+      }
+      .filter-btn {
+        padding: 0.5rem 1rem; border: 1px solid rgba(212,166,97,0.3);
+        background: transparent; color: var(--stone-beige);
+        cursor: pointer; font-family: inherit; font-size: 0.85rem;
+        font-weight: 500; transition: all 0.2s;
+      }
+      .filter-btn.active {
+        background: var(--gold); color: var(--charcoal);
+        border-color: var(--gold);
+      }
+      .login-overlay {
+        position: fixed; inset: 0; background: var(--night);
+        display: flex; align-items: center; justify-content: center;
+        z-index: 100;
+      }
+      .login-box {
+        background: var(--charcoal-soft); padding: 3rem 2.5rem;
+        border: 1px solid rgba(212,166,97,0.3); width: 100%; max-width: 360px;
+        text-align: center;
+      }
+      .login-box h2 {
+        font-family: 'Fraunces', serif; color: var(--cream);
+        margin-bottom: 1rem; font-weight: 500;
+      }
+      .login-box input {
+        width: 100%; padding: 0.7rem; background: transparent;
+        border: 1px solid var(--gold); color: var(--cream);
+        font-family: inherit; font-size: 1rem; margin-bottom: 1rem;
+        text-align: center; letter-spacing: 0.2em;
+      }
+    </style>
+</head>
+<body>
+    <div class="login-overlay" id="login-overlay">
+        <div class="login-box">
+            <h2>Cuisine Ella</h2>
+            <p style="color: var(--stone-beige); font-size: 0.9rem; margin-bottom: 1.5rem;">Code d'accès</p>
+            <input type="password" id="login-pwd" placeholder="••••" autofocus>
+            <button class="btn" id="login-btn" style="width: 100%;">Entrer</button>
+        </div>
+    </div>
+
+    <header>
+        <h1>Cuisine · Réservations & pré-commandes</h1>
+        <span class="badge" id="badge">0</span>
+    </header>
+
+    <div class="filters">
+        <button class="filter-btn active" data-filter="active">Actives</button>
+        <button class="filter-btn" data-filter="today">Aujourd'hui</button>
+        <button class="filter-btn" data-filter="all">Toutes</button>
+        <button class="filter-btn" data-filter="done">Terminées</button>
+    </div>
+
+    <div class="grid" id="grid">
+        <div class="empty">En attente de la première réservation…</div>
+    </div>
+
+    <audio id="ding" preload="auto">
+        <source src="data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=" type="audio/wav">
+    </audio>
+
+    <script src="firebase-config.js"></script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+      import { getFirestore, collection, query, orderBy, onSnapshot, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+
+      // ---- Auth simple ----
+      const PASSWORD = "ella2026"; // À changer si tu veux
+      const overlay = document.getElementById('login-overlay');
+      if (sessionStorage.getItem('cuisine-auth') === 'ok') overlay.style.display = 'none';
+      document.getElementById('login-btn').addEventListener('click', login);
+      document.getElementById('login-pwd').addEventListener('keypress', e => { if (e.key === 'Enter') login(); });
+      function login() {
+        const v = document.getElementById('login-pwd').value;
+        if (v === PASSWORD) { sessionStorage.setItem('cuisine-auth', 'ok'); overlay.style.display = 'none'; }
+        else alert('Code incorrect');
+      }
+
+      // ---- Firestore ----
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+      const grid = document.getElementById('grid');
+      const badge = document.getElementById('badge');
+      const ding = document.getElementById('ding');
+
+      let allReservations = [];
+      let currentFilter = 'active';
+      let knownIds = new Set();
+
+      // Beep audio (synthétisé pour ne pas avoir de fichier externe)
+      function playDing() {
+        try {
+          const ctx = new (window.AudioContext || window.webkitAudioContext)();
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.connect(gain); gain.connect(ctx.destination);
+          osc.frequency.value = 880;
+          gain.gain.setValueAtTime(0.3, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+          osc.start(); osc.stop(ctx.currentTime + 0.4);
+        } catch(e) {}
+      }
+
+      const q = query(collection(db, "reservations"), orderBy("createdAt", "desc"));
+      onSnapshot(q, snapshot => {
+        const newOnes = [];
+        allReservations = snapshot.docs.map(d => {
+          const data = { id: d.id, ...d.data() };
+          if (!knownIds.has(d.id)) {
+            knownIds.add(d.id);
+            if (knownIds.size > 1) newOnes.push(data); // skip first load
+          }
+          return data;
+        });
+        if (newOnes.length > 0) playDing();
+        render();
+      });
+
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        b.addEventListener('click', () => {
+          document.querySelectorAll('.filter-btn').forEach(x => x.classList.remove('active'));
+          b.classList.add('active');
+          currentFilter = b.dataset.filter;
+          render();
+        });
+      });
+
+      function getMinutesUntil(reservation) {
+        if (!reservation.date || !reservation.heure) return null;
+        const dt = new Date(reservation.date + 'T' + reservation.heure);
+        return Math.round((dt - new Date()) / 60000);
+      }
+
+      function formatCountdown(mins) {
+        if (mins === null) return '—';
+        if (mins < 0) return Math.abs(mins) + ' min de retard';
+        if (mins < 60) return 'dans ' + mins + ' min';
+        const h = Math.floor(mins / 60); const m = mins % 60;
+        return 'dans ' + h + 'h' + (m > 0 ? String(m).padStart(2, '0') : '');
+      }
+
+      function render() {
+        const today = new Date().toISOString().slice(0, 10);
+        let list = allReservations;
+        if (currentFilter === 'active') list = list.filter(r => r.status !== 'done');
+        else if (currentFilter === 'today') list = list.filter(r => r.reservation?.date === today);
+        else if (currentFilter === 'done') list = list.filter(r => r.status === 'done');
+
+        badge.textContent = allReservations.filter(r => r.status !== 'done').length;
+
+        if (list.length === 0) {
+          grid.innerHTML = '<div class="empty">Aucune réservation dans ce filtre.</div>';
+          return;
+        }
+
+        grid.innerHTML = list.map(r => {
+          const c = r.customer || {};
+          const res = r.reservation || {};
+          const po = r.preorder || {};
+          const mins = getMinutesUntil(res);
+          const cls = r.status === 'done' ? 'done' : (mins !== null && mins < 30 ? 'urgent' : (mins !== null && mins < 120 ? 'upcoming' : ''));
+          const cd = formatCountdown(mins);
+          const cdCls = mins !== null && mins < 30 ? 'urgent' : '';
+
+          const itemsHtml = po.enabled && po.items?.length > 0
+            ? `<div class="items">
+                ${po.items.map(i => `<div class="item-row">
+                  <span class="item-qty">×${i.qty}</span>
+                  <span>${i.name}</span>
+                  <span>${i.lineTotal.toFixed(2).replace('.', ',')} €</span>
+                </div>`).join('')}
+                <div class="item-total">Total : ${po.total.toFixed(2).replace('.', ',')} €</div>
+              </div>`
+            : '<div class="no-preorder">Pas de pré-commande — réservation seule</div>';
+
+          return `<div class="card ${cls}">
+            <div class="card-header">
+              <div>
+                <div class="card-name">${c.nom || 'Sans nom'}</div>
+                <div style="color: var(--stone-beige); font-size: 0.88rem; margin-top: 0.2rem;">
+                  ${res.convives || '?'} pers. · ${res.date || '?'}
+                </div>
+              </div>
+              <div style="text-align: right;">
+                <div class="card-time">${res.heure || ''}</div>
+                <span class="countdown ${cdCls}">${cd}</span>
+              </div>
+            </div>
+            <div class="card-meta">
+              ${c.telephone ? `<a href="tel:${c.telephone}">📞 ${c.telephone}</a>` : ''}
+              ${c.email ? `<a href="mailto:${c.email}">✉️ ${c.email}</a>` : ''}
+            </div>
+            ${res.message ? `<div class="message">"${res.message}"</div>` : ''}
+            ${itemsHtml}
+            <div class="actions">
+              ${r.status !== 'done'
+                ? `<button class="btn btn-done" onclick="markDone('${r.id}')">✓ Servi / terminé</button>`
+                : `<button class="btn" onclick="markActive('${r.id}')">↶ Réactiver</button>`}
+            </div>
+          </div>`;
+        }).join('');
+      }
+
+      window.markDone = async (id) => {
+        await updateDoc(doc(db, "reservations", id), { status: "done" });
+      };
+      window.markActive = async (id) => {
+        await updateDoc(doc(db, "reservations", id), { status: "new" });
+      };
+
+      // Re-render every minute pour mettre à jour les countdowns
+      setInterval(render, 60000);
+    </script>
+</body>
+</html>

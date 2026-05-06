@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Réservez votre table au restaurant Ella, l'âme du grill anatolien à Paris.">
+    <meta name="description" content="Réservez votre table au restaurant Ella, l'âme du grill anatolien à Paris. Pré-commandez vos plats pour un service plus rapide.">
     <title>Ella · Réservation</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,6 +11,127 @@
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,30..100;1,9..144,300..700,30..100&family=Manrope:wght@300..700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
+
+    <style>
+      /* Styles spécifiques pré-commande */
+      .preorder-toggle {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.4rem 1.6rem;
+        margin-bottom: 1.5rem;
+        background: rgba(212, 166, 97, 0.08);
+        border: 1px solid rgba(212, 166, 97, 0.25);
+        cursor: pointer;
+        transition: background 0.3s var(--ease-out), border-color 0.3s var(--ease-out);
+      }
+      .preorder-toggle:hover {
+        background: rgba(212, 166, 97, 0.14);
+        border-color: rgba(212, 166, 97, 0.5);
+      }
+      .preorder-toggle input[type="checkbox"] {
+        width: 18px; height: 18px;
+        accent-color: var(--ember-orange);
+        cursor: pointer;
+        flex-shrink: 0;
+      }
+      .preorder-toggle-text { flex: 1; }
+      .preorder-toggle-title {
+        color: var(--cream);
+        font-weight: 500;
+        font-size: 1rem;
+        margin-bottom: 0.2rem;
+      }
+      .preorder-toggle-desc {
+        color: var(--stone-beige);
+        font-size: 0.88rem;
+        font-style: italic;
+      }
+      .preorder-section {
+        display: none;
+        border: 1px solid rgba(212, 166, 97, 0.2);
+        background: rgba(20, 17, 13, 0.6);
+        padding: 2rem 1.8rem;
+        margin-bottom: 1.8rem;
+        max-height: 500px;
+        overflow-y: auto;
+      }
+      .preorder-section.open { display: block; }
+      .preorder-cat {
+        font-family: var(--font-display);
+        font-style: italic;
+        color: var(--gold);
+        font-size: 1.1rem;
+        margin: 1.4rem 0 0.6rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid rgba(212, 166, 97, 0.2);
+        font-variation-settings: "SOFT" 100, "opsz" 144;
+      }
+      .preorder-cat:first-child { margin-top: 0; }
+      .preorder-row {
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        align-items: center;
+        gap: 0.8rem;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(203, 181, 148, 0.06);
+      }
+      .preorder-row:last-child { border-bottom: none; }
+      .preorder-name { color: var(--cream); font-size: 0.92rem; }
+      .preorder-price {
+        color: var(--ember-glow);
+        font-family: var(--font-display);
+        font-style: italic;
+        font-size: 1rem;
+        white-space: nowrap;
+        font-variation-settings: "SOFT" 100, "opsz" 144;
+      }
+      .qty-control {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .qty-control button {
+        width: 28px; height: 28px;
+        border: 1px solid var(--gold);
+        background: transparent;
+        color: var(--gold);
+        cursor: pointer;
+        font-size: 1rem;
+        line-height: 1;
+        font-family: var(--font-body);
+        transition: all 0.2s var(--ease-out);
+      }
+      .qty-control button:hover {
+        background: var(--gold);
+        color: var(--charcoal);
+      }
+      .qty-control .qty-value {
+        min-width: 22px;
+        text-align: center;
+        color: var(--cream);
+        font-weight: 500;
+      }
+      .preorder-summary {
+        margin-top: 1.5rem;
+        padding-top: 1.2rem;
+        border-top: 1px solid rgba(212, 166, 97, 0.3);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .preorder-summary-label {
+        color: var(--stone-beige);
+        font-size: 0.95rem;
+      }
+      .preorder-summary-total {
+        color: var(--ember-glow);
+        font-family: var(--font-display);
+        font-style: italic;
+        font-size: 1.5rem;
+        font-variation-settings: "SOFT" 100, "opsz" 144;
+      }
+    </style>
 </head>
 <body>
 
@@ -46,86 +167,103 @@
             <div class="reservation-grid">
 
                 <div class="reservation-content reveal">
-                    <span class="eyebrow" data-i18n="res.eyebrow">Réserver</span>
-                    <h2 data-i18n="res.title">Réserver une table</h2>
-                    <p data-i18n="res.intro">Pour partager un moment chez Ella, indiquez-nous votre préférence. Nous confirmerons votre réservation par e-mail ou téléphone dans les plus brefs délais.</p>
+                    <span class="eyebrow">Réserver</span>
+                    <h2>Réserver une table</h2>
+                    <p>Indiquez vos préférences. Vous pouvez aussi pré-commander vos plats pour un service plus rapide à votre arrivée. Le paiement se fait sur place.</p>
 
                     <form class="reservation-form" id="reservation-form" novalidate>
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="nom" data-i18n="res.f.name">Nom</label>
+                                <label for="nom">Nom</label>
                                 <input type="text" id="nom" name="nom" required autocomplete="name">
                             </div>
                             <div class="form-group">
-                                <label for="email" data-i18n="res.f.email">E-mail</label>
+                                <label for="email">E-mail</label>
                                 <input type="email" id="email" name="email" required autocomplete="email">
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="telephone" data-i18n="res.f.phone">Téléphone</label>
+                                <label for="telephone">Téléphone</label>
                                 <input type="tel" id="telephone" name="telephone" required autocomplete="tel">
                             </div>
                             <div class="form-group">
-                                <label for="convives" data-i18n="res.f.guests">Nombre de convives</label>
+                                <label for="convives">Nombre de convives</label>
                                 <select id="convives" name="convives" required>
-                                    <option value="" data-i18n="res.f.guests.placeholder">— Choisir —</option>
-                                    <option value="1" data-i18n="res.f.guest.1">1 personne</option>
-                                    <option value="2" data-i18n="res.f.guest.2">2 personnes</option>
-                                    <option value="3" data-i18n="res.f.guest.3">3 personnes</option>
-                                    <option value="4" data-i18n="res.f.guest.4">4 personnes</option>
-                                    <option value="5" data-i18n="res.f.guest.5">5 personnes</option>
-                                    <option value="6" data-i18n="res.f.guest.6">6 personnes</option>
-                                    <option value="7+" data-i18n="res.f.guest.7">7 personnes ou plus</option>
+                                    <option value="">— Choisir —</option>
+                                    <option value="1">1 personne</option>
+                                    <option value="2">2 personnes</option>
+                                    <option value="3">3 personnes</option>
+                                    <option value="4">4 personnes</option>
+                                    <option value="5">5 personnes</option>
+                                    <option value="6">6 personnes</option>
+                                    <option value="7+">7 personnes ou plus</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="date" data-i18n="res.f.date">Date</label>
+                                <label for="date">Date</label>
                                 <input type="date" id="date" name="date" required>
                             </div>
                             <div class="form-group">
-                                <label for="heure" data-i18n="res.f.time">Heure</label>
+                                <label for="heure">Heure</label>
                                 <input type="time" id="heure" name="heure" required>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="message" data-i18n="res.f.message">Demande spéciale (facultatif)</label>
-                            <textarea id="message" name="message" placeholder="Allergies, anniversaire, place près de la cheminée…" data-i18n-attr="placeholder:res.f.message.placeholder"></textarea>
+                        <!-- Pré-commande de plats -->
+                        <label class="preorder-toggle">
+                            <input type="checkbox" id="preorder-enabled">
+                            <span class="preorder-toggle-text">
+                                <span class="preorder-toggle-title">Pré-commander mes plats</span>
+                                <span class="preorder-toggle-desc">Optionnel — vos plats seront préparés pour votre heure d'arrivée. Paiement sur place.</span>
+                            </span>
+                        </label>
+
+                        <div class="preorder-section" id="preorder-section">
+                            <div id="preorder-list"><!-- Rempli par JS --></div>
+                            <div class="preorder-summary">
+                                <span class="preorder-summary-label">Total estimé</span>
+                                <span class="preorder-summary-total" id="preorder-total">0,00 €</span>
+                            </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary" data-i18n="res.f.submit">Envoyer ma demande</button>
+                        <div class="form-group">
+                            <label for="message">Demande spéciale (facultatif)</label>
+                            <textarea id="message" name="message" placeholder="Allergies, anniversaire, place près de la cheminée…"></textarea>
+                        </div>
 
-                        <p class="form-success" id="form-success" data-i18n="res.f.success">Merci ! Votre demande de réservation a bien été envoyée. Nous vous recontacterons sous peu.</p>
+                        <button type="submit" class="btn btn-primary">Envoyer ma demande</button>
+
+                        <p class="form-success" id="form-success">Merci ! Votre demande de réservation a bien été envoyée. Nous vous recontacterons sous peu.</p>
                     </form>
                 </div>
 
                 <aside class="contact-info reveal reveal-delay-1">
                     <div class="info-block">
-                        <h3 data-i18n="res.info.address">Adresse</h3>
+                        <h3>Adresse</h3>
                         <p>Restaurant Ella</p>
                         <p>14 rue du Faubourg Saint-Denis</p>
                         <p>75010 Paris, France</p>
                     </div>
 
                     <div class="info-block">
-                        <h3 data-i18n="res.info.phone">Téléphone</h3>
+                        <h3>Téléphone</h3>
                         <p><a href="tel:+33147702095">01 47 70 20 95</a></p>
                     </div>
 
                     <div class="info-block">
-                        <h3 data-i18n="res.info.hours">Horaires</h3>
-                        <p data-i18n="res.info.hours.line1">Ouvert 7j/7</p>
-                        <p data-i18n="res.info.hours.line2">De 11h00 à minuit</p>
+                        <h3>Horaires</h3>
+                        <p>Ouvert 7j/7</p>
+                        <p>De 11h00 à minuit</p>
                     </div>
 
                     <div class="info-block">
-                        <h3 data-i18n="res.info.direct">Réservation directe</h3>
-                        <p><a href="https://www.thefork.fr/restaurant/ella-r206567" target="_blank" rel="noopener" data-i18n="res.info.direct.link">Réserver via TheFork</a></p>
+                        <h3>Réservation directe</h3>
+                        <p><a href="https://www.thefork.fr/restaurant/ella-r206567" target="_blank" rel="noopener">Réserver via TheFork</a></p>
                     </div>
                 </aside>
 
@@ -133,23 +271,19 @@
 
             <div class="map-section reveal">
                 <div class="map-header">
-                    <span class="eyebrow" data-i18n="res.map.eyebrow">Nous trouver</span>
-                    <h3 data-i18n="res.map.title">À deux pas de la Porte Saint-Denis</h3>
-                    <p data-i18n="res.map.intro">Métro : Strasbourg–Saint-Denis (lignes 4, 8, 9) · Château d'Eau (ligne 4)</p>
+                    <span class="eyebrow">Nous trouver</span>
+                    <h3>À deux pas de la Porte Saint-Denis</h3>
+                    <p>Métro : Strasbourg–Saint-Denis (lignes 4, 8, 9) · Château d'Eau (ligne 4)</p>
                 </div>
                 <div class="map-frame">
                     <iframe
                         src="https://maps.google.com/maps?q=14%20rue%20du%20Faubourg%20Saint-Denis%2075010%20Paris&t=&z=16&ie=UTF8&iwloc=B&output=embed"
                         title="Carte du restaurant Ella, 14 rue du Faubourg Saint-Denis, Paris"
-                        width="100%"
-                        height="100%"
-                        style="border:0"
-                        loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"
-                        allowfullscreen></iframe>
+                        width="100%" height="100%" style="border:0"
+                        loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
                 </div>
                 <a href="https://www.google.com/maps/dir/?api=1&destination=14+rue+du+Faubourg+Saint-Denis+75010+Paris" target="_blank" rel="noopener" class="btn map-btn">
-                    <span data-i18n="res.map.button">Itinéraire</span> <span aria-hidden="true">→</span>
+                    Itinéraire <span aria-hidden="true">→</span>
                 </a>
             </div>
         </section>
@@ -158,16 +292,132 @@
     <footer>
         <div class="footer-brand">ELLA</div>
         <div class="footer-links">
-            <a href="menu.html" data-i18n="nav.menu">Menu</a>
-            <a href="histoire.html" data-i18n="nav.history">Histoire</a>
-            <a href="reservation.html" data-i18n="nav.reservation">Réservation</a>
+            <a href="menu.html">Menu</a>
+            <a href="histoire.html">Histoire</a>
+            <a href="reservation.html">Réservation</a>
         </div>
-        <p data-i18n="footer.address">14 rue du Faubourg Saint-Denis · 75010 Paris</p>
-        <p data-i18n="footer.contact">01 47 70 20 95 · Ouvert 7j/7 de 11h à minuit</p>
-        <p class="copyright" data-i18n="footer.copyright">© 2026 Ella · L'Âme du Grill Anatolien</p>
+        <p>14 rue du Faubourg Saint-Denis · 75010 Paris</p>
+        <p><a href="tel:+33147702095">01 47 70 20 95</a> · Ouvert 7j/7 de 11h à minuit</p>
+        <p class="copyright">© 2026 Ella · L'Âme du Grill Anatolien</p>
     </footer>
 
     <script src="i18n.js"></script>
     <script src="script.js"></script>
+
+    <!-- Firebase + logique pré-commande -->
+    <script src="firebase-config.js"></script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+      import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      // Construire la liste des plats par catégorie
+      const list = document.getElementById('preorder-list');
+      const cats = [...new Set(MENU_ITEMS.map(i => i.cat))];
+      const cart = {}; // {itemId: qty}
+
+      cats.forEach(cat => {
+        const h4 = document.createElement('div');
+        h4.className = 'preorder-cat';
+        h4.textContent = cat;
+        list.appendChild(h4);
+        MENU_ITEMS.filter(i => i.cat === cat).forEach(item => {
+          const row = document.createElement('div');
+          row.className = 'preorder-row';
+          row.innerHTML = `
+            <div class="preorder-name">${item.name}</div>
+            <div class="qty-control" data-id="${item.id}">
+              <button type="button" data-action="dec" aria-label="Moins">−</button>
+              <span class="qty-value">0</span>
+              <button type="button" data-action="inc" aria-label="Plus">+</button>
+            </div>
+            <div class="preorder-price">${item.price.toFixed(2).replace('.', ',')} €</div>
+          `;
+          list.appendChild(row);
+        });
+      });
+
+      function recalc() {
+        let total = 0;
+        Object.entries(cart).forEach(([id, qty]) => {
+          const it = MENU_ITEMS.find(i => i.id === id);
+          if (it) total += it.price * qty;
+        });
+        document.getElementById('preorder-total').textContent =
+          total.toFixed(2).replace('.', ',') + ' €';
+      }
+
+      list.addEventListener('click', e => {
+        const btn = e.target.closest('button');
+        if (!btn) return;
+        const ctrl = btn.parentElement;
+        const id = ctrl.dataset.id;
+        const valEl = ctrl.querySelector('.qty-value');
+        let qty = cart[id] || 0;
+        qty = btn.dataset.action === 'inc' ? qty + 1 : Math.max(0, qty - 1);
+        if (qty === 0) delete cart[id]; else cart[id] = qty;
+        valEl.textContent = qty;
+        recalc();
+      });
+
+      // Toggle pré-commande
+      const toggle = document.getElementById('preorder-enabled');
+      const section = document.getElementById('preorder-section');
+      toggle.addEventListener('change', () => {
+        section.classList.toggle('open', toggle.checked);
+      });
+
+      // Soumission
+      const form = document.getElementById('reservation-form');
+      const success = document.getElementById('form-success');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const submitBtn = form.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Envoi en cours…';
+
+        const items = Object.entries(cart).map(([id, qty]) => {
+          const it = MENU_ITEMS.find(i => i.id === id);
+          return { id, name: it.name, qty, unitPrice: it.price, lineTotal: it.price * qty };
+        });
+        const total = items.reduce((s, it) => s + it.lineTotal, 0);
+
+        const data = {
+          createdAt: serverTimestamp(),
+          status: "new",
+          customer: {
+            nom: document.getElementById('nom').value.trim(),
+            email: document.getElementById('email').value.trim(),
+            telephone: document.getElementById('telephone').value.trim()
+          },
+          reservation: {
+            date: document.getElementById('date').value,
+            heure: document.getElementById('heure').value,
+            convives: document.getElementById('convives').value,
+            message: document.getElementById('message').value.trim()
+          },
+          preorder: {
+            enabled: toggle.checked,
+            items: toggle.checked ? items : [],
+            total: toggle.checked ? total : 0
+          }
+        };
+
+        try {
+          await addDoc(collection(db, "reservations"), data);
+          form.style.display = 'none';
+          success.classList.add('show');
+          success.textContent = "Merci ! Votre réservation est enregistrée. Nous vous recontacterons sous peu.";
+        } catch (err) {
+          console.error(err);
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Envoyer ma demande';
+          alert("Une erreur est survenue. Réessayez ou appelez-nous au 01 47 70 20 95.");
+        }
+      });
+    </script>
 </body>
 </html>
