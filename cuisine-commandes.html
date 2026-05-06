@@ -255,7 +255,7 @@
             });
         });
 
-        const q = query(collection(db, 'commandes'), orderBy('createdAt', 'desc'));
+        const q = query(collection(db, 'commandes-table'), orderBy('createdAt', 'desc'));
         onSnapshot(q, (snap) => {
             allOrders = snap.docs.map(d => ({ id: d.id, ...d.data() }));
 
