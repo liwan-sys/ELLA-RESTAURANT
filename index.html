@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Ella — L'Âme du Grill Anatolien. Cuisine traditionnelle, charbon de bois et hospitalité turque au cœur de Paris.">
-    <meta name="theme-color" content="#F1E5C8">
+    <meta name="theme-color" content="#0E0C0A">
     <link rel="canonical" href="https://dynamic-llama-959391.netlify.app/">
 
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="restaurant.restaurant">
     <meta property="og:url" content="https://dynamic-llama-959391.netlify.app/">
     <meta property="og:title" content="Ella · L'Âme du Grill Anatolien">
@@ -14,6 +15,7 @@
     <meta property="og:image" content="https://dynamic-llama-959391.netlify.app/media/posters/ella-5.jpg">
     <meta property="og:locale" content="fr_FR">
 
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Ella · L'Âme du Grill Anatolien">
     <meta name="twitter:description" content="Cuisine traditionnelle turque, charbon de bois et hospitalité au cœur du 10ème à Paris.">
@@ -23,10 +25,11 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..700,30..100;1,9..144,400..700,30..100&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,30..100;1,9..144,300..700,30..100&family=Manrope:wght@300..700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
 
+    <!-- Schema.org Restaurant -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -89,59 +92,48 @@
     </header>
 
     <main>
-        <section class="hero" aria-labelledby="hero-title">
+        <section class="hero hero-video" aria-labelledby="hero-title">
+            <!-- Vidéo de fond du hero. Autoplay muet, en boucle, sans contrôle -->
+            <video class="hero-bg-video" autoplay muted loop playsinline preload="metadata"
+                   poster="media/posters/ella-5.jpg" aria-hidden="true">
+                <source src="media/videos/ella-5.mp4" type="video/mp4">
+            </video>
+
             <span class="hero-eyebrow" data-i18n="hero.eyebrow">Restaurant turc · 10ème Paris</span>
-
-            <div class="hero-mark">
-                <h1 id="hero-title" class="mark-name">ELLA</h1>
-                <span class="mark-tagline">L'Âme du Grill Anatolien</span>
+            <h1 id="hero-title"><span data-i18n="hero.title.l1">L'Âme</span><br><span data-i18n="hero.title.l2">du Grill</span><br><span data-i18n="hero.title.l3">Anatolien</span></h1>
+            <p class="subtitle" data-i18n="hero.subtitle">Héritage. Saveurs. Générosité.</p>
+            <div class="btn-container">
+                <a class='btn btn-primary' data-i18n='hero.cta.book' href='/reservation'>Réserver une table</a>
+                <a class='btn' data-i18n='hero.cta.menu' href='/menu'>Voir le menu</a>
             </div>
-
-            <div class="hero-frame">
-                <video class="hero-bg-video" autoplay muted loop playsinline preload="metadata"
-                       poster="media/posters/ella-5.jpg" aria-hidden="true">
-                    <source src="media/videos/ella-5.mp4" type="video/mp4">
-                </video>
-
-                <div class="hero-overlay">
-                    <h1 data-i18n="hero.title.main">Charbon de bois.<br><em>Kofte au couteau.</em></h1>
-                    <span class="script-sub">Charcoal grill — knife-cut kofte</span>
-                    <p class="subtitle" data-i18n="hero.subtitle">Cuisine traditionnelle turque, kurde et anatolienne. Paris 10ème.</p>
-                    <div class="btn-container">
-                        <a class='btn btn-primary' data-i18n='hero.cta.book' href='/reservation'>Réserver une table</a>
-                        <a class='btn' data-i18n='hero.cta.menu' href='/menu'>Voir le menu</a>
-                    </div>
-                </div>
-            </div>
-
             <span class="scroll-indicator" aria-hidden="true" data-i18n="hero.scroll">Découvrir</span>
         </section>
 
         <section class="features" aria-label="Notre univers">
             <a class='feature-card reveal' href='/experience'>
                 <img src="media/posters/ella-7.jpg" alt="Salle d'Ella avec mezze à la table, pierres apparentes" loading="lazy" width="800" height="1422">
-                <h3 data-i18n="feature.1.title">Un lieu chargé d'histoire</h3>
+                <h3 data-i18n="feature.1.title">Un lieu<br>chargé d'histoire</h3>
                 <span class="feature-arrow" data-i18n="feature.1.arrow">Découvrir →</span>
             </a>
 
             <a class='feature-card reveal reveal-delay-1' href='/menu'>
                 <img src="media/posters/ella-4.jpg" alt="Adana kebab haché au couteau dressé sur planche" loading="lazy" width="800" height="1422">
-                <h3 data-i18n="feature.2.title">Des saveurs authentiques</h3>
+                <h3 data-i18n="feature.2.title">Des saveurs<br>authentiques</h3>
                 <span class="feature-arrow" data-i18n="feature.2.arrow">Voir le menu →</span>
             </a>
 
             <a class='feature-card reveal reveal-delay-2' href='/reservation'>
                 <img src="media/posters/ella-1.jpg" alt="Pâte étalée à la main sur planche farinée" loading="lazy" width="800" height="1422">
-                <h3 data-i18n="feature.3.title">Une expérience intemporelle</h3>
+                <h3 data-i18n="feature.3.title">Une expérience<br>intemporelle</h3>
                 <span class="feature-arrow" data-i18n="feature.3.arrow">Réserver →</span>
             </a>
         </section>
 
+        <!-- NOUVELLE SECTION : MOSAÏQUE VIDÉO STYLE INSTAGRAM -->
         <section class="video-mosaic" aria-labelledby="mosaic-title">
             <div class="mosaic-header reveal">
                 <span class="eyebrow" data-i18n="mosaic.eyebrow">Dans nos cuisines</span>
                 <h2 id="mosaic-title" data-i18n="mosaic.title">Le geste, la flamme,<br><em>la générosité.</em></h2>
-                <span class="script-sub">In our kitchens</span>
                 <p data-i18n="mosaic.intro">Quelques instants captés derrière la passe — la pâte étirée à la main, les brochettes au charbon, la salle à votre arrivée.</p>
             </div>
 
@@ -179,7 +171,6 @@
         <section class="reviews" aria-labelledby="reviews-title">
             <div class="reviews-header reveal">
                 <h2 id="reviews-title" data-i18n="reviews.title">Ce qu'ils en disent</h2>
-                <span class="script-sub">What they're saying</span>
                 <div class="reviews-stats">
                     <div class="stat">
                         <span class="stat-value" data-i18n="reviews.stat1.value">4,4 / 5</span>
@@ -213,14 +204,13 @@
 
     <footer>
         <div class="footer-brand">ELLA</div>
-        <div class="footer-tagline">L'Âme du Grill Anatolien</div>
         <div class="footer-links">
             <a data-i18n='nav.menu' href='/menu'>Menu</a>
             <a data-i18n='nav.history' href='/histoire'>Histoire</a>
             <a data-i18n='nav.reservation' href='/reservation'>Réservation</a>
         </div>
         <p data-i18n="footer.address">14 rue du Faubourg Saint-Denis · 75010 Paris</p>
-        <p data-i18n="footer.contact"><a href="tel:+33147702095">01 47 70 20 95</a> · Ouvert 7j/7 de 11h à minuit</p>
+        <p data-i18n="footer.contact">01 47 70 20 95 · Ouvert 7j/7 de 11h à minuit</p>
         <p class="copyright" data-i18n="footer.copyright">© 2026 Ella · L'Âme du Grill Anatolien</p>
     </footer>
 
