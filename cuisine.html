@@ -238,7 +238,7 @@
         } catch(e) {}
       }
 
-      const q = query(collection(db, "reservations"), orderBy("createdAt", "desc"));
+      const q = query(collection(db, "commandes"), orderBy("createdAt", "desc"));
       onSnapshot(q, snapshot => {
         const newOnes = [];
         allReservations = snapshot.docs.map(d => {
@@ -339,10 +339,10 @@
       }
 
       window.markDone = async (id) => {
-        await updateDoc(doc(db, "reservations", id), { status: "done" });
+        await updateDoc(doc(db, "commandes", id), { status: "done" });
       };
       window.markActive = async (id) => {
-        await updateDoc(doc(db, "reservations", id), { status: "new" });
+        await updateDoc(doc(db, "commandes", id), { status: "new" });
       };
 
       // Re-render every minute pour mettre à jour les countdowns

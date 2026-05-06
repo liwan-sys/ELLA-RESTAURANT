@@ -407,7 +407,7 @@
         };
 
         try {
-          await addDoc(collection(db, "reservations"), data);
+          await addDoc(collection(db, "commandes"), data);
           form.style.display = 'none';
           success.classList.add('show');
           success.textContent = "Merci ! Votre réservation est enregistrée. Nous vous recontacterons sous peu.";
