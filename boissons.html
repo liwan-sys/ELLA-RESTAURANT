@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Carte des boissons d'Ella : raki, vins turcs, ayran, cocktails et thés traditionnels.">
-    <link rel="canonical" href="https://dynamic-llama-959391.netlify.app/boissons">
+    <meta name="description" content="Carte des boissons d'Ella : raki, vins, bières, cocktails, ayran, thés et cafés turcs.">
+    <link rel="canonical" href="https://ellarestaurant.fr/boissons">
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="Ella · Notre Cave">
-    <meta property="og:description" content="Raki, vins d'Anatolie, cocktails maison et boissons traditionnelles à Paris 10ème.">
-    <meta property="og:image" content="https://dynamic-llama-959391.netlify.app/media/posters/ella-7.jpg">
+    <meta property="og:description" content="Raki, vins turcs et français, cocktails, ayran et boissons traditionnelles à Paris 10ème.">
+    <meta property="og:image" content="https://ellarestaurant.fr/media/posters/ella-7.jpg">
 
     <title>Ella · Boissons</title>
 
@@ -56,155 +56,217 @@
                     <div class="drinks-header reveal">
                         <span class="eyebrow" data-i18n="drinks.eyebrow">La carte des boissons</span>
                         <h2 data-i18n="drinks.title">Notre Cave</h2>
-                        <p data-i18n="drinks.intro">Une sélection de raki, vins turcs et boissons traditionnelles pour accompagner chaque plat avec authenticité.</p>
+                        <p data-i18n="drinks.intro">Apéritifs, raki, vins, bières et boissons traditionnelles. L'abus d'alcool est dangereux pour la santé, à consommer avec modération.</p>
                     </div>
 
                     <div class="drinks-tabs" role="tablist">
-                        <button class="tab-btn active" data-tab="raki" role="tab" aria-selected="true" data-i18n="drinks.tab.raki">Raki</button>
-                        <button class="tab-btn" data-tab="vins" role="tab" aria-selected="false" data-i18n="drinks.tab.wine">Vins</button>
-                        <button class="tab-btn" data-tab="cocktails" role="tab" aria-selected="false" data-i18n="drinks.tab.cocktails">Cocktails</button>
-                        <button class="tab-btn" data-tab="sans-alcool" role="tab" aria-selected="false" data-i18n="drinks.tab.soft">Sans alcool</button>
-                        <button class="tab-btn" data-tab="thes" role="tab" aria-selected="false" data-i18n="drinks.tab.tea">Thés &amp; cafés</button>
+                        <button class="tab-btn active" data-tab="aperitifs" role="tab" aria-selected="true">Apéritifs</button>
+                        <button class="tab-btn" data-tab="raki" role="tab" aria-selected="false">Raki</button>
+                        <button class="tab-btn" data-tab="vins-rouges" role="tab" aria-selected="false">Vins rouges</button>
+                        <button class="tab-btn" data-tab="vins-roses" role="tab" aria-selected="false">Vins rosés &amp; blancs</button>
+                        <button class="tab-btn" data-tab="bieres" role="tab" aria-selected="false">Bières</button>
+                        <button class="tab-btn" data-tab="digestifs" role="tab" aria-selected="false">Digestifs</button>
+                        <button class="tab-btn" data-tab="sans-alcool" role="tab" aria-selected="false">Sans alcool</button>
+                        <button class="tab-btn" data-tab="cafes-thes" role="tab" aria-selected="false">Cafés &amp; thés</button>
                     </div>
 
-                    <div class="drink-list active" id="raki" role="tabpanel">
+                    <div class="drink-list active" id="aperitifs" role="tabpanel">
                         <div class="drink-item">
-                            <div>
-                                <div class="drink-name">Yeni Rakı</div>
-                                <div class="drink-desc">Le classique anisé, 5 cl</div>
-                            </div>
-                            <div class="drink-price">8 €</div>
+                            <div><div class="drink-name">Vodka</div><div class="drink-desc">4 cl</div></div>
+                            <div class="drink-price">6,00 €</div>
                         </div>
                         <div class="drink-item">
-                            <div>
-                                <div class="drink-name">Tekirdağ Altın Seri</div>
-                                <div class="drink-desc">Distillation premium, 5 cl</div>
-                            </div>
-                            <div class="drink-price">12 €</div>
+                            <div><div class="drink-name">Kir Cassis ou Mûr</div><div class="drink-desc">14 cl</div></div>
+                            <div class="drink-price">4,00 €</div>
                         </div>
                         <div class="drink-item">
-                            <div>
-                                <div class="drink-name">Efe Triple Distillation</div>
-                                <div class="drink-desc">Doux, raffiné, 5 cl</div>
-                            </div>
-                            <div class="drink-price">11 €</div>
+                            <div><div class="drink-name">JB</div><div class="drink-desc">4 cl</div></div>
+                            <div class="drink-price">7,00 €</div>
                         </div>
                         <div class="drink-item">
-                            <div>
-                                <div class="drink-name">Plateau Rakı &amp; Mezzes</div>
-                                <div class="drink-desc">Carafe 35 cl, sélection de 4 mezzes</div>
-                            </div>
-                            <div class="drink-price">42 €</div>
+                            <div><div class="drink-name">Jack Daniel's</div><div class="drink-desc">4 cl</div></div>
+                            <div class="drink-price">9,00 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div><div class="drink-name">Chivas</div><div class="drink-desc">4 cl</div></div>
+                            <div class="drink-price">10,00 €</div>
                         </div>
                     </div>
 
-                    <div class="drink-list" id="vins" role="tabpanel">
+                    <div class="drink-list" id="raki" role="tabpanel">
                         <div class="drink-item">
-                            <div>
-                                <div class="drink-name">Kavaklıdere Yakut</div>
-                                <div class="drink-desc">Rouge d'Anatolie centrale, 75 cl</div>
-                            </div>
-                            <div class="drink-price">36 €</div>
+                            <div><div class="drink-name">Yeni Rakı Turc</div><div class="drink-desc">5 cl · verre 5,00 € · double 9,00 €</div></div>
+                            <div class="drink-price">5,00 €</div>
                         </div>
                         <div class="drink-item">
-                            <div>
-                                <div class="drink-name">Doluca Antik</div>
-                                <div class="drink-desc">Rouge, cuvée premium, 75 cl</div>
-                            </div>
-                            <div class="drink-price">42 €</div>
+                            <div><div class="drink-name">Rakı Tekirdağ</div><div class="drink-desc">5 cl · verre 6,00 € · double 10,00 €</div></div>
+                            <div class="drink-price">6,00 €</div>
                         </div>
                         <div class="drink-item">
-                            <div>
-                                <div class="drink-name">Kayra Narince</div>
-                                <div class="drink-desc">Blanc sec d'Anatolie, 75 cl</div>
-                            </div>
-                            <div class="drink-price">34 €</div>
+                            <div><div class="drink-name">Rakı Tekirdağ Altın Serisi</div><div class="drink-desc">5 cl · verre 7,50 € · double 12,00 €</div></div>
+                            <div class="drink-price">7,50 €</div>
                         </div>
                         <div class="drink-item">
-                            <div>
-                                <div class="drink-name">Verre de vin (rouge / blanc / rosé)</div>
-                                <div class="drink-desc">12 cl</div>
-                            </div>
-                            <div class="drink-price">7 €</div>
+                            <div><div class="drink-name">Rakı Turc · bouteille 35 cl</div><div class="drink-desc">Yeni Rakı</div></div>
+                            <div class="drink-price">40,00 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div><div class="drink-name">Rakı Turc · bouteille 70 cl</div><div class="drink-desc">Yeni Rakı</div></div>
+                            <div class="drink-price">75,00 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div><div class="drink-name">Rakı Tekirdağ · 35 cl</div><div class="drink-desc">Bouteille</div></div>
+                            <div class="drink-price">45,00 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div><div class="drink-name">Rakı Tekirdağ · 70 cl</div><div class="drink-desc">Bouteille</div></div>
+                            <div class="drink-price">80,00 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div><div class="drink-name">Rakı Tekirdağ Altın Serisi · 35 cl</div><div class="drink-desc">Bouteille premium</div></div>
+                            <div class="drink-price">50,00 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div><div class="drink-name">Rakı Tekirdağ Altın Serisi · 70 cl</div><div class="drink-desc">Bouteille premium</div></div>
+                            <div class="drink-price">90,00 €</div>
                         </div>
                     </div>
 
-                    <div class="drink-list" id="cocktails" role="tabpanel">
+                    <div class="drink-list" id="vins-rouges" role="tabpanel">
                         <div class="drink-item">
-                            <div>
-                                <div class="drink-name">Ella Spritz</div>
-                                <div class="drink-desc">Raki, pamplemousse, eau gazeuse, romarin</div>
-                            </div>
-                            <div class="drink-price">12 €</div>
+                            <div><div class="drink-name">Côte du Rhône</div><div class="drink-desc">37,5 cl : 12,00 € · 75 cl : 23,00 €</div></div>
+                            <div class="drink-price">23,00 €</div>
                         </div>
                         <div class="drink-item">
-                            <div>
-                                <div class="drink-name">Bosphore</div>
-                                <div class="drink-desc">Gin, citron, sirop de rose, basilic</div>
-                            </div>
-                            <div class="drink-price">13 €</div>
+                            <div><div class="drink-name">Bordeaux supérieur</div><div class="drink-desc">37,5 cl : 13,00 € · 75 cl : 26,00 €</div></div>
+                            <div class="drink-price">26,00 €</div>
                         </div>
                         <div class="drink-item">
-                            <div>
-                                <div class="drink-name">Anatolia Sour</div>
-                                <div class="drink-desc">Whisky, miel de pin, citron, blanc d'œuf</div>
-                            </div>
-                            <div class="drink-price">14 €</div>
+                            <div><div class="drink-name">Saint-Émilion</div><div class="drink-desc">37,5 cl : 13,00 € · 75 cl : 26,00 €</div></div>
+                            <div class="drink-price">26,00 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div><div class="drink-name">Brouilly</div><div class="drink-desc">37,5 cl : 15,00 € · 75 cl : 28,00 €</div></div>
+                            <div class="drink-price">28,00 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div><div class="drink-name">Yakut <span style="opacity:.7">(vin turc)</span></div><div class="drink-desc">37,5 cl : 12,00 € · 75 cl : 23,00 €</div></div>
+                            <div class="drink-price">23,00 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div><div class="drink-name">Vin de table rouge</div><div class="drink-desc">Verre 5,00 € · 1/4 8,00 € · 1/2 13,00 €</div></div>
+                            <div class="drink-price">5,00 €</div>
+                        </div>
+                    </div>
+
+                    <div class="drink-list" id="vins-roses" role="tabpanel">
+                        <div class="drink-item">
+                            <div><div class="drink-name">Côte de Provence <span style="opacity:.7">(rosé)</span></div><div class="drink-desc">37,5 cl : 13,00 € · 75 cl : 25,00 €</div></div>
+                            <div class="drink-price">25,00 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div><div class="drink-name">Chablis <span style="opacity:.7">(blanc)</span></div><div class="drink-desc">37,5 cl : 13,00 € · 75 cl : 26,00 €</div></div>
+                            <div class="drink-price">26,00 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div><div class="drink-name">Lal <span style="opacity:.7">(rosé turc)</span></div><div class="drink-desc">37,5 cl : 11,00 € · 75 cl : 22,00 €</div></div>
+                            <div class="drink-price">22,00 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div><div class="drink-name">Vin de table rosé</div><div class="drink-desc">Verre 5,00 € · 1/4 8,00 € · 1/2 13,00 €</div></div>
+                            <div class="drink-price">5,00 €</div>
+                        </div>
+                    </div>
+
+                    <div class="drink-list" id="bieres" role="tabpanel">
+                        <div class="drink-item">
+                            <div><div class="drink-name">Efes</div><div class="drink-desc">Bière turque · 33 cl</div></div>
+                            <div class="drink-price">4,00 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div><div class="drink-name">1664</div><div class="drink-desc">33 cl</div></div>
+                            <div class="drink-price">4,00 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div><div class="drink-name">Heineken</div><div class="drink-desc">33 cl</div></div>
+                            <div class="drink-price">4,00 €</div>
+                        </div>
+                    </div>
+
+                    <div class="drink-list" id="digestifs" role="tabpanel">
+                        <div class="drink-item">
+                            <div><div class="drink-name">Armagnac</div><div class="drink-desc">4 cl</div></div>
+                            <div class="drink-price">6,00 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div><div class="drink-name">Cognac</div><div class="drink-desc">4 cl</div></div>
+                            <div class="drink-price">6,00 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div><div class="drink-name">Poire Williams</div><div class="drink-desc">5 cl</div></div>
+                            <div class="drink-price">6,00 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div><div class="drink-name">Get 27</div><div class="drink-desc">4 cl</div></div>
+                            <div class="drink-price">6,00 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div><div class="drink-name">Baileys</div><div class="drink-desc">4 cl</div></div>
+                            <div class="drink-price">6,00 €</div>
                         </div>
                     </div>
 
                     <div class="drink-list" id="sans-alcool" role="tabpanel">
                         <div class="drink-item">
-                            <div>
-                                <div class="drink-name">Ayran</div>
-                                <div class="drink-desc">Yaourt battu, eau, sel · 33 cl</div>
-                            </div>
-                            <div class="drink-price">5 €</div>
+                            <div><div class="drink-name">Coca-Cola / Zéro / Light</div><div class="drink-desc">33 cl</div></div>
+                            <div class="drink-price">4,00 €</div>
                         </div>
                         <div class="drink-item">
-                            <div>
-                                <div class="drink-name">Şalgam</div>
-                                <div class="drink-desc">Jus de carottes noires fermentées</div>
-                            </div>
-                            <div class="drink-price">6 €</div>
+                            <div><div class="drink-name">Fanta / Oasis / Perrier</div><div class="drink-desc">33 cl</div></div>
+                            <div class="drink-price">3,00 €</div>
                         </div>
                         <div class="drink-item">
-                            <div>
-                                <div class="drink-name">Limonata maison</div>
-                                <div class="drink-desc">Citron pressé, menthe fraîche</div>
-                            </div>
-                            <div class="drink-price">6 €</div>
+                            <div><div class="drink-name">Orangina / Schweppes / Ice Tea</div><div class="drink-desc">33 cl</div></div>
+                            <div class="drink-price">3,00 €</div>
                         </div>
                         <div class="drink-item">
-                            <div>
-                                <div class="drink-name">Eau Sırma 75 cl</div>
-                                <div class="drink-desc">Plate ou pétillante</div>
-                            </div>
-                            <div class="drink-price">5 €</div>
+                            <div><div class="drink-name">San Pellegrino / Evian</div><div class="drink-desc">50 cl</div></div>
+                            <div class="drink-price">4,50 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div><div class="drink-name">San Pellegrino / Evian</div><div class="drink-desc">1 L</div></div>
+                            <div class="drink-price">6,00 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div><div class="drink-name">Jus de fruits</div><div class="drink-desc">25 cl · orange, ananas, multivitamine, pomme, abricot</div></div>
+                            <div class="drink-price">4,00 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div><div class="drink-name">Ayran / Şalgam suyu</div><div class="drink-desc">Yaourt battu · jus de navets fermentés</div></div>
+                            <div class="drink-price">3,00 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div><div class="drink-name">Ayran Maison</div><div class="drink-desc">33 cl · battu maison</div></div>
+                            <div class="drink-price">3,50 €</div>
                         </div>
                     </div>
 
-                    <div class="drink-list" id="thes" role="tabpanel">
+                    <div class="drink-list" id="cafes-thes" role="tabpanel">
                         <div class="drink-item">
-                            <div>
-                                <div class="drink-name">Çay</div>
-                                <div class="drink-desc">Thé noir turc servi en verre tulipe</div>
-                            </div>
+                            <div><div class="drink-name">Café expresso</div><div class="drink-desc">Espresso coffee</div></div>
+                            <div class="drink-price">2,00 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div><div class="drink-name">Double expresso</div><div class="drink-desc">Double espresso</div></div>
+                            <div class="drink-price">3,00 €</div>
+                        </div>
+                        <div class="drink-item">
+                            <div><div class="drink-name">Café turc</div><div class="drink-desc">Turkish coffee · servi avec un loukoum</div></div>
                             <div class="drink-price">3,50 €</div>
                         </div>
                         <div class="drink-item">
-                            <div>
-                                <div class="drink-name">Café Turc</div>
-                                <div class="drink-desc">Servi avec un loukoum</div>
-                            </div>
-                            <div class="drink-price">4 €</div>
-                        </div>
-                        <div class="drink-item">
-                            <div>
-                                <div class="drink-name">Salep</div>
-                                <div class="drink-desc">Boisson chaude à la racine d'orchidée, cannelle</div>
-                            </div>
-                            <div class="drink-price">5 €</div>
+                            <div><div class="drink-name">Thé turc · Çay</div><div class="drink-desc">Servi en verre tulipe</div></div>
+                            <div class="drink-price">1,50 €</div>
                         </div>
                     </div>
                 </div>
@@ -229,7 +291,7 @@
             <a href="reservation.html" data-i18n="nav.reservation">Réservation</a>
         </div>
         <p data-i18n="footer.address">14 rue du Faubourg Saint-Denis · 75010 Paris</p>
-        <p data-i18n="footer.contact">01 47 70 20 95 · Ouvert 7j/7 de 11h à minuit</p>
+        <p data-i18n="footer.contact"><a href="tel:+33147702095">01 47 70 20 95</a> · Ouvert 7j/7 de 11h à minuit</p>
         <p class="copyright" data-i18n="footer.copyright">© 2026 Ella · L'Âme du Grill Anatolien</p>
     </footer>
 
