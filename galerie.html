@@ -3,7 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Plongez dans l'atmosphère d'Ella : photographies de notre salle, du mangal et de nos plats traditionnels.">
+    <meta name="description" content="Plongez dans l'atmosphère d'Ella : vidéos et photos de notre salle, du mangal et de nos plats traditionnels turcs.">
+    <link rel="canonical" href="https://dynamic-llama-959391.netlify.app/galerie">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Ella · Galerie — vidéos et photographies">
+    <meta property="og:description" content="L'atmosphère d'Ella en images : la salle, le mangal, les plats traditionnels turcs.">
+    <meta property="og:image" content="https://dynamic-llama-959391.netlify.app/media/posters/ella-7.jpg">
+
     <title>Ella · Galerie</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,17 +23,17 @@
 <body>
 
     <header>
-        <a href="index.html" class="logo" aria-label="Ella">ELLA</a>
+        <a aria-label='Ella' class='logo' href='/'>ELLA</a>
 
         <nav id="primary-nav">
             <ul>
-                <li><a href="index.html" data-i18n="nav.home">Accueil</a></li>
-                <li><a href="menu.html" data-i18n="nav.menu">Menu</a></li>
-                <li><a href="experience.html" data-i18n="nav.experience">Expérience</a></li>
-                <li><a href="boissons.html" data-i18n="nav.drinks">Boissons</a></li>
-                <li><a href="galerie.html" class="active" data-i18n="nav.gallery">Galerie</a></li>
-                <li><a href="histoire.html" data-i18n="nav.history">Histoire</a></li>
-                <li><a href="reservation.html" data-i18n="nav.reservation">Réservation</a></li>
+                <li><a data-i18n='nav.home' href='/'>Accueil</a></li>
+                <li><a data-i18n='nav.menu' href='/menu'>Menu</a></li>
+                <li><a data-i18n='nav.experience' href='/experience'>Expérience</a></li>
+                <li><a data-i18n='nav.drinks' href='/boissons'>Boissons</a></li>
+                <li><a class='active' data-i18n='nav.gallery' href='/galerie'>Galerie</a></li>
+                <li><a data-i18n='nav.history' href='/histoire'>Histoire</a></li>
+                <li><a data-i18n='nav.reservation' href='/reservation'>Réservation</a></li>
             </ul>
         </nav>
 
@@ -49,7 +57,61 @@
                 <p data-i18n="gallery.intro">Quelques fragments de notre univers : la chaleur du feu, la douceur des lumières et la générosité des assiettes.</p>
             </div>
 
-            <div class="gallery-grid reveal reveal-delay-1">
+            <!-- BLOC VIDÉO — onglets -->
+            <div class="gallery-tabs reveal" role="tablist" aria-label="Filtre médias">
+                <button type="button" class="gtab-btn active" data-tab="all" role="tab" aria-selected="true">Tout</button>
+                <button type="button" class="gtab-btn" data-tab="videos" role="tab" aria-selected="false">Vidéos</button>
+                <button type="button" class="gtab-btn" data-tab="photos" role="tab" aria-selected="false">Photos</button>
+            </div>
+
+            <!-- GRILLE VIDÉO DÉDIÉE — autoplay muet boucle -->
+            <div class="video-gallery reveal reveal-delay-1" data-tab-content="videos">
+                <figure class="video-item">
+                    <video autoplay muted loop playsinline preload="none" poster="media/posters/ella-1.jpg">
+                        <source src="media/videos/ella-1.mp4" type="video/mp4">
+                    </video>
+                    <figcaption>Pâte étirée à la main</figcaption>
+                </figure>
+                <figure class="video-item">
+                    <video autoplay muted loop playsinline preload="none" poster="media/posters/ella-2.jpg">
+                        <source src="media/videos/ella-2.mp4" type="video/mp4">
+                    </video>
+                    <figcaption>Façonnage du pide</figcaption>
+                </figure>
+                <figure class="video-item">
+                    <video autoplay muted loop playsinline preload="none" poster="media/posters/ella-3.jpg">
+                        <source src="media/videos/ella-3.mp4" type="video/mp4">
+                    </video>
+                    <figcaption>Brochettes prêtes au service</figcaption>
+                </figure>
+                <figure class="video-item">
+                    <video autoplay muted loop playsinline preload="none" poster="media/posters/ella-4.jpg">
+                        <source src="media/videos/ella-4.mp4" type="video/mp4">
+                    </video>
+                    <figcaption>Adana kebab haché au couteau</figcaption>
+                </figure>
+                <figure class="video-item video-tall">
+                    <video autoplay muted loop playsinline preload="none" poster="media/posters/ella-5.jpg">
+                        <source src="media/videos/ella-5.mp4" type="video/mp4">
+                    </video>
+                    <figcaption>Au mangal, la flamme prend</figcaption>
+                </figure>
+                <figure class="video-item">
+                    <video autoplay muted loop playsinline preload="none" poster="media/posters/ella-6.jpg">
+                        <source src="media/videos/ella-6.mp4" type="video/mp4">
+                    </video>
+                    <figcaption>Sortie de four</figcaption>
+                </figure>
+                <figure class="video-item">
+                    <video autoplay muted loop playsinline preload="none" poster="media/posters/ella-7.jpg">
+                        <source src="media/videos/ella-7.mp4" type="video/mp4">
+                    </video>
+                    <figcaption>Notre salle, mezze à la table</figcaption>
+                </figure>
+            </div>
+
+            <!-- GALERIE PHOTOS EXISTANTE conservée -->
+            <div class="gallery-grid reveal reveal-delay-2" data-tab-content="photos">
                 <figure class="gallery-item gal-tall">
                     <img src="media/kunefe.png" alt="Künefe — cheveux d'ange, fromage fondant, pistaches" loading="lazy">
                     <figcaption>Künefe</figcaption>
@@ -81,9 +143,9 @@
     <footer>
         <div class="footer-brand">ELLA</div>
         <div class="footer-links">
-            <a href="menu.html" data-i18n="nav.menu">Menu</a>
-            <a href="histoire.html" data-i18n="nav.history">Histoire</a>
-            <a href="reservation.html" data-i18n="nav.reservation">Réservation</a>
+            <a data-i18n='nav.menu' href='/menu'>Menu</a>
+            <a data-i18n='nav.history' href='/histoire'>Histoire</a>
+            <a data-i18n='nav.reservation' href='/reservation'>Réservation</a>
         </div>
         <p data-i18n="footer.address">14 rue du Faubourg Saint-Denis · 75010 Paris</p>
         <p data-i18n="footer.contact">01 47 70 20 95 · Ouvert 7j/7 de 11h à minuit</p>
@@ -92,5 +154,31 @@
 
     <script src="i18n.js"></script>
     <script src="script.js"></script>
+    <script>
+    // Filtre Tout / Vidéos / Photos sur la page galerie
+    (function(){
+      const tabs = document.querySelectorAll('.gtab-btn');
+      const videoBlock = document.querySelector('[data-tab-content="videos"]');
+      const photoBlock = document.querySelector('[data-tab-content="photos"]');
+      function show(tab){
+        tabs.forEach(b => {
+          const active = b.dataset.tab === tab;
+          b.classList.toggle('active', active);
+          b.setAttribute('aria-selected', active);
+        });
+        if (tab === 'videos') {
+          videoBlock.style.display = '';
+          photoBlock.style.display = 'none';
+        } else if (tab === 'photos') {
+          videoBlock.style.display = 'none';
+          photoBlock.style.display = '';
+        } else {
+          videoBlock.style.display = '';
+          photoBlock.style.display = '';
+        }
+      }
+      tabs.forEach(b => b.addEventListener('click', () => show(b.dataset.tab)));
+    })();
+    </script>
 </body>
 </html>

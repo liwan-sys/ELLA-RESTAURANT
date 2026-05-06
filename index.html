@@ -4,28 +4,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Ella — L'Âme du Grill Anatolien. Cuisine traditionnelle, charbon de bois et hospitalité turque au cœur de Paris.">
-    <title>Ella · L'Âme du Grill Anatolien</title>
+    <meta name="theme-color" content="#0E0C0A">
+    <link rel="canonical" href="https://dynamic-llama-959391.netlify.app/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="restaurant.restaurant">
+    <meta property="og:url" content="https://dynamic-llama-959391.netlify.app/">
+    <meta property="og:title" content="Ella · L'Âme du Grill Anatolien">
+    <meta property="og:description" content="Cuisine traditionnelle turque, charbon de bois et hospitalité au cœur du 10ème à Paris.">
+    <meta property="og:image" content="https://dynamic-llama-959391.netlify.app/media/posters/ella-5.jpg">
+    <meta property="og:locale" content="fr_FR">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ella · L'Âme du Grill Anatolien">
+    <meta name="twitter:description" content="Cuisine traditionnelle turque, charbon de bois et hospitalité au cœur du 10ème à Paris.">
+    <meta name="twitter:image" content="https://dynamic-llama-959391.netlify.app/media/posters/ella-5.jpg">
+
+    <title>Ella · L'Âme du Grill Anatolien · Restaurant turc Paris 10ème</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,30..100;1,9..144,300..700,30..100&family=Manrope:wght@300..700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
+
+    <!-- Schema.org Restaurant -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "Ella",
+      "description": "Restaurant turc à Paris 10ème — cuisine anatolienne, grill au charbon de bois, kebab, lahmacun, künefe.",
+      "image": "https://dynamic-llama-959391.netlify.app/media/posters/ella-5.jpg",
+      "url": "https://dynamic-llama-959391.netlify.app/",
+      "telephone": "+33147702095",
+      "servesCuisine": ["Turque", "Anatolienne", "Méditerranéenne"],
+      "priceRange": "€€",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "14 rue du Faubourg Saint-Denis",
+        "addressLocality": "Paris",
+        "postalCode": "75010",
+        "addressCountry": "FR"
+      },
+      "openingHoursSpecification": [{
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+        "opens": "11:00",
+        "closes": "00:00"
+      }],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.4",
+        "reviewCount": "1500"
+      }
+    }
+    </script>
 </head>
 <body>
 
     <header>
-        <a href="index.html" class="logo" aria-label="Ella">ELLA</a>
+        <a aria-label='Ella' class='logo' href='/'>ELLA</a>
 
         <nav id="primary-nav">
             <ul>
-                <li><a href="index.html" class="active" data-i18n="nav.home">Accueil</a></li>
-                <li><a href="menu.html" data-i18n="nav.menu">Menu</a></li>
-                <li><a href="experience.html" data-i18n="nav.experience">Expérience</a></li>
-                <li><a href="boissons.html" data-i18n="nav.drinks">Boissons</a></li>
-                <li><a href="galerie.html" data-i18n="nav.gallery">Galerie</a></li>
-                <li><a href="histoire.html" data-i18n="nav.history">Histoire</a></li>
-                <li><a href="reservation.html" data-i18n="nav.reservation">Réservation</a></li>
+                <li><a class='active' data-i18n='nav.home' href='/'>Accueil</a></li>
+                <li><a data-i18n='nav.menu' href='/menu'>Menu</a></li>
+                <li><a data-i18n='nav.experience' href='/experience'>Expérience</a></li>
+                <li><a data-i18n='nav.drinks' href='/boissons'>Boissons</a></li>
+                <li><a data-i18n='nav.gallery' href='/galerie'>Galerie</a></li>
+                <li><a data-i18n='nav.history' href='/histoire'>Histoire</a></li>
+                <li><a data-i18n='nav.reservation' href='/reservation'>Réservation</a></li>
             </ul>
         </nav>
 
@@ -42,35 +92,80 @@
     </header>
 
     <main>
-        <section class="hero" aria-labelledby="hero-title">
+        <section class="hero hero-video" aria-labelledby="hero-title">
+            <!-- Vidéo de fond du hero. Autoplay muet, en boucle, sans contrôle -->
+            <video class="hero-bg-video" autoplay muted loop playsinline preload="metadata"
+                   poster="media/posters/ella-5.jpg" aria-hidden="true">
+                <source src="media/videos/ella-5.mp4" type="video/mp4">
+            </video>
+
             <span class="hero-eyebrow" data-i18n="hero.eyebrow">Restaurant turc · 10ème Paris</span>
             <h1 id="hero-title"><span data-i18n="hero.title.l1">L'Âme</span><br><span data-i18n="hero.title.l2">du Grill</span><br><span data-i18n="hero.title.l3">Anatolien</span></h1>
             <p class="subtitle" data-i18n="hero.subtitle">Héritage. Saveurs. Générosité.</p>
             <div class="btn-container">
-                <a href="reservation.html" class="btn btn-primary" data-i18n="hero.cta.book">Réserver une table</a>
-                <a href="menu.html" class="btn" data-i18n="hero.cta.menu">Voir le menu</a>
+                <a class='btn btn-primary' data-i18n='hero.cta.book' href='/reservation'>Réserver une table</a>
+                <a class='btn' data-i18n='hero.cta.menu' href='/menu'>Voir le menu</a>
             </div>
             <span class="scroll-indicator" aria-hidden="true" data-i18n="hero.scroll">Découvrir</span>
         </section>
 
         <section class="features" aria-label="Notre univers">
-            <a href="experience.html" class="feature-card reveal">
-                <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy">
+            <a class='feature-card reveal' href='/experience'>
+                <img src="media/posters/ella-7.jpg" alt="Salle d'Ella avec mezze à la table, pierres apparentes" loading="lazy" width="800" height="1422">
                 <h3 data-i18n="feature.1.title">Un lieu<br>chargé d'histoire</h3>
                 <span class="feature-arrow" data-i18n="feature.1.arrow">Découvrir →</span>
             </a>
 
-            <a href="menu.html" class="feature-card reveal reveal-delay-1">
-                <img src="https://images.unsplash.com/photo-1544025162-81111420d4d8?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy">
+            <a class='feature-card reveal reveal-delay-1' href='/menu'>
+                <img src="media/posters/ella-4.jpg" alt="Adana kebab haché au couteau dressé sur planche" loading="lazy" width="800" height="1422">
                 <h3 data-i18n="feature.2.title">Des saveurs<br>authentiques</h3>
                 <span class="feature-arrow" data-i18n="feature.2.arrow">Voir le menu →</span>
             </a>
 
-            <a href="reservation.html" class="feature-card reveal reveal-delay-2">
-                <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy">
+            <a class='feature-card reveal reveal-delay-2' href='/reservation'>
+                <img src="media/posters/ella-1.jpg" alt="Pâte étalée à la main sur planche farinée" loading="lazy" width="800" height="1422">
                 <h3 data-i18n="feature.3.title">Une expérience<br>intemporelle</h3>
                 <span class="feature-arrow" data-i18n="feature.3.arrow">Réserver →</span>
             </a>
+        </section>
+
+        <!-- NOUVELLE SECTION : MOSAÏQUE VIDÉO STYLE INSTAGRAM -->
+        <section class="video-mosaic" aria-labelledby="mosaic-title">
+            <div class="mosaic-header reveal">
+                <span class="eyebrow" data-i18n="mosaic.eyebrow">Dans nos cuisines</span>
+                <h2 id="mosaic-title" data-i18n="mosaic.title">Le geste, la flamme,<br><em>la générosité.</em></h2>
+                <p data-i18n="mosaic.intro">Quelques instants captés derrière la passe — la pâte étirée à la main, les brochettes au charbon, la salle à votre arrivée.</p>
+            </div>
+
+            <div class="mosaic-grid reveal reveal-delay-1">
+                <figure class="mosaic-item">
+                    <video autoplay muted loop playsinline preload="none" poster="media/posters/ella-1.jpg" aria-label="Pâte étalée à la main">
+                        <source src="media/videos/ella-1.mp4" type="video/mp4">
+                    </video>
+                </figure>
+                <figure class="mosaic-item">
+                    <video autoplay muted loop playsinline preload="none" poster="media/posters/ella-2.jpg" aria-label="Façonnage de la pâte">
+                        <source src="media/videos/ella-2.mp4" type="video/mp4">
+                    </video>
+                </figure>
+                <figure class="mosaic-item mosaic-tall">
+                    <video autoplay muted loop playsinline preload="none" poster="media/posters/ella-5.jpg" aria-label="Flambage au mangal">
+                        <source src="media/videos/ella-5.mp4" type="video/mp4">
+                    </video>
+                </figure>
+                <figure class="mosaic-item">
+                    <video autoplay muted loop playsinline preload="none" poster="media/posters/ella-3.jpg" aria-label="Brochettes prêtes à servir">
+                        <source src="media/videos/ella-3.mp4" type="video/mp4">
+                    </video>
+                </figure>
+                <figure class="mosaic-item">
+                    <video autoplay muted loop playsinline preload="none" poster="media/posters/ella-4.jpg" aria-label="Adana kebab dressé">
+                        <source src="media/videos/ella-4.mp4" type="video/mp4">
+                    </video>
+                </figure>
+            </div>
+
+            <a class='btn mosaic-cta' href='/galerie' data-i18n="mosaic.cta">Voir toute la galerie →</a>
         </section>
 
         <section class="reviews" aria-labelledby="reviews-title">
@@ -110,9 +205,9 @@
     <footer>
         <div class="footer-brand">ELLA</div>
         <div class="footer-links">
-            <a href="menu.html" data-i18n="nav.menu">Menu</a>
-            <a href="histoire.html" data-i18n="nav.history">Histoire</a>
-            <a href="reservation.html" data-i18n="nav.reservation">Réservation</a>
+            <a data-i18n='nav.menu' href='/menu'>Menu</a>
+            <a data-i18n='nav.history' href='/histoire'>Histoire</a>
+            <a data-i18n='nav.reservation' href='/reservation'>Réservation</a>
         </div>
         <p data-i18n="footer.address">14 rue du Faubourg Saint-Denis · 75010 Paris</p>
         <p data-i18n="footer.contact">01 47 70 20 95 · Ouvert 7j/7 de 11h à minuit</p>
