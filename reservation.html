@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Réservez votre table au restaurant Ella, l'âme du grill anatolien à Paris.">
+    <meta name="theme-color" content="#F1E5C8">
     <title>Ella · Réservation</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,30..100;1,9..144,300..700,30..100&family=Manrope:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..700,30..100;1,9..144,400..700,30..100&family=Pinyon+Script&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -48,6 +49,7 @@
                 <div class="reservation-content reveal">
                     <span class="eyebrow" data-i18n="res.eyebrow">Réserver</span>
                     <h2 data-i18n="res.title">Réserver une table</h2>
+                    <span class="script-sub">Book a Table</span>
                     <p data-i18n="res.intro">Pour partager un moment chez Ella, indiquez-nous votre préférence. Nous confirmerons votre réservation par e-mail ou téléphone dans les plus brefs délais.</p>
 
                     <form class="reservation-form" id="reservation-form" novalidate>
@@ -71,13 +73,13 @@
                                 <label for="convives" data-i18n="res.f.guests">Nombre de convives</label>
                                 <select id="convives" name="convives" required>
                                     <option value="" data-i18n="res.f.guests.placeholder">— Choisir —</option>
-                                    <option value="1" data-i18n="res.f.guest.1">1 personne</option>
-                                    <option value="2" data-i18n="res.f.guest.2">2 personnes</option>
-                                    <option value="3" data-i18n="res.f.guest.3">3 personnes</option>
-                                    <option value="4" data-i18n="res.f.guest.4">4 personnes</option>
-                                    <option value="5" data-i18n="res.f.guest.5">5 personnes</option>
-                                    <option value="6" data-i18n="res.f.guest.6">6 personnes</option>
-                                    <option value="7+" data-i18n="res.f.guest.7">7 personnes ou plus</option>
+                                    <option value="1">1 personne</option>
+                                    <option value="2">2 personnes</option>
+                                    <option value="3">3 personnes</option>
+                                    <option value="4">4 personnes</option>
+                                    <option value="5">5 personnes</option>
+                                    <option value="6">6 personnes</option>
+                                    <option value="7+">7 personnes ou plus</option>
                                 </select>
                             </div>
                         </div>
@@ -95,7 +97,7 @@
 
                         <div class="form-group">
                             <label for="message" data-i18n="res.f.message">Demande spéciale (facultatif)</label>
-                            <textarea id="message" name="message" placeholder="Allergies, anniversaire, place près de la cheminée…" data-i18n-attr="placeholder:res.f.message.placeholder"></textarea>
+                            <textarea id="message" name="message" placeholder="Allergies, anniversaire, place près de la cheminée…"></textarea>
                         </div>
 
                         <button type="submit" class="btn btn-primary" data-i18n="res.f.submit">Envoyer ma demande</button>
@@ -125,7 +127,7 @@
 
                     <div class="info-block">
                         <h3 data-i18n="res.info.direct">Réservation directe</h3>
-                        <p><a href="https://www.thefork.fr/restaurant/ella-r206567" target="_blank" rel="noopener" data-i18n="res.info.direct.link">Réserver via TheFork</a></p>
+                        <p><a href="https://www.thefork.fr/restaurant/ella-r206567" target="_blank" rel="noopener">Réserver via TheFork</a></p>
                     </div>
                 </aside>
 
@@ -135,6 +137,7 @@
                 <div class="map-header">
                     <span class="eyebrow" data-i18n="res.map.eyebrow">Nous trouver</span>
                     <h3 data-i18n="res.map.title">À deux pas de la Porte Saint-Denis</h3>
+                    <span class="script-sub">Find Us</span>
                     <p data-i18n="res.map.intro">Métro : Strasbourg–Saint-Denis (lignes 4, 8, 9) · Château d'Eau (ligne 4)</p>
                 </div>
                 <div class="map-frame">
@@ -157,13 +160,14 @@
 
     <footer>
         <div class="footer-brand">ELLA</div>
+        <div class="footer-tagline">L'Âme du Grill Anatolien</div>
         <div class="footer-links">
             <a href="menu.html" data-i18n="nav.menu">Menu</a>
             <a href="histoire.html" data-i18n="nav.history">Histoire</a>
             <a href="reservation.html" data-i18n="nav.reservation">Réservation</a>
         </div>
         <p data-i18n="footer.address">14 rue du Faubourg Saint-Denis · 75010 Paris</p>
-        <p data-i18n="footer.contact">01 47 70 20 95 · Ouvert 7j/7 de 11h à minuit</p>
+        <p data-i18n="footer.contact"><a href="tel:+33147702095">01 47 70 20 95</a> · Ouvert 7j/7 de 11h à minuit</p>
         <p class="copyright" data-i18n="footer.copyright">© 2026 Ella · L'Âme du Grill Anatolien</p>
     </footer>
 
