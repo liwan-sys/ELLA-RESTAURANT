@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ella · QR Codes Tables</title>
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: #f5f3ee; padding: 2rem; color: #1C1A17;
+        }
+        .controls {
+            max-width: 900px; margin: 0 auto 2rem; padding: 1.5rem;
+            background: white; border: 1px solid #ddd; border-radius: 4px;
+        }
+        .controls h1 {
+            font-family: 'Fraunces', serif; font-weight: 500;
+            font-size: 1.6rem; margin-bottom: 1rem;
+        }
+        .controls label { display: inline-block; margin-bottom: 0.5rem; font-weight: 500; margin-right: 1rem; }
+        .controls input { padding: 0.5rem; font-size: 1rem; width: 100px; margin-right: 1rem; border: 1px solid #ccc; }
+        .controls button {
+            padding: 0.6rem 1.2rem; cursor: pointer;
+            background: #1C1A17; color: white; border: none;
+            font-size: 0.95rem; font-family: inherit; font-weight: 500;
+            margin-right: 0.5rem;
+        }
+        .controls button:hover { background: #C75D2C; }
+        .controls .hint { font-size: 0.85rem; color: #666; margin-top: 0.8rem; }
+
+        .qr-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .qr-card {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 2rem;
+            text-align: center;
+            page-break-inside: avoid;
+        }
+        .qr-card .brand {
+            font-family: 'Fraunces', serif;
+            font-size: 1.8rem; font-weight: 500;
+            margin-bottom: 0.3rem;
+            letter-spacing: 0.02em;
+        }
+        .qr-card .tagline {
+            font-size: 0.85rem; color: #666;
+            margin-bottom: 1.5rem;
+            font-style: italic; font-family: 'Fraunces', serif;
+        }
+        .qr-card canvas {
+            margin: 0 auto; display: block;
+        }
+        .qr-card .table-num {
+            margin-top: 1rem;
+            font-family: 'Fraunces', serif;
+            font-size: 1.4rem; font-weight: 500;
+        }
+        .qr-card .instr {
+            margin-top: 0.5rem;
+            font-size: 0.8rem; color: #666; line-height: 1.4;
+        }
+
+        @media print {
+            body { padding: 0; background: white; }
+            .controls { display: none; }
+            .qr-grid { gap: 1rem; }
+            .qr-card { border: 1px dashed #999; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="controls">
+        <h1>Générer les QR codes des tables</h1>
+        <label>Nombre de tables :
+            <input type="number" id="num-tables" value="6" min="1" max="50">
+        </label>
+        <button type="button" id="generate">Générer</button>
+        <button type="button" onclick="window.print()">🖨 Imprimer</button>
+        <p class="hint">Les QR codes pointent vers <strong id="base-url"></strong>.<br>Imprime cette page (Cmd+P), découpe et plastifie chaque QR, colle sur les tables correspondantes.</p>
+    </div>
+
+    <div class="qr-grid" id="qr-grid"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script>
+        const baseUrl = window.location.origin;
+        document.getElementById('base-url').textContent = `${baseUrl}/commander.html?table=N`;
+
+        function generate() {
+            const n = parseInt(document.getElementById('num-tables').value, 10) || 6;
+            const grid = document.getElementById('qr-grid');
+            grid.innerHTML = '';
+
+            for (let i = 1; i <= n; i++) {
+                const card = document.createElement('div');
+                card.className = 'qr-card';
+                card.innerHTML = `
+                    <div class="brand">ELLA</div>
+                    <div class="tagline">Commandez depuis votre table</div>
+                    <canvas></canvas>
+                    <div class="table-num">Table ${i}</div>
+                    <div class="instr">Scannez ce code · Composez votre commande<br>Paiement à la caisse en partant</div>
+                `;
+                grid.appendChild(card);
+                QRCode.toCanvas(
+                    card.querySelector('canvas'),
+                    `${baseUrl}/commander.html?table=${i}`,
+                    { width: 220, margin: 1, color: { dark: '#1C1A17', light: '#ffffff' } },
+                    (err) => { if (err) console.error(err); }
+                );
+            }
+        }
+
+        document.getElementById('generate').addEventListener('click', generate);
+        generate();
+    </script>
+</body>
+</html>

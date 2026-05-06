@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Ella · Cuisine — Commandes table</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Manrope:wght@400..700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --night: #0E0C0A;
+            --charcoal: #1C1A17;
+            --charcoal-soft: #14110D;
+            --ember-orange: #C75D2C;
+            --ember-glow: #E89B40;
+            --gold: #D4A661;
+            --cream: #EFE4D2;
+            --stone-beige: #CBB594;
+            --stone-muted: rgba(203, 181, 148, 0.6);
+            --green: #5B9B6E;
+            --red: #C85A5A;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--charcoal);
+            color: var(--cream);
+            font-family: 'Manrope', sans-serif;
+            min-height: 100vh; padding: 1rem;
+        }
+        header.bar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 1.5rem; margin-bottom: 1.5rem;
+            background: var(--night);
+            border-bottom: 1px solid rgba(212,166,97,0.3);
+        }
+        h1 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 1.6rem; color: var(--cream); }
+        .controls { display: flex; gap: 1rem; align-items: center; color: var(--stone-beige); font-size: 0.95rem; }
+        .sound-btn {
+            background: transparent; border: 1px solid rgba(212,166,97,0.3);
+            color: var(--cream); width: 42px; height: 42px;
+            cursor: pointer; font-size: 1.1rem; border-radius: 4px;
+        }
+        .sound-btn:hover { background: rgba(212,166,97,0.1); }
+
+        .filters { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+        .filter-btn {
+            padding: 0.5rem 1rem; border: 1px solid rgba(212,166,97,0.3);
+            background: transparent; color: var(--stone-beige);
+            cursor: pointer; font-family: inherit; font-size: 0.85rem; font-weight: 500;
+        }
+        .filter-btn.active { background: var(--gold); color: var(--charcoal); border-color: var(--gold); }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1rem;
+        }
+        .card {
+            background: var(--charcoal-soft);
+            border: 2px solid rgba(212,166,97,0.3);
+            padding: 1.2rem;
+            position: relative;
+        }
+        .card.nouvelle {
+            border-color: var(--ember-orange);
+            box-shadow: 0 0 0 1px var(--ember-orange);
+            animation: pulse 1.5s infinite;
+        }
+        .card.en-cours { border-color: var(--gold); opacity: 0.95; }
+        .card.servie { opacity: 0.5; border-color: var(--green); }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(199,93,44,0.5); }
+            50% { box-shadow: 0 0 0 8px rgba(199,93,44,0); }
+        }
+        .card-head {
+            display: flex; justify-content: space-between; align-items: baseline;
+            border-bottom: 1px solid rgba(212,166,97,0.2);
+            padding-bottom: 0.7rem; margin-bottom: 0.8rem;
+        }
+        .table-num {
+            font-family: 'Fraunces', serif;
+            font-size: 1.6rem; font-weight: 600;
+            color: var(--cream);
+        }
+        .time {
+            color: var(--stone-muted);
+            font-size: 0.9rem;
+        }
+        .time.alert { color: var(--red); font-weight: 600; }
+        .items { list-style: none; margin: 0 0 0.8rem; padding: 0; }
+        .items li {
+            color: var(--cream);
+            padding: 0.4rem 0;
+            border-bottom: 1px dashed rgba(203,181,148,0.1);
+            font-size: 1rem;
+        }
+        .items li:last-child { border: none; }
+        .items .qty {
+            color: var(--ember-glow);
+            font-weight: 700; margin-right: 0.4rem;
+            font-size: 1.05rem;
+        }
+        .note {
+            background: rgba(232,155,64,0.1);
+            border-left: 3px solid var(--ember-glow);
+            padding: 0.6rem 0.8rem; margin-bottom: 0.8rem;
+            font-size: 0.9rem; line-height: 1.4;
+        }
+        .foot {
+            display: flex; justify-content: space-between; align-items: center;
+            gap: 0.5rem; flex-wrap: wrap;
+        }
+        .total {
+            font-family: 'Fraunces', serif; font-style: italic;
+            font-size: 1.3rem; color: var(--ember-glow); font-weight: 500;
+        }
+        .actions { display: flex; gap: 0.4rem; }
+        .btn {
+            padding: 0.5rem 0.9rem; border: none;
+            cursor: pointer; font-family: inherit;
+            font-weight: 600; font-size: 0.85rem;
+        }
+        .btn-cooking { background: var(--gold); color: var(--charcoal); }
+        .btn-cooking:hover { background: var(--ember-glow); }
+        .btn-done { background: var(--ember-orange); color: var(--cream); }
+        .btn-done:hover { background: #a84d23; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .empty {
+            grid-column: 1 / -1;
+            text-align: center; padding: 4rem 2rem;
+            color: var(--stone-muted); font-style: italic;
+            font-family: 'Fraunces', serif; font-size: 1.1rem;
+        }
+
+        /* Login overlay */
+        .login-overlay {
+            position: fixed; inset: 0; background: var(--night);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 100;
+        }
+        .login-box {
+            background: var(--charcoal-soft); padding: 2.5rem;
+            border: 1px solid rgba(212,166,97,0.3);
+            width: 100%; max-width: 360px;
+            text-align: center;
+        }
+        .login-box h2 {
+            font-family: 'Fraunces', serif; font-size: 1.8rem;
+            color: var(--cream); margin-bottom: 1.5rem;
+        }
+        .login-box p { color: var(--stone-beige); margin-bottom: 1rem; }
+        .login-box input {
+            width: 100%; padding: 0.9rem;
+            background: transparent;
+            border: 1px solid rgba(212,166,97,0.3);
+            color: var(--cream); font-size: 1rem;
+            text-align: center; letter-spacing: 0.2em;
+            margin-bottom: 1rem; font-family: inherit;
+        }
+        .login-box input:focus { outline: none; border-color: var(--ember-glow); }
+        .login-box button {
+            width: 100%; padding: 0.9rem;
+            background: var(--ember-orange); color: var(--cream);
+            border: none; font-size: 1rem; cursor: pointer;
+            font-family: inherit; font-weight: 600;
+        }
+        .login-box .err {
+            color: var(--ember-orange); margin-top: 0.8rem;
+            font-size: 0.9rem; display: none;
+        }
+        .login-box .err.show { display: block; }
+    </style>
+</head>
+<body>
+
+    <!-- Login overlay -->
+    <div class="login-overlay" id="login-overlay">
+        <div class="login-box">
+            <h2>Cuisine — Commandes</h2>
+            <p>Mot de passe :</p>
+            <input type="password" id="pwd" autocomplete="off" autofocus>
+            <button type="button" id="login-btn">Entrer</button>
+            <p class="err" id="err">Mot de passe incorrect.</p>
+        </div>
+    </div>
+
+    <header class="bar">
+        <h1>Commandes table — Temps réel</h1>
+        <div class="controls">
+            <span id="count">0</span>
+            <button type="button" class="sound-btn" id="sound-btn" aria-label="Son">🔔</button>
+        </div>
+    </header>
+
+    <div class="filters">
+        <button type="button" class="filter-btn active" data-filter="active">En cours</button>
+        <button type="button" class="filter-btn" data-filter="all">Toutes (incluant servies)</button>
+    </div>
+
+    <main class="grid" id="grid">
+        <p class="empty">Aucune commande pour le moment.</p>
+    </main>
+
+    <script src="firebase-config.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+        import { getFirestore, collection, query, orderBy, onSnapshot, doc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+
+        // Auth simple
+        const PASSWORD = "ella2026";
+        const overlay = document.getElementById('login-overlay');
+        if (sessionStorage.getItem('cuisine-cmd-auth') === 'ok') overlay.style.display = 'none';
+
+        function tryLogin() {
+            const v = document.getElementById('pwd').value;
+            if (v === PASSWORD) {
+                sessionStorage.setItem('cuisine-cmd-auth', 'ok');
+                overlay.style.display = 'none';
+            } else {
+                document.getElementById('err').classList.add('show');
+                document.getElementById('pwd').value = '';
+            }
+        }
+        document.getElementById('login-btn').addEventListener('click', tryLogin);
+        document.getElementById('pwd').addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
+
+        // Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const grid = document.getElementById('grid');
+        const countBadge = document.getElementById('count');
+
+        let allOrders = [];
+        let filter = 'active';
+        let soundOn = true;
+        let knownIds = new Set();
+        let firstLoad = true;
+
+        document.getElementById('sound-btn').addEventListener('click', (e) => {
+            soundOn = !soundOn;
+            e.currentTarget.textContent = soundOn ? '🔔' : '🔕';
+        });
+
+        document.querySelectorAll('.filter-btn').forEach(b => {
+            b.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(x => x.classList.remove('active'));
+                b.classList.add('active');
+                filter = b.dataset.filter;
+                render();
+            });
+        });
+
+        const q = query(collection(db, 'commandes'), orderBy('createdAt', 'desc'));
+        onSnapshot(q, (snap) => {
+            allOrders = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+            if (!firstLoad) {
+                snap.docChanges().forEach((c) => {
+                    if (c.type === 'added' && c.doc.data().status === 'nouvelle' && !knownIds.has(c.doc.id)) {
+                        playBeep();
+                    }
+                });
+            }
+            knownIds = new Set(allOrders.map(o => o.id));
+            firstLoad = false;
+            render();
+        }, (err) => {
+            console.error(err);
+            grid.innerHTML = `<p class="empty">Erreur : ${err.message}</p>`;
+        });
+
+        function render() {
+            const visible = allOrders.filter(o => filter === 'all' || o.status !== 'servie');
+            countBadge.textContent = visible.length === 0
+                ? 'Aucune commande active'
+                : `${visible.length} commande${visible.length > 1 ? 's' : ''}`;
+
+            if (visible.length === 0) {
+                grid.innerHTML = '<p class="empty">Aucune commande pour le moment.</p>';
+                return;
+            }
+
+            // Sort: nouvelle first, then en-cours, then servie. Within same status, oldest first.
+            const order = { nouvelle: 0, 'en-cours': 1, servie: 2 };
+            visible.sort((a, b) => {
+                const so = (order[a.status] ?? 9) - (order[b.status] ?? 9);
+                if (so !== 0) return so;
+                return (a.createdAt?.toMillis?.() || 0) - (b.createdAt?.toMillis?.() || 0);
+            });
+
+            grid.innerHTML = visible.map(o => renderCard(o)).join('');
+            attachActions();
+        }
+
+        function renderCard(o) {
+            const ts = o.createdAt?.toMillis?.() || Date.now();
+            const min = Math.floor((Date.now() - ts) / 60000);
+            const timeText = min < 1 ? "à l'instant" : `il y a ${min} min`;
+            const alert = min >= 15 ? 'alert' : '';
+            return `
+                <article class="card ${o.status}">
+                    <div class="card-head">
+                        <span class="table-num">Table ${o.table}</span>
+                        <span class="time ${alert}">${timeText}</span>
+                    </div>
+                    <ul class="items">
+                        ${o.items.map(it => `<li><span class="qty">${it.qty}×</span>${it.name}</li>`).join('')}
+                    </ul>
+                    ${o.note ? `<p class="note">📝 ${esc(o.note)}</p>` : ''}
+                    <div class="foot">
+                        <span class="total">${o.total.toFixed(2).replace('.', ',')} €</span>
+                        <div class="actions">
+                            ${o.status === 'nouvelle'
+                                ? `<button type="button" class="btn btn-cooking" data-id="${o.id}" data-status="en-cours">En préparation</button>` : ''}
+                            ${o.status !== 'servie'
+                                ? `<button type="button" class="btn btn-done" data-id="${o.id}" data-status="servie">Servie ✓</button>` : ''}
+                        </div>
+                    </div>
+                </article>
+            `;
+        }
+
+        function attachActions() {
+            document.querySelectorAll('.btn[data-id]').forEach(b => {
+                b.addEventListener('click', async () => {
+                    b.disabled = true;
+                    try {
+                        await updateDoc(doc(db, 'commandes', b.dataset.id), {
+                            status: b.dataset.status,
+                            updatedAt: serverTimestamp()
+                        });
+                    } catch (err) {
+                        alert('Erreur : ' + err.message);
+                        b.disabled = false;
+                    }
+                });
+            });
+        }
+
+        // Auto-refresh times
+        setInterval(render, 30000);
+
+        function playBeep() {
+            if (!soundOn) return;
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.value = 880;
+                gain.gain.value = 0.3;
+                osc.connect(gain).connect(ctx.destination);
+                osc.start();
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6);
+                osc.stop(ctx.currentTime + 0.6);
+            } catch (e) {}
+        }
+
+        function esc(s) {
+            const d = document.createElement('div');
+            d.textContent = s;
+            return d.innerHTML;
+        }
+    </script>
+</body>
+</html>
