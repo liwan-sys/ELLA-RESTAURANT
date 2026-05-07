@@ -600,7 +600,7 @@
             const note = document.getElementById('note').value.trim();
 
             try {
-                await addDoc(collection(db, 'commandes'), {
+                await addDoc(collection(db, 'commandes-table'), {
                     table: parseInt(tableNum, 10),
                     items, total, note,
                     status: 'nouvelle',
