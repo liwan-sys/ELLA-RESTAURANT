@@ -137,6 +137,62 @@
             font-family: 'Fraunces', serif; font-size: 1.1rem;
         }
 
+        /* Panneau total des plats */
+        .totals-panel {
+            background: var(--charcoal-soft);
+            border: 1px solid rgba(212,166,97,0.25);
+            margin-bottom: 1.5rem;
+        }
+        .totals-head {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0.85rem 1.2rem;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(212,166,97,0.15);
+            user-select: none;
+        }
+        .totals-head:hover { background: rgba(212,166,97,0.05); }
+        .totals-head .title {
+            font-family: 'Fraunces', serif; font-weight: 500;
+            font-size: 1.1rem; color: var(--cream);
+        }
+        .totals-head .meta {
+            color: var(--stone-beige); font-size: 0.85rem;
+            margin-left: 0.6rem;
+        }
+        .totals-head .toggle {
+            color: var(--ember-glow); font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .totals-body {
+            padding: 1rem 1.2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 0.4rem 1rem;
+        }
+        .totals-panel.collapsed .totals-body { display: none; }
+        .totals-panel.collapsed .totals-head { border-bottom: none; }
+        .totals-row {
+            display: flex; justify-content: space-between; align-items: baseline;
+            padding: 0.4rem 0;
+            border-bottom: 1px dashed rgba(203,181,148,0.1);
+            gap: 0.6rem;
+        }
+        .totals-row .name {
+            color: var(--cream); font-size: 0.95rem;
+            overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        }
+        .totals-row .qty {
+            color: var(--ember-glow); font-weight: 700;
+            font-family: 'Fraunces', serif; font-style: italic;
+            font-size: 1.05rem;
+            flex-shrink: 0;
+        }
+        .totals-empty {
+            grid-column: 1 / -1;
+            color: var(--stone-muted); font-style: italic;
+            text-align: center; padding: 0.8rem;
+        }
+
         /* Login overlay */
         .login-overlay {
             position: fixed; inset: 0; background: var(--night);
@@ -201,6 +257,19 @@
         <button type="button" class="filter-btn active" data-filter="active">En cours</button>
         <button type="button" class="filter-btn" data-filter="all">Toutes (incluant servies)</button>
     </div>
+
+    <section class="totals-panel" id="totals-panel">
+        <div class="totals-head" id="totals-head">
+            <div>
+                <span class="title">Total plats à préparer</span>
+                <span class="meta" id="totals-meta">— aucune commande active</span>
+            </div>
+            <span class="toggle" id="totals-toggle">Masquer ▴</span>
+        </div>
+        <div class="totals-body" id="totals-body">
+            <p class="totals-empty">Pas de plats à préparer.</p>
+        </div>
+    </section>
 
     <main class="grid" id="grid">
         <p class="empty">Aucune commande pour le moment.</p>
@@ -280,6 +349,9 @@
                 ? 'Aucune commande active'
                 : `${visible.length} commande${visible.length > 1 ? 's' : ''}`;
 
+            // Total plats à préparer = nouvelle + en-cours (peu importe le filtre, on veut ce qui reste à sortir)
+            renderTotals();
+
             if (visible.length === 0) {
                 grid.innerHTML = '<p class="empty">Aucune commande pour le moment.</p>';
                 return;
@@ -296,6 +368,47 @@
             grid.innerHTML = visible.map(o => renderCard(o)).join('');
             attachActions();
         }
+
+        function renderTotals() {
+            const active = allOrders.filter(o => o.status === 'nouvelle' || o.status === 'en-cours');
+            const tally = new Map(); // name -> qty
+            active.forEach(o => (o.items || []).forEach(it => {
+                tally.set(it.name, (tally.get(it.name) || 0) + (it.qty || 0));
+            }));
+            const sorted = [...tally.entries()].sort((a, b) => b[1] - a[1]);
+            const totalDishes = sorted.reduce((s, [, q]) => s + q, 0);
+
+            const meta = document.getElementById('totals-meta');
+            const body = document.getElementById('totals-body');
+            if (active.length === 0) {
+                meta.textContent = '— aucune commande active';
+                body.innerHTML = '<p class="totals-empty">Pas de plats à préparer.</p>';
+                return;
+            }
+            meta.textContent = `— ${totalDishes} plat${totalDishes > 1 ? 's' : ''} sur ${active.length} commande${active.length > 1 ? 's' : ''}`;
+            body.innerHTML = sorted.map(([name, qty]) => `
+                <div class="totals-row">
+                    <span class="name">${esc(name)}</span>
+                    <span class="qty">${qty}×</span>
+                </div>
+            `).join('');
+        }
+
+        // Toggle panneau total
+        document.getElementById('totals-head').addEventListener('click', () => {
+            const panel = document.getElementById('totals-panel');
+            const toggle = document.getElementById('totals-toggle');
+            const collapsed = panel.classList.toggle('collapsed');
+            toggle.textContent = collapsed ? 'Afficher ▾' : 'Masquer ▴';
+            try { localStorage.setItem('cuisine-totals-collapsed', collapsed ? '1' : '0'); } catch(e) {}
+        });
+        // Restore état précédent
+        try {
+            if (localStorage.getItem('cuisine-totals-collapsed') === '1') {
+                document.getElementById('totals-panel').classList.add('collapsed');
+                document.getElementById('totals-toggle').textContent = 'Afficher ▾';
+            }
+        } catch(e) {}
 
         function renderCard(o) {
             const ts = o.createdAt?.toMillis?.() || Date.now();
