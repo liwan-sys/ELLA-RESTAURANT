@@ -330,7 +330,7 @@
                 b.addEventListener('click', async () => {
                     b.disabled = true;
                     try {
-                        await updateDoc(doc(db, 'commandes', b.dataset.id), {
+                        await updateDoc(doc(db, 'commandes-table', b.dataset.id), {
                             status: b.dataset.status,
                             updatedAt: serverTimestamp()
                         });
