@@ -137,6 +137,33 @@
             font-family: 'Fraunces', serif; font-size: 1.1rem;
         }
 
+        /* Séparateur de jour */
+        .day-sep {
+            grid-column: 1 / -1;
+            margin: 1.2rem 0 0.4rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 1px solid rgba(212,166,97,0.2);
+            font-family: 'Fraunces', serif;
+            font-weight: 500;
+            font-size: 1.1rem;
+            color: var(--gold);
+            display: flex; justify-content: space-between; align-items: baseline;
+        }
+        .day-sep .day-count {
+            color: var(--stone-muted);
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+        .day-sep:first-child { margin-top: 0; }
+
+        /* Heure sur card */
+        .time-detail {
+            display: block;
+            color: var(--stone-muted);
+            font-size: 0.78rem;
+            margin-top: 0.15rem;
+        }
+
         /* Panneau total des plats */
         .totals-panel {
             background: var(--charcoal-soft);
@@ -357,15 +384,46 @@
                 return;
             }
 
-            // Sort: nouvelle first, then en-cours, then servie. Within same status, oldest first.
+            // Sort: par jour décroissant (aujourd'hui d'abord), puis par status, puis par heure
             const order = { nouvelle: 0, 'en-cours': 1, servie: 2 };
+            const dayKey = (ts) => {
+                const d = new Date(ts);
+                return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+            };
             visible.sort((a, b) => {
+                const ka = dayKey(a.createdAt?.toMillis?.() || 0);
+                const kb = dayKey(b.createdAt?.toMillis?.() || 0);
+                if (ka !== kb) return ka < kb ? 1 : -1; // jour le plus récent d'abord
                 const so = (order[a.status] ?? 9) - (order[b.status] ?? 9);
                 if (so !== 0) return so;
                 return (a.createdAt?.toMillis?.() || 0) - (b.createdAt?.toMillis?.() || 0);
             });
 
-            grid.innerHTML = visible.map(o => renderCard(o)).join('');
+            // Si filtre = 'all', on insère des séparateurs de jour
+            if (filter === 'all') {
+                const groups = new Map(); // dayKey -> orders[]
+                visible.forEach(o => {
+                    const k = dayKey(o.createdAt?.toMillis?.() || 0);
+                    if (!groups.has(k)) groups.set(k, []);
+                    groups.get(k).push(o);
+                });
+                const todayKey = dayKey(Date.now());
+                const yesterdayKey = dayKey(Date.now() - 86400000);
+                const dayLabel = (k) => {
+                    if (k === todayKey) return "Aujourd'hui";
+                    if (k === yesterdayKey) return "Hier";
+                    const [y, m, d] = k.split('-');
+                    return new Date(+y, +m - 1, +d).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+                };
+                let html = '';
+                for (const [k, orders] of groups) {
+                    html += `<div class="day-sep"><span>${dayLabel(k)}</span><span class="day-count">${orders.length} commande${orders.length > 1 ? 's' : ''}</span></div>`;
+                    html += orders.map(o => renderCard(o)).join('');
+                }
+                grid.innerHTML = html;
+            } else {
+                grid.innerHTML = visible.map(o => renderCard(o)).join('');
+            }
             attachActions();
         }
 
@@ -410,17 +468,47 @@
             }
         } catch(e) {}
 
+        // Renvoie un libellé temps adapté à l'âge de la commande
+        function fmtTime(ts) {
+            const now = new Date();
+            const d = new Date(ts);
+            const diffMs = now - d;
+            const min = Math.floor(diffMs / 60000);
+            const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            const cmdDay = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+            const dayDiff = Math.round((today - cmdDay) / 86400000);
+            const hhmm = d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+            const ddmm = d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' });
+
+            // Libellé court principal
+            let short;
+            if (min < 1 && dayDiff === 0) short = "à l'instant";
+            else if (min < 60 && dayDiff === 0) short = `il y a ${min} min`;
+            else if (dayDiff === 0) short = `à ${hhmm}`;
+            else if (dayDiff === 1) short = `Hier ${hhmm}`;
+            else short = `${ddmm} ${hhmm}`;
+
+            return { short, hhmm, ddmm, dayDiff, min };
+        }
+
         function renderCard(o) {
             const ts = o.createdAt?.toMillis?.() || Date.now();
-            const min = Math.floor((Date.now() - ts) / 60000);
-            const timeText = min < 1 ? "à l'instant" : `il y a ${min} min`;
-            const alert = min >= 15 ? 'alert' : '';
+            const t = fmtTime(ts);
+            // Alerte rouge uniquement pour commandes ACTIVES de plus de 15 min
+            const alert = (t.min >= 15 && (o.status === 'nouvelle' || o.status === 'en-cours')) ? 'alert' : '';
             const who = o.firstName ? ` · ${esc(o.firstName)}` : '';
+            // Pour les vieilles commandes (>1h ou autre jour), affiche aussi l'heure brute en sous-ligne
+            const detail = (t.dayDiff > 0 || t.min >= 60)
+                ? `<span class="time-detail">il y a ${t.min} min</span>`
+                : (t.dayDiff === 0 && t.min >= 1 ? `<span class="time-detail">à ${t.hhmm}</span>` : '');
             return `
                 <article class="card ${o.status}">
                     <div class="card-head">
                         <span class="table-num">Table ${o.table}${who}</span>
-                        <span class="time ${alert}">${timeText}</span>
+                        <span class="time ${alert}" style="text-align:right;">
+                            ${t.short}
+                            ${detail}
+                        </span>
                     </div>
                     <ul class="items">
                         ${o.items.map(it => `<li><span class="qty">${it.qty}×</span>${it.name}</li>`).join('')}
