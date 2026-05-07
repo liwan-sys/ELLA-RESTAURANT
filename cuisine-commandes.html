@@ -548,7 +548,11 @@
                         </span>
                     </div>
                     <ul class="items">
-                        ${o.items.map(it => `<li><span class="qty">${it.qty}×</span>${it.name}</li>`).join('')}
+                        ${o.items.map(it => {
+                            const mods = it.mods ? Object.values(it.mods).filter(Boolean).join(' · ') : '';
+                            const modsHtml = mods ? `<div style="color: var(--ember-glow); font-size: 0.85rem; font-style: italic; margin-left: 1.6rem; margin-top: 0.1rem;">→ ${esc(mods)}</div>` : '';
+                            return `<li><span class="qty">${it.qty}×</span>${esc(it.name)}${modsHtml}</li>`;
+                        }).join('')}
                     </ul>
                     ${o.note ? `<p class="note">📝 ${esc(o.note)}</p>` : ''}
                     <div class="foot">

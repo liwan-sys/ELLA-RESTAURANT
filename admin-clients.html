@@ -288,6 +288,26 @@
                 <div class="value" id="s-avg-cart">—</div>
                 <div class="sub">par commande</div>
             </div>
+            <div class="stat-card">
+                <div class="label">Temps moyen de service</div>
+                <div class="value" id="s-avg-time">—</div>
+                <div class="sub" id="s-avg-time-sub">commande → servie</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Heure de pointe</div>
+                <div class="value" id="s-peak-hour">—</div>
+                <div class="sub" id="s-peak-hour-sub"></div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Meilleur jour</div>
+                <div class="value" id="s-best-day">—</div>
+                <div class="sub" id="s-best-day-sub"></div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Cette semaine</div>
+                <div class="value" id="s-this-week">—</div>
+                <div class="sub" id="s-this-week-sub"></div>
+            </div>
         </div>
 
         <h2>Top 5 plats commandés</h2>
@@ -302,6 +322,7 @@
         <div class="toolbar">
             <input type="text" id="client-search" placeholder="Rechercher par prénom ou email…">
             <button type="button" id="export-csv">Export CSV</button>
+            <button type="button" id="export-mailchimp" style="background: var(--gold); color: var(--charcoal);">Export Mailchimp / Brevo</button>
         </div>
         <div class="table-wrap">
             <table>
@@ -421,6 +442,90 @@
             document.getElementById('s-emails').textContent = emails.size;
             document.getElementById('s-emails-sub').textContent = total ? `${Math.round(emails.size / total * 100)}% de captation` : '';
             document.getElementById('s-avg-cart').textContent = total ? fmtEur(avgCart) : '—';
+
+            // === Stats avancées ===
+
+            // Temps moyen de service (commande -> servie) pour les commandes servies avec updatedAt
+            const servedWithDuration = allOrders.filter(o => {
+                return o.status === 'servie'
+                    && o.createdAt?.toMillis?.()
+                    && o.updatedAt?.toMillis?.()
+                    && o.updatedAt.toMillis() > o.createdAt.toMillis();
+            });
+            if (servedWithDuration.length > 0) {
+                const avgMs = servedWithDuration.reduce((s, o) => s + (o.updatedAt.toMillis() - o.createdAt.toMillis()), 0) / servedWithDuration.length;
+                const min = Math.round(avgMs / 60000);
+                document.getElementById('s-avg-time').textContent = min < 60 ? `${min} min` : `${(min/60).toFixed(1)} h`;
+                document.getElementById('s-avg-time-sub').textContent = `sur ${servedWithDuration.length} commande${servedWithDuration.length > 1 ? 's' : ''} servie${servedWithDuration.length > 1 ? 's' : ''}`;
+            } else {
+                document.getElementById('s-avg-time').textContent = '—';
+                document.getElementById('s-avg-time-sub').textContent = 'pas encore de données';
+            }
+
+            // Heure de pointe : compte commandes par heure (0-23)
+            const byHour = new Array(24).fill(0);
+            allOrders.forEach(o => {
+                const ts = o.createdAt?.toMillis?.();
+                if (ts) byHour[new Date(ts).getHours()]++;
+            });
+            const peakHour = byHour.reduce((best, count, h) => count > byHour[best] ? h : best, 0);
+            const peakCount = byHour[peakHour];
+            if (peakCount > 0) {
+                document.getElementById('s-peak-hour').textContent = `${peakHour}h-${(peakHour+1)%24}h`;
+                document.getElementById('s-peak-hour-sub').textContent = `${peakCount} commande${peakCount > 1 ? 's' : ''} à cette heure`;
+            } else {
+                document.getElementById('s-peak-hour').textContent = '—';
+                document.getElementById('s-peak-hour-sub').textContent = '';
+            }
+
+            // Meilleur jour (CA max)
+            const byDay = new Map(); // YYYY-MM-DD -> { total, count }
+            allOrders.forEach(o => {
+                const ts = o.createdAt?.toMillis?.();
+                if (!ts) return;
+                const d = new Date(ts);
+                const k = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+                if (!byDay.has(k)) byDay.set(k, { total: 0, count: 0, label: d });
+                const e = byDay.get(k);
+                e.total += (o.total || 0);
+                e.count++;
+            });
+            if (byDay.size > 0) {
+                const [bestKey, bestEntry] = [...byDay.entries()].sort((a, b) => b[1].total - a[1].total)[0];
+                document.getElementById('s-best-day').textContent = fmtEur(bestEntry.total);
+                document.getElementById('s-best-day-sub').textContent = bestEntry.label.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric', month: 'short' }) + ` · ${bestEntry.count} cmd`;
+            } else {
+                document.getElementById('s-best-day').textContent = '—';
+                document.getElementById('s-best-day-sub').textContent = '';
+            }
+
+            // Cette semaine vs semaine dernière (lundi à dimanche)
+            const now = new Date();
+            const dayOfWeek = (now.getDay() + 6) % 7; // lundi = 0
+            const startOfThisWeek = new Date(now.getFullYear(), now.getMonth(), now.getDate() - dayOfWeek);
+            const startOfLastWeek = new Date(startOfThisWeek.getTime() - 7 * 86400000);
+            let thisWeekTotal = 0, thisWeekCount = 0;
+            let lastWeekTotal = 0, lastWeekCount = 0;
+            allOrders.forEach(o => {
+                const ts = o.createdAt?.toMillis?.();
+                if (!ts) return;
+                if (ts >= startOfThisWeek.getTime()) {
+                    thisWeekTotal += (o.total || 0);
+                    thisWeekCount++;
+                } else if (ts >= startOfLastWeek.getTime()) {
+                    lastWeekTotal += (o.total || 0);
+                    lastWeekCount++;
+                }
+            });
+            document.getElementById('s-this-week').textContent = fmtEur(thisWeekTotal);
+            if (lastWeekTotal > 0) {
+                const delta = ((thisWeekTotal - lastWeekTotal) / lastWeekTotal) * 100;
+                const sign = delta >= 0 ? '+' : '';
+                const color = delta >= 0 ? 'var(--green)' : 'var(--red)';
+                document.getElementById('s-this-week-sub').innerHTML = `${thisWeekCount} cmd · <span style="color: ${color};">${sign}${delta.toFixed(0)}%</span> vs sem. dernière`;
+            } else {
+                document.getElementById('s-this-week-sub').textContent = `${thisWeekCount} commande${thisWeekCount > 1 ? 's' : ''}`;
+            }
 
             // Top dishes
             const dishCount = new Map();
@@ -561,7 +666,7 @@
             renderClients();
         });
 
-        // === Export CSV ===
+        // === Export CSV (complet, tous les clients) ===
         document.getElementById('export-csv').addEventListener('click', () => {
             const clients = buildClients();
             const rows = [
@@ -579,14 +684,61 @@
                 ]);
             });
             const csv = rows.map(r => r.map(v => `"${String(v ?? '').replace(/"/g, '""')}"`).join(',')).join('\n');
+            downloadCsv(csv, `ella-clients-${new Date().toISOString().slice(0, 10)}.csv`);
+        });
+
+        // === Export Mailchimp / Brevo (clients avec email uniquement) ===
+        document.getElementById('export-mailchimp').addEventListener('click', () => {
+            // Calcule le plat préféré de chaque client (top 1 par fréquence)
+            const favByEmail = new Map(); // email -> Map(name -> qty)
+            allOrders.forEach(o => {
+                const email = (o.email || '').toLowerCase().trim();
+                if (!email) return;
+                if (!favByEmail.has(email)) favByEmail.set(email, new Map());
+                const m = favByEmail.get(email);
+                (o.items || []).forEach(it => m.set(it.name, (m.get(it.name) || 0) + (it.qty || 0)));
+            });
+            const topDish = (email) => {
+                const m = favByEmail.get(email);
+                if (!m || m.size === 0) return '';
+                return [...m.entries()].sort((a, b) => b[1] - a[1])[0][0];
+            };
+
+            const clients = buildClients().filter(c => c.email); // uniquement avec email
+            if (clients.length === 0) {
+                alert('Aucun client avec email pour le moment.');
+                return;
+            }
+            // Format unifie compatible Mailchimp (FNAME) et Brevo (FIRSTNAME) — colonnes ASCII
+            const rows = [
+                ['EMAIL', 'FNAME', 'FIRSTNAME', 'ORDERS_COUNT', 'TOTAL_SPENT_EUR', 'FIRST_ORDER', 'LAST_ORDER', 'FAVORITE_DISH']
+            ];
+            const fmtIso = (ts) => ts?.toDate ? ts.toDate().toISOString().slice(0, 10) : '';
+            clients.forEach(c => {
+                rows.push([
+                    c.email,
+                    c.firstName,
+                    c.firstName,
+                    c.count,
+                    c.total.toFixed(2),
+                    fmtIso(c.firstOrder),
+                    fmtIso(c.lastOrder),
+                    topDish(c.email.toLowerCase())
+                ]);
+            });
+            const csv = rows.map(r => r.map(v => `"${String(v ?? '').replace(/"/g, '""')}"`).join(',')).join('\n');
+            downloadCsv(csv, `ella-mailchimp-${new Date().toISOString().slice(0, 10)}.csv`);
+        });
+
+        function downloadCsv(csv, filename) {
             const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `ella-clients-${new Date().toISOString().slice(0, 10)}.csv`;
+            a.download = filename;
             document.body.appendChild(a); a.click(); a.remove();
             URL.revokeObjectURL(url);
-        });
+        }
     </script>
 </body>
 </html>
