@@ -277,10 +277,10 @@
             color: var(--stone-muted);
             font-style: italic;
         }
-        .note-block {
+        .note-block, .client-block {
             margin: 1.2rem 0;
         }
-        .note-block label {
+        .note-block label, .client-block label {
             display: block;
             color: var(--gold);
             font-style: italic;
@@ -288,9 +288,88 @@
             font-size: 0.95rem;
             margin-bottom: 0.4rem;
         }
-        .note-block textarea {
+        .client-block label .opt {
+            color: var(--stone-muted);
+            font-size: 0.8rem;
+            font-style: normal;
+            font-family: 'Manrope', sans-serif;
+        }
+        .client-block label .req { color: var(--ember-orange); }
+        .note-block textarea, .client-block input {
             width: 100%;
-            min-height: 60px;
+            background: transparent;
+            border: 1px solid rgba(203, 181, 148, 0.25);
+            padding: 0.7rem;
+            color: var(--cream);
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.95rem;
+        }
+        .note-block textarea { min-height: 60px; resize: vertical; }
+        .client-block input { margin-bottom: 0.7rem; }
+        .note-block textarea:focus,
+        .client-block input:focus { outline: none; border-color: var(--ember-glow); }
+        .client-block .err {
+            color: var(--ember-orange);
+            font-size: 0.85rem;
+            font-style: italic;
+            margin-top: -0.2rem;
+            margin-bottom: 0.5rem;
+            display: none;
+        }
+        .client-block .err.show { display: block; }
+
+        /* Review flow */
+        .review-cta {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(203, 181, 148, 0.15);
+        }
+        .review-cta p {
+            color: var(--stone-beige);
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+        }
+        .review-btn {
+            background: transparent;
+            border: 1px solid var(--ember-glow);
+            color: var(--ember-glow);
+            padding: 0.7rem 1.4rem;
+            font-family: 'Manrope', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .review-btn:hover { background: var(--ember-glow); color: var(--charcoal); }
+        .stars-row {
+            display: flex; justify-content: center; gap: 0.5rem;
+            margin: 1.5rem 0;
+        }
+        .star {
+            font-size: 2.5rem;
+            color: rgba(203, 181, 148, 0.3);
+            cursor: pointer;
+            transition: color 0.15s;
+            user-select: none;
+        }
+        .star.active, .star:hover, .star:hover ~ .star.active { color: var(--ember-glow); }
+        .stars-row:hover .star { color: rgba(203, 181, 148, 0.3); }
+        .stars-row:hover .star:hover,
+        .stars-row .star:hover ~ .star { color: rgba(203, 181, 148, 0.3); }
+        .stars-row .star:hover,
+        .stars-row .star:hover ~ * { /* noop fallback */ }
+        .review-modal-inner {
+            text-align: center;
+        }
+        .review-feedback-block {
+            display: none;
+            text-align: left;
+            margin-top: 1rem;
+        }
+        .review-feedback-block.show { display: block; }
+        .review-feedback-block textarea {
+            width: 100%;
+            min-height: 100px;
             background: transparent;
             border: 1px solid rgba(203, 181, 148, 0.25);
             padding: 0.7rem;
@@ -298,8 +377,32 @@
             font-family: 'Manrope', sans-serif;
             font-size: 0.95rem;
             resize: vertical;
+            margin-top: 0.5rem;
         }
-        .note-block textarea:focus { outline: none; border-color: var(--ember-glow); }
+        .review-google-block {
+            display: none;
+            margin-top: 1rem;
+        }
+        .review-google-block.show { display: block; }
+        .google-link {
+            display: inline-block;
+            background: var(--ember-orange);
+            color: var(--cream);
+            text-decoration: none;
+            padding: 0.85rem 1.4rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-radius: 3px;
+            margin-top: 0.5rem;
+        }
+        .google-link:hover { background: var(--ember-glow); color: var(--charcoal); }
+        .review-thanks {
+            display: none;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .review-thanks.show { display: block; }
+        .review-thanks p { color: var(--stone-beige); margin-bottom: 0.5rem; }
         .total-row {
             display: flex; justify-content: space-between; align-items: center;
             padding: 0.8rem 0;
@@ -426,6 +529,13 @@
                 <button type="button" class="close-btn" id="close-cart" aria-label="Fermer">✕</button>
             </div>
             <div class="cart-list" id="cart-list"></div>
+            <div class="client-block">
+                <label for="firstname">Prénom <span class="req">*</span></label>
+                <input type="text" id="firstname" maxlength="40" placeholder="Votre prénom" autocomplete="given-name">
+                <p class="err" id="firstname-err">Indique ton prénom pour qu'on puisse t'appeler.</p>
+                <label for="email">Email <span class="opt">(optionnel — pour nos news)</span></label>
+                <input type="email" id="email" placeholder="vous@email.com" autocomplete="email">
+            </div>
             <div class="note-block">
                 <label for="note">Note (allergies, préférences)</label>
                 <textarea id="note" maxlength="200" placeholder="Sans piment, bien cuit, pas d'oignon…"></textarea>
@@ -448,6 +558,49 @@
             <p>Bon appétit !</p>
             <p class="conf-table">Table <span id="conf-table">—</span></p>
             <button type="button" class="conf-add" id="conf-add">Ajouter d'autres plats</button>
+            <div class="review-cta">
+                <p>Quand vous avez fini, donnez-nous votre avis</p>
+                <button type="button" class="review-btn" id="open-review">Laisser un avis</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modale d'avis -->
+    <div class="modal" id="review-modal">
+        <div class="modal-inner review-modal-inner">
+            <div class="modal-head">
+                <h2>Comment c'était&nbsp;?</h2>
+                <button type="button" class="close-btn" id="close-review" aria-label="Fermer">✕</button>
+            </div>
+
+            <div id="review-step-rate">
+                <p style="color: var(--stone-beige); font-size: 0.95rem;">Note ton expérience</p>
+                <div class="stars-row" id="stars-row">
+                    <span class="star" data-val="1">★</span>
+                    <span class="star" data-val="2">★</span>
+                    <span class="star" data-val="3">★</span>
+                    <span class="star" data-val="4">★</span>
+                    <span class="star" data-val="5">★</span>
+                </div>
+            </div>
+
+            <div class="review-google-block" id="review-google">
+                <p style="color: var(--cream); font-size: 1.05rem; margin-bottom: 0.6rem;">Merci&nbsp;!</p>
+                <p style="color: var(--stone-beige); font-size: 0.9rem;">Si tu peux nous aider en quelques secondes, partage ton avis sur Google&nbsp;:</p>
+                <a class="google-link" id="google-link" href="#" target="_blank" rel="noopener">Laisser un avis Google</a>
+            </div>
+
+            <div class="review-feedback-block" id="review-feedback">
+                <label for="review-comment" style="display:block; color: var(--gold); font-style: italic; font-family: 'Fraunces', serif; font-size: 0.95rem; margin-bottom: 0.5rem;">Dis-nous ce qui n'a pas marché</label>
+                <textarea id="review-comment" maxlength="500" placeholder="Plat, service, attente… on veut comprendre pour s'améliorer."></textarea>
+                <button type="button" class="send-btn" id="send-feedback" style="margin-top: 1rem;">Envoyer</button>
+                <p class="disclaimer">Ton retour va directement au manager. Pas publié.</p>
+            </div>
+
+            <div class="review-thanks" id="review-thanks">
+                <p>Merci pour ton retour&nbsp;🙏</p>
+                <p style="font-size: 0.85rem;">On va s'améliorer.</p>
+            </div>
         </div>
     </div>
 
@@ -458,6 +611,11 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+
+        // Lien Google Reviews — à remplacer par le vrai lien d'Ella (voir instructions à la fin du commit)
+        const GOOGLE_REVIEW_URL = "https://search.google.com/local/writereview?placeid=REPLACE_WITH_PLACE_ID";
+
+        let lastOrderId = null; // pour lier l'avis à la commande
 
         const params = new URLSearchParams(location.search);
         const tableNum = params.get('table');
@@ -592,6 +750,20 @@
         document.getElementById('send-btn').addEventListener('click', async () => {
             const btn = document.getElementById('send-btn');
             if (cart.size === 0 || btn.disabled) return;
+
+            const firstNameInput = document.getElementById('firstname');
+            const firstNameErr = document.getElementById('firstname-err');
+            const firstName = firstNameInput.value.trim();
+            if (!firstName) {
+                firstNameErr.classList.add('show');
+                firstNameInput.focus();
+                return;
+            }
+            firstNameErr.classList.remove('show');
+
+            const emailRaw = document.getElementById('email').value.trim();
+            const email = (emailRaw && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailRaw)) ? emailRaw : "";
+
             btn.disabled = true;
             btn.textContent = 'Envoi…';
 
@@ -600,12 +772,14 @@
             const note = document.getElementById('note').value.trim();
 
             try {
-                await addDoc(collection(db, 'commandes-table'), {
+                const ref = await addDoc(collection(db, 'commandes-table'), {
                     table: parseInt(tableNum, 10),
+                    firstName, email,
                     items, total, note,
                     status: 'nouvelle',
                     createdAt: serverTimestamp()
                 });
+                lastOrderId = ref.id;
                 cart.clear();
                 document.getElementById('note').value = '';
                 modal.classList.remove('show');
@@ -625,6 +799,94 @@
             const btn = document.getElementById('send-btn');
             btn.disabled = false;
             btn.textContent = 'Envoyer en cuisine';
+        });
+
+        // ===== Flow d'avis =====
+        const reviewModal = document.getElementById('review-modal');
+        const reviewStepRate = document.getElementById('review-step-rate');
+        const reviewGoogle = document.getElementById('review-google');
+        const reviewFeedback = document.getElementById('review-feedback');
+        const reviewThanks = document.getElementById('review-thanks');
+        const googleLink = document.getElementById('google-link');
+        let selectedRating = 0;
+
+        function resetReview() {
+            selectedRating = 0;
+            document.querySelectorAll('.star').forEach(s => s.classList.remove('active'));
+            reviewStepRate.style.display = 'block';
+            reviewGoogle.classList.remove('show');
+            reviewFeedback.classList.remove('show');
+            reviewThanks.classList.remove('show');
+            document.getElementById('review-comment').value = '';
+            const sb = document.getElementById('send-feedback');
+            sb.disabled = false;
+            sb.textContent = 'Envoyer';
+        }
+
+        document.getElementById('open-review').addEventListener('click', () => {
+            resetReview();
+            reviewModal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        });
+
+        document.getElementById('close-review').addEventListener('click', () => {
+            reviewModal.classList.remove('show');
+            document.body.style.overflow = '';
+        });
+
+        // Sélection étoiles
+        document.querySelectorAll('.star').forEach(star => {
+            star.addEventListener('click', async () => {
+                selectedRating = parseInt(star.dataset.val, 10);
+                document.querySelectorAll('.star').forEach(s => {
+                    s.classList.toggle('active', parseInt(s.dataset.val, 10) <= selectedRating);
+                });
+                // Sauvegarde l'avis (rating seul, sans commentaire pour l'instant)
+                try {
+                    await addDoc(collection(db, 'feedbacks'), {
+                        rating: selectedRating,
+                        table: tableNum ? parseInt(tableNum, 10) : null,
+                        orderId: lastOrderId,
+                        comment: "",
+                        createdAt: serverTimestamp()
+                    });
+                } catch (err) {
+                    console.error('feedback save', err);
+                }
+                // Branche : 4-5 = Google, 1-3 = form interne
+                reviewStepRate.style.display = 'none';
+                if (selectedRating >= 4) {
+                    googleLink.href = GOOGLE_REVIEW_URL;
+                    reviewGoogle.classList.add('show');
+                } else {
+                    reviewFeedback.classList.add('show');
+                    document.getElementById('review-comment').focus();
+                }
+            });
+        });
+
+        // Envoi du feedback négatif (1-3 étoiles)
+        document.getElementById('send-feedback').addEventListener('click', async () => {
+            const sb = document.getElementById('send-feedback');
+            const comment = document.getElementById('review-comment').value.trim();
+            if (sb.disabled) return;
+            sb.disabled = true;
+            sb.textContent = 'Envoi…';
+            try {
+                await addDoc(collection(db, 'feedbacks'), {
+                    rating: selectedRating,
+                    table: tableNum ? parseInt(tableNum, 10) : null,
+                    orderId: lastOrderId,
+                    comment,
+                    createdAt: serverTimestamp()
+                });
+                reviewFeedback.classList.remove('show');
+                reviewThanks.classList.add('show');
+            } catch (err) {
+                alert('Erreur : ' + err.message);
+                sb.disabled = false;
+                sb.textContent = 'Envoyer';
+            }
         });
     </script>
 </body>

@@ -302,10 +302,11 @@
             const min = Math.floor((Date.now() - ts) / 60000);
             const timeText = min < 1 ? "à l'instant" : `il y a ${min} min`;
             const alert = min >= 15 ? 'alert' : '';
+            const who = o.firstName ? ` · ${esc(o.firstName)}` : '';
             return `
                 <article class="card ${o.status}">
                     <div class="card-head">
-                        <span class="table-num">Table ${o.table}</span>
+                        <span class="table-num">Table ${o.table}${who}</span>
                         <span class="time ${alert}">${timeText}</span>
                     </div>
                     <ul class="items">
