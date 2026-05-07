@@ -239,10 +239,12 @@
     <div class="login-overlay" id="login-overlay">
         <div class="login-box">
             <h2>Admin Ella</h2>
-            <p>Mot de passe :</p>
-            <input type="password" id="pwd" autocomplete="off" autofocus>
+            <p style="text-align:left; margin: 0.5rem 0 0.3rem;">Email</p>
+            <input type="email" id="email" autocomplete="username" placeholder="staff@ellarestaurant.fr" style="text-align:left; letter-spacing:0; padding: 0.7rem;" autofocus>
+            <p style="text-align:left; margin: 0.5rem 0 0.3rem;">Mot de passe</p>
+            <input type="password" id="pwd" autocomplete="current-password" style="padding: 0.7rem;">
             <button type="button" id="login-btn">Entrer</button>
-            <p class="err" id="err">Mot de passe incorrect.</p>
+            <p class="err" id="err">Email ou mot de passe incorrect.</p>
         </div>
     </div>
 
@@ -252,6 +254,7 @@
             <button type="button" class="tab active" data-tab="stats">Stats</button>
             <button type="button" class="tab" data-tab="clients">Clients <span id="t-clients">(0)</span></button>
             <button type="button" class="tab" data-tab="feedbacks">Avis <span id="t-feedbacks">(0)</span></button>
+            <button type="button" id="logout-btn" title="Déconnexion" style="background:transparent; border:1px solid rgba(212,166,97,0.3); color:var(--cream); padding:0.4rem 0.7rem; cursor:pointer; font-family:inherit; font-size:0.85rem;">⎋</button>
         </nav>
     </header>
 
@@ -358,28 +361,60 @@
     <script src="firebase-config.js"></script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
         import { getFirestore, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
-        // === Auth ===
-        const PASSWORD = "ella2026";
+        // === Firebase init ===
+        const _firebaseApp = initializeApp(firebaseConfig);
+        const auth = getAuth(_firebaseApp);
+        const db = getFirestore(_firebaseApp);
+        setPersistence(auth, browserLocalPersistence).catch(() => {});
+
+        // === Auth (Firebase) ===
         const overlay = document.getElementById('login-overlay');
-        if (sessionStorage.getItem('admin-clients-auth') === 'ok') overlay.style.display = 'none';
-        function tryLogin() {
-            const v = document.getElementById('pwd').value;
-            if (v === PASSWORD) {
-                sessionStorage.setItem('admin-clients-auth', 'ok');
-                overlay.style.display = 'none';
-            } else {
-                document.getElementById('err').classList.add('show');
+        const errEl = document.getElementById('err');
+        const loginBtn = document.getElementById('login-btn');
+
+        onAuthStateChanged(auth, (user) => {
+            overlay.style.display = user ? 'none' : 'flex';
+        });
+
+        async function tryLogin() {
+            const email = document.getElementById('email').value.trim();
+            const pwd = document.getElementById('pwd').value;
+            if (!email || !pwd) {
+                errEl.textContent = 'Email et mot de passe requis.';
+                errEl.classList.add('show');
+                return;
+            }
+            errEl.classList.remove('show');
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Connexion…';
+            try {
+                await signInWithEmailAndPassword(auth, email, pwd);
                 document.getElementById('pwd').value = '';
+            } catch (err) {
+                let msg = 'Erreur : ' + (err.message || 'inconnue');
+                if (['auth/wrong-password', 'auth/user-not-found', 'auth/invalid-credential', 'auth/invalid-email'].includes(err.code)) {
+                    msg = 'Email ou mot de passe incorrect.';
+                } else if (err.code === 'auth/too-many-requests') {
+                    msg = 'Trop de tentatives. Réessaie dans quelques minutes.';
+                }
+                errEl.textContent = msg;
+                errEl.classList.add('show');
+            } finally {
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Entrer';
             }
         }
-        document.getElementById('login-btn').addEventListener('click', tryLogin);
+        loginBtn.addEventListener('click', tryLogin);
         document.getElementById('pwd').addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
+        document.getElementById('email').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('pwd').focus(); });
 
-        // === Firestore ===
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+        document.getElementById('logout-btn').addEventListener('click', async () => {
+            if (!confirm('Se déconnecter ?')) return;
+            try { await signOut(auth); } catch (e) { console.error(e); }
+        });
 
         let allOrders = [];
         let allFeedbacks = [];
