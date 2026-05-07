@@ -1,0 +1,32 @@
+{
+  "name": "Ella Restaurant",
+  "short_name": "Ella",
+  "description": "Commandes table — L'Âme du Grill Anatolien",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#1C1A17",
+  "theme_color": "#C75D2C",
+  "orientation": "portrait",
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}

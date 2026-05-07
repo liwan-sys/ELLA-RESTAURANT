@@ -88,9 +88,12 @@
         <label>Nombre de tables :
             <input type="number" id="num-tables" value="6" min="1" max="50">
         </label>
+        <label style="margin-left: 1rem;">
+            <input type="checkbox" id="include-togo" checked> Inclure un QR "À emporter"
+        </label>
         <button type="button" id="generate">Générer</button>
         <button type="button" onclick="window.print()">🖨 Imprimer</button>
-        <p class="hint">Les QR codes pointent vers <strong id="base-url"></strong>.<br>Imprime cette page (Cmd+P), découpe et plastifie chaque QR, colle sur les tables correspondantes.</p>
+        <p class="hint">Tables → <strong id="base-url"></strong>. À emporter → <strong id="togo-url"></strong><br>Imprime (Cmd+P), découpe, plastifie. Le QR "À emporter" se met près de la caisse ou en vitrine.</p>
     </div>
 
     <div class="qr-grid" id="qr-grid"></div>
@@ -99,29 +102,49 @@
     <script>
         const baseUrl = window.location.origin;
         document.getElementById('base-url').textContent = `${baseUrl}/commander.html?table=N`;
+        document.getElementById('togo-url').textContent = `${baseUrl}/commander.html?togo=1`;
+
+        function makeCard(grid, opts) {
+            const card = document.createElement('div');
+            card.className = 'qr-card';
+            card.innerHTML = `
+                <div class="brand">ELLA</div>
+                <div class="tagline">${opts.tagline}</div>
+                <canvas></canvas>
+                <div class="table-num">${opts.label}</div>
+                <div class="instr">${opts.instr}</div>
+            `;
+            grid.appendChild(card);
+            QRCode.toCanvas(
+                card.querySelector('canvas'),
+                opts.url,
+                { width: 220, margin: 1, color: { dark: '#1C1A17', light: '#ffffff' } },
+                (err) => { if (err) console.error(err); }
+            );
+        }
 
         function generate() {
             const n = parseInt(document.getElementById('num-tables').value, 10) || 6;
+            const includeTogo = document.getElementById('include-togo').checked;
             const grid = document.getElementById('qr-grid');
             grid.innerHTML = '';
 
             for (let i = 1; i <= n; i++) {
-                const card = document.createElement('div');
-                card.className = 'qr-card';
-                card.innerHTML = `
-                    <div class="brand">ELLA</div>
-                    <div class="tagline">Commandez depuis votre table</div>
-                    <canvas></canvas>
-                    <div class="table-num">Table ${i}</div>
-                    <div class="instr">Scannez ce code · Composez votre commande<br>Paiement à la caisse en partant</div>
-                `;
-                grid.appendChild(card);
-                QRCode.toCanvas(
-                    card.querySelector('canvas'),
-                    `${baseUrl}/commander.html?table=${i}`,
-                    { width: 220, margin: 1, color: { dark: '#1C1A17', light: '#ffffff' } },
-                    (err) => { if (err) console.error(err); }
-                );
+                makeCard(grid, {
+                    tagline: 'Commandez depuis votre table',
+                    label: `Table ${i}`,
+                    instr: 'Scannez ce code · Composez votre commande<br>Paiement à la caisse en partant',
+                    url: `${baseUrl}/commander.html?table=${i}`
+                });
+            }
+
+            if (includeTogo) {
+                makeCard(grid, {
+                    tagline: 'Commandez à emporter',
+                    label: 'À emporter',
+                    instr: 'Scannez · Choisissez votre heure de retrait<br>Paiement et retrait à la caisse',
+                    url: `${baseUrl}/commander.html?togo=1`
+                });
             }
         }
 

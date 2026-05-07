@@ -1,0 +1,78 @@
+// Firestore Security Rules — ella-commandes
+// Version : 2026-05-07
+//
+// Ces règles sont la SOURCE DE VÉRITÉ. Elles ne sont pas déployées automatiquement.
+// Pour les appliquer : copie ce contenu et colle-le dans la console Firebase
+// (https://console.firebase.google.com/ → Firestore → Rules → Publish).
+//
+// Différences par rapport à la version permissive précédente :
+// - Plus de "if true" sur les writes
+// - Validation stricte des données à la création (tailles, types, bornes)
+// - Update limité au champ status (cuisine ne peut pas modifier prix/items)
+// - Delete bloqué sur tout (pas de perte accidentelle ou malveillante)
+// - Read reste public pour ne pas casser les dashboards (à durcir plus tard avec Firebase Auth)
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ========== Helpers ==========
+    function strLen(s, max) {
+      return s is string && s.size() <= max;
+    }
+    function inRange(n, min, max) {
+      return (n is int || n is float) && n >= min && n <= max;
+    }
+    function onlyChanges(fields) {
+      return request.resource.data.diff(resource.data).affectedKeys().hasOnly(fields);
+    }
+
+    // ========== commandes-table ==========
+    // Commandes passées via QR code en table OU à emporter
+    match /commandes-table/{c} {
+      allow read: if true;
+
+      allow create: if request.resource.data.keys().size() <= 25
+        && strLen(request.resource.data.firstName, 50)
+        && strLen(request.resource.data.email, 120)
+        && strLen(request.resource.data.note, 500)
+        && request.resource.data.items is list
+        && request.resource.data.items.size() > 0
+        && request.resource.data.items.size() <= 50
+        && inRange(request.resource.data.total, 0, 5000)
+        && request.resource.data.status == 'nouvelle';
+
+      // La cuisine peut changer le statut, rien d'autre
+      allow update: if onlyChanges(['status', 'updatedAt'])
+        && request.resource.data.status in ['nouvelle', 'en-cours', 'servie'];
+
+      allow delete: if false;
+    }
+
+    // ========== reservations ==========
+    match /reservations/{r} {
+      allow read: if true;
+
+      allow create: if request.resource.data.keys().size() <= 25;
+
+      allow update: if onlyChanges(['status', 'updatedAt']);
+
+      allow delete: if false;
+    }
+
+    // ========== feedbacks ==========
+    // Avis clients (1-5 étoiles + commentaire optionnel)
+    match /feedbacks/{f} {
+      allow read: if true;
+
+      allow create: if request.resource.data.keys().size() <= 10
+        && inRange(request.resource.data.rating, 1, 5)
+        && strLen(request.resource.data.comment, 1000);
+
+      // Un avis ne peut être ni modifié ni supprimé
+      allow update: if false;
+      allow delete: if false;
+    }
+  }
+}

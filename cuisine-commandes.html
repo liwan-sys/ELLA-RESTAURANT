@@ -6,6 +6,14 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Ella · Cuisine — Commandes table</title>
 
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#C75D2C">
+    <link rel="apple-touch-icon" href="/icon-192.svg">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Ella Cuisine">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Manrope:wght@400..700&display=swap" rel="stylesheet">
@@ -128,7 +136,27 @@
         .btn-cooking:hover { background: var(--ember-glow); }
         .btn-done { background: var(--ember-orange); color: var(--cream); }
         .btn-done:hover { background: #a84d23; }
+        .btn-undo {
+            background: transparent; color: var(--gold);
+            border: 1px solid rgba(212,166,97,0.4);
+        }
+        .btn-undo:hover { background: rgba(212,166,97,0.1); border-color: var(--gold); }
         .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        /* Badge mode (table vs à emporter) */
+        .mode-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 7px;
+            margin-left: 0.4rem;
+            border-radius: 2px;
+            vertical-align: middle;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .mode-badge.togo { background: var(--ember-glow); color: var(--charcoal); }
+        .mode-badge.table { background: rgba(212,166,97,0.15); color: var(--stone-beige); }
 
         .empty {
             grid-column: 1 / -1;
@@ -503,10 +531,17 @@
             const detail = (t.dayDiff > 0 || t.min >= 60)
                 ? `<span class="time-detail">il y a ${t.min} min</span>`
                 : (t.dayDiff === 0 && t.min >= 1 ? `<span class="time-detail">à ${t.hhmm}</span>` : '');
+
+            // Header : "Table N · Lucas" ou "À emporter · Lucas (dans 30 min)"
+            const isTogo = o.mode === 'togo';
+            const headerLabel = isTogo
+                ? `À emporter${who}<span class="mode-badge togo">À EMPORTER</span>${o.pickupTime ? ` <span style="color:var(--ember-glow); font-style:italic; font-size:0.85rem; font-family:Manrope; font-weight:500;">· ${esc(o.pickupTime)}</span>` : ''}`
+                : `Table ${esc(o.table)}${who}`;
+
             return `
                 <article class="card ${o.status}">
                     <div class="card-head">
-                        <span class="table-num">Table ${o.table}${who}</span>
+                        <span class="table-num">${headerLabel}</span>
                         <span class="time ${alert}" style="text-align:right;">
                             ${t.short}
                             ${detail}
@@ -522,7 +557,8 @@
                             ${o.status === 'nouvelle'
                                 ? `<button type="button" class="btn btn-cooking" data-id="${o.id}" data-status="en-cours">En préparation</button>` : ''}
                             ${o.status !== 'servie'
-                                ? `<button type="button" class="btn btn-done" data-id="${o.id}" data-status="servie">Servie ✓</button>` : ''}
+                                ? `<button type="button" class="btn btn-done" data-id="${o.id}" data-status="servie">Servie ✓</button>`
+                                : `<button type="button" class="btn btn-undo" data-id="${o.id}" data-status="en-cours">↶ Réactiver</button>`}
                         </div>
                     </div>
                 </article>

@@ -6,6 +6,14 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Ella · Commander</title>
 
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#C75D2C">
+    <link rel="apple-touch-icon" href="/icon-192.svg">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Ella">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Manrope:wght@400..700&display=swap" rel="stylesheet">
@@ -510,6 +518,7 @@
     <div class="no-table" id="no-table" style="display:none">
         <h2>Numéro de table manquant</h2>
         <p>Scannez le QR code de votre table pour commander, ou demandez au serveur.</p>
+        <p style="margin-top: 1rem;">Pour une commande à emporter, ajoutez <code style="background: rgba(212,166,97,0.15); padding: 2px 6px;">?togo=1</code> à l'URL.</p>
     </div>
 
     <main class="menu-list" id="menu-list" style="display:none"></main>
@@ -537,6 +546,16 @@
                 <label for="email">Email <span class="opt">(optionnel — pour nos news)</span></label>
                 <input type="email" id="email" placeholder="vous@email.com" autocomplete="email">
             </div>
+            <div class="client-block" id="pickup-block" style="display:none;">
+                <label for="pickup-time">Heure de retrait souhaitée <span class="req">*</span></label>
+                <select id="pickup-time" style="width:100%; background:transparent; border:1px solid rgba(203,181,148,0.25); padding:0.7rem; color:var(--cream); font-family:inherit; font-size:0.95rem;">
+                    <option value="Dès que prêt">Dès que prêt (15-20 min)</option>
+                    <option value="Dans 30 min">Dans 30 min</option>
+                    <option value="Dans 45 min">Dans 45 min</option>
+                    <option value="Dans 1h">Dans 1h</option>
+                    <option value="Dans 1h30">Dans 1h30</option>
+                </select>
+            </div>
             <div class="note-block">
                 <label for="note">Note (allergies, préférences)</label>
                 <textarea id="note" maxlength="200" placeholder="Sans piment, bien cuit, pas d'oignon…"></textarea>
@@ -557,7 +576,7 @@
             <h2>Commande envoyée</h2>
             <p>Votre commande est arrivée en cuisine.</p>
             <p>Bon appétit !</p>
-            <p class="conf-table">Table <span id="conf-table">—</span></p>
+            <p class="conf-table"><span id="conf-prefix">Table </span><span id="conf-table">—</span></p>
             <button type="button" class="conf-add" id="conf-add">Ajouter d'autres plats</button>
             <div class="review-cta">
                 <p>Quand vous avez fini, donnez-nous votre avis</p>
@@ -625,14 +644,24 @@
 
         const params = new URLSearchParams(location.search);
         const tableNum = params.get('table');
+        const isTogo = params.get('togo') === '1';
         const noTableEl = document.getElementById('no-table');
         const menuListEl = document.getElementById('menu-list');
         const tableBadge = document.getElementById('table-badge');
+        const introH1 = document.querySelector('.intro h1');
 
-        if (!tableNum) {
+        if (!tableNum && !isTogo) {
             noTableEl.style.display = 'block';
         } else {
-            tableBadge.textContent = `Table ${tableNum}`;
+            if (isTogo) {
+                tableBadge.textContent = "À emporter";
+                tableBadge.style.background = 'var(--ember-glow)';
+                tableBadge.style.color = 'var(--charcoal)';
+                if (introH1) introH1.textContent = 'Commande à emporter';
+                document.getElementById('pickup-block').style.display = 'block';
+            } else {
+                tableBadge.textContent = `Table ${tableNum}`;
+            }
             menuListEl.style.display = 'block';
             renderMenu();
         }
@@ -743,7 +772,7 @@
         // Modal open/close
         const modal = document.getElementById('cart-modal');
         document.getElementById('open-cart').addEventListener('click', () => {
-            document.getElementById('modal-table').textContent = tableNum;
+            document.getElementById('modal-table').textContent = isTogo ? 'À emporter' : tableNum;
             modal.classList.add('show');
             document.body.style.overflow = 'hidden';
         });
@@ -777,9 +806,13 @@
             const total = items.reduce((s, v) => s + v.qty * v.price, 0);
             const note = document.getElementById('note').value.trim();
 
+            const pickupTime = isTogo ? document.getElementById('pickup-time').value : null;
+
             try {
                 const ref = await addDoc(collection(db, 'commandes-table'), {
-                    table: parseInt(tableNum, 10),
+                    table: isTogo ? null : parseInt(tableNum, 10),
+                    mode: isTogo ? 'togo' : 'table',
+                    pickupTime,
                     firstName, email,
                     items, total, note,
                     status: 'nouvelle',
@@ -790,7 +823,8 @@
                 document.getElementById('note').value = '';
                 modal.classList.remove('show');
                 document.body.style.overflow = '';
-                document.getElementById('conf-table').textContent = tableNum;
+                document.getElementById('conf-prefix').textContent = isTogo ? '' : 'Table ';
+                document.getElementById('conf-table').textContent = isTogo ? `À emporter${pickupTime ? ' · ' + pickupTime : ''}` : tableNum;
                 document.getElementById('conf').classList.add('show');
                 updateUI();
             } catch (err) {
