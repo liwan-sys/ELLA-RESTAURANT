@@ -417,7 +417,9 @@
                 };
                 let html = '';
                 for (const [k, orders] of groups) {
-                    html += `<div class="day-sep"><span>${dayLabel(k)}</span><span class="day-count">${orders.length} commande${orders.length > 1 ? 's' : ''}</span></div>`;
+                    const dayTotal = orders.reduce((s, o) => s + (o.total || 0), 0);
+                    const totalTxt = dayTotal.toFixed(2).replace('.', ',') + ' €';
+                    html += `<div class="day-sep"><span>${dayLabel(k)}</span><span class="day-count">${orders.length} commande${orders.length > 1 ? 's' : ''} · <strong style="color:var(--ember-glow); font-style:italic;">${totalTxt}</strong></span></div>`;
                     html += orders.map(o => renderCard(o)).join('');
                 }
                 grid.innerHTML = html;
