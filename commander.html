@@ -509,24 +509,51 @@
             .item-name { font-size: 0.95rem; }
             .item-price { font-size: 0.95rem; }
         }
+
+        /* Language switcher */
+        .lang-switch {
+            display: flex; gap: 0.2rem;
+            margin-left: 0.6rem;
+        }
+        .lang-btn {
+            background: transparent;
+            border: 1px solid rgba(212, 166, 97, 0.25);
+            color: var(--stone-beige);
+            font-family: inherit; font-size: 0.7rem; font-weight: 600;
+            padding: 0.25rem 0.5rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-radius: 2px;
+        }
+        .lang-btn.active { background: var(--gold); color: var(--charcoal); border-color: var(--gold); }
+        .lang-btn:hover:not(.active) { color: var(--cream); }
+
+        .top-bar { gap: 0.4rem; }
     </style>
 </head>
 <body>
 
     <header class="top-bar">
         <span class="brand">ELLA</span>
-        <div class="table-badge" id="table-badge">Table —</div>
+        <div style="display:flex; align-items:center; gap:0.4rem;">
+            <div class="table-badge" id="table-badge">Table —</div>
+            <div class="lang-switch">
+                <button type="button" class="lang-btn" data-lang="fr">FR</button>
+                <button type="button" class="lang-btn" data-lang="en">EN</button>
+                <button type="button" class="lang-btn" data-lang="tr">TR</button>
+            </div>
+        </div>
     </header>
 
     <section class="intro">
-        <h1>Votre commande</h1>
-        <p>Composez votre repas. Le paiement se fait à la caisse en partant.</p>
+        <h1 data-i18n="intro.title">Votre commande</h1>
+        <p data-i18n="intro.subtitle">Composez votre repas. Le paiement se fait à la caisse en partant.</p>
     </section>
 
     <div class="no-table" id="no-table" style="display:none">
-        <h2>Numéro de table manquant</h2>
-        <p>Scannez le QR code de votre table pour commander, ou demandez au serveur.</p>
-        <p style="margin-top: 1rem;">Pour une commande à emporter, ajoutez <code style="background: rgba(212,166,97,0.15); padding: 2px 6px;">?togo=1</code> à l'URL.</p>
+        <h2 data-i18n="noTable.title">Numéro de table manquant</h2>
+        <p data-i18n="noTable.body">Scannez le QR code de votre table pour commander, ou demandez au serveur.</p>
     </div>
 
     <main class="menu-list" id="menu-list" style="display:none"></main>
@@ -534,9 +561,9 @@
     <!-- Barre panier sticky -->
     <div class="cart-bar" id="cart-bar">
         <div class="cart-info">
-            <span id="cart-count">0</span> article(s) <span id="cart-total">0 €</span>
+            <span id="cart-count">0</span> <span data-i18n="cart.itemsLabel">article(s)</span> <span id="cart-total">0 €</span>
         </div>
-        <button type="button" class="open-cart-btn" id="open-cart">Voir →</button>
+        <button type="button" class="open-cart-btn" id="open-cart" data-i18n="cart.viewBtn">Voir →</button>
     </div>
 
     <!-- Modal personnalisation -->
@@ -548,14 +575,14 @@
             </div>
             <div id="mods-body"></div>
             <div class="total-row">
-                <span class="label">Quantité</span>
+                <span class="label" data-i18n="mods.quantity">Quantité</span>
                 <div style="display:flex; align-items:center; gap:0.6rem;">
                     <button type="button" class="qty-btn mini" id="mods-qty-minus">−</button>
                     <span id="mods-qty" style="color:var(--cream); font-weight:600; min-width:1.5em; text-align:center;">1</span>
                     <button type="button" class="qty-btn mini" id="mods-qty-plus">+</button>
                 </div>
             </div>
-            <button type="button" class="send-btn" id="confirm-mods">Ajouter au panier</button>
+            <button type="button" class="send-btn" id="confirm-mods" data-i18n="mods.addToCart">Ajouter au panier</button>
         </div>
     </div>
 
@@ -563,37 +590,37 @@
     <div class="modal" id="cart-modal">
         <div class="modal-inner">
             <div class="modal-head">
-                <h2>Récap — Table <span id="modal-table">—</span></h2>
+                <h2><span data-i18n="cart.recap">Récap</span> — <span id="modal-prefix" data-i18n="common.table">Table</span> <span id="modal-table">—</span></h2>
                 <button type="button" class="close-btn" id="close-cart" aria-label="Fermer">✕</button>
             </div>
             <div class="cart-list" id="cart-list"></div>
             <div class="client-block">
-                <label for="firstname">Prénom <span class="req">*</span></label>
-                <input type="text" id="firstname" maxlength="40" placeholder="Votre prénom" autocomplete="given-name">
-                <p class="err" id="firstname-err">Indique ton prénom pour qu'on puisse t'appeler.</p>
-                <label for="email">Email <span class="opt">(optionnel — pour nos news)</span></label>
+                <label for="firstname"><span data-i18n="form.firstname">Prénom</span> <span class="req">*</span></label>
+                <input type="text" id="firstname" maxlength="40" data-i18n-attr="placeholder:form.firstnamePh" placeholder="Votre prénom" autocomplete="given-name">
+                <p class="err" id="firstname-err" data-i18n="form.firstnameErr">Indique ton prénom pour qu'on puisse t'appeler.</p>
+                <label for="email"><span data-i18n="form.email">Email</span> <span class="opt" data-i18n="form.emailOpt">(optionnel — pour nos news)</span></label>
                 <input type="email" id="email" placeholder="vous@email.com" autocomplete="email">
             </div>
             <div class="client-block" id="pickup-block" style="display:none;">
-                <label for="pickup-time">Heure de retrait souhaitée <span class="req">*</span></label>
+                <label for="pickup-time"><span data-i18n="form.pickup">Heure de retrait souhaitée</span> <span class="req">*</span></label>
                 <select id="pickup-time" style="width:100%; background:transparent; border:1px solid rgba(203,181,148,0.25); padding:0.7rem; color:var(--cream); font-family:inherit; font-size:0.95rem;">
-                    <option value="Dès que prêt">Dès que prêt (15-20 min)</option>
-                    <option value="Dans 30 min">Dans 30 min</option>
-                    <option value="Dans 45 min">Dans 45 min</option>
-                    <option value="Dans 1h">Dans 1h</option>
-                    <option value="Dans 1h30">Dans 1h30</option>
+                    <option value="Dès que prêt" data-i18n="pickup.asap">Dès que prêt (15-20 min)</option>
+                    <option value="Dans 30 min" data-i18n="pickup.30">Dans 30 min</option>
+                    <option value="Dans 45 min" data-i18n="pickup.45">Dans 45 min</option>
+                    <option value="Dans 1h" data-i18n="pickup.60">Dans 1h</option>
+                    <option value="Dans 1h30" data-i18n="pickup.90">Dans 1h30</option>
                 </select>
             </div>
             <div class="note-block">
-                <label for="note">Note (allergies, préférences)</label>
-                <textarea id="note" maxlength="200" placeholder="Sans piment, bien cuit, pas d'oignon…"></textarea>
+                <label for="note" data-i18n="form.note">Note (allergies, préférences)</label>
+                <textarea id="note" maxlength="200" data-i18n-attr="placeholder:form.notePh" placeholder="Sans piment, bien cuit, pas d'oignon…"></textarea>
             </div>
             <div class="total-row">
-                <span class="label">Total</span>
+                <span class="label" data-i18n="common.total">Total</span>
                 <span class="total-amount" id="modal-total">0 €</span>
             </div>
-            <button type="button" class="send-btn" id="send-btn">Envoyer en cuisine</button>
-            <p class="disclaimer">Votre commande arrive directement en cuisine.</p>
+            <button type="button" class="send-btn" id="send-btn" data-i18n="cart.send">Envoyer en cuisine</button>
+            <p class="disclaimer" data-i18n="cart.disclaimer">Votre commande arrive directement en cuisine.</p>
         </div>
     </div>
 
@@ -601,14 +628,14 @@
     <div class="conf" id="conf">
         <div>
             <div class="conf-icon">✓</div>
-            <h2>Commande envoyée</h2>
-            <p>Votre commande est arrivée en cuisine.</p>
-            <p>Bon appétit !</p>
+            <h2 data-i18n="conf.title">Commande envoyée</h2>
+            <p data-i18n="conf.body1">Votre commande est arrivée en cuisine.</p>
+            <p data-i18n="conf.body2">Bon appétit !</p>
             <p class="conf-table"><span id="conf-prefix">Table </span><span id="conf-table">—</span></p>
-            <button type="button" class="conf-add" id="conf-add">Ajouter d'autres plats</button>
+            <button type="button" class="conf-add" id="conf-add" data-i18n="conf.addMore">Ajouter d'autres plats</button>
             <div class="review-cta">
-                <p>Quand vous avez fini, donnez-nous votre avis</p>
-                <button type="button" class="review-btn" id="open-review">Laisser un avis</button>
+                <p data-i18n="review.cta">Quand vous avez fini, donnez-nous votre avis</p>
+                <button type="button" class="review-btn" id="open-review" data-i18n="review.openBtn">Laisser un avis</button>
             </div>
         </div>
     </div>
@@ -617,12 +644,12 @@
     <div class="modal" id="review-modal">
         <div class="modal-inner review-modal-inner">
             <div class="modal-head">
-                <h2>Comment c'était&nbsp;?</h2>
+                <h2 data-i18n="review.title">Comment c'était&nbsp;?</h2>
                 <button type="button" class="close-btn" id="close-review" aria-label="Fermer">✕</button>
             </div>
 
             <div id="review-step-rate">
-                <p style="color: var(--stone-beige); font-size: 0.95rem;">Note ton expérience</p>
+                <p style="color: var(--stone-beige); font-size: 0.95rem;" data-i18n="review.rateLabel">Note ton expérience</p>
                 <div class="stars-row" id="stars-row">
                     <span class="star" data-val="1">★</span>
                     <span class="star" data-val="2">★</span>
@@ -633,21 +660,21 @@
             </div>
 
             <div class="review-google-block" id="review-google">
-                <p style="color: var(--cream); font-size: 1.05rem; margin-bottom: 0.6rem;">Merci&nbsp;!</p>
-                <p style="color: var(--stone-beige); font-size: 0.9rem;">Si tu peux nous aider en quelques secondes, partage ton avis sur Google&nbsp;:</p>
-                <a class="google-link" id="google-link" href="#" target="_blank" rel="noopener">Laisser un avis Google</a>
+                <p style="color: var(--cream); font-size: 1.05rem; margin-bottom: 0.6rem;" data-i18n="review.thanksShort">Merci&nbsp;!</p>
+                <p style="color: var(--stone-beige); font-size: 0.9rem;" data-i18n="review.googleAsk">Si tu peux nous aider en quelques secondes, partage ton avis sur Google&nbsp;:</p>
+                <a class="google-link" id="google-link" href="#" target="_blank" rel="noopener" data-i18n="review.googleBtn">Laisser un avis Google</a>
             </div>
 
             <div class="review-feedback-block" id="review-feedback">
-                <label for="review-comment" style="display:block; color: var(--gold); font-style: italic; font-family: 'Fraunces', serif; font-size: 0.95rem; margin-bottom: 0.5rem;">Dis-nous ce qui n'a pas marché</label>
-                <textarea id="review-comment" maxlength="500" placeholder="Plat, service, attente… on veut comprendre pour s'améliorer."></textarea>
-                <button type="button" class="send-btn" id="send-feedback" style="margin-top: 1rem;">Envoyer</button>
-                <p class="disclaimer">Ton retour va directement au manager. Pas publié.</p>
+                <label for="review-comment" style="display:block; color: var(--gold); font-style: italic; font-family: 'Fraunces', serif; font-size: 0.95rem; margin-bottom: 0.5rem;" data-i18n="review.tellUs">Dis-nous ce qui n'a pas marché</label>
+                <textarea id="review-comment" maxlength="500" data-i18n-attr="placeholder:review.tellUsPh" placeholder="Plat, service, attente… on veut comprendre pour s'améliorer."></textarea>
+                <button type="button" class="send-btn" id="send-feedback" style="margin-top: 1rem;" data-i18n="common.send">Envoyer</button>
+                <p class="disclaimer" data-i18n="review.disclaimer">Ton retour va directement au manager. Pas publié.</p>
             </div>
 
             <div class="review-thanks" id="review-thanks">
-                <p>Merci pour ton retour&nbsp;🙏</p>
-                <p style="font-size: 0.85rem;">On va s'améliorer.</p>
+                <p data-i18n="review.thanksLong">Merci pour ton retour&nbsp;🙏</p>
+                <p style="font-size: 0.85rem;" data-i18n="review.improving">On va s'améliorer.</p>
             </div>
         </div>
     </div>
@@ -660,12 +687,287 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // ===== Personnalisation des plats =====
-        const MENU_MODS = {
-            cuisson: { label: 'Cuisson', options: ['Saignant', 'À point', 'Bien cuit'], default: 'À point' },
-            piment:  { label: 'Niveau de piment', options: ['Doux', 'Normal', 'Épicé'], default: 'Normal' },
-            oignon:  { label: 'Oignon', options: ['Avec oignon', 'Sans oignon'], default: 'Avec oignon' }
+        // ===== Internationalisation (FR / EN / TR) =====
+        const I18N = {
+            fr: {
+                'common.table': 'Table',
+                'common.total': 'Total',
+                'common.send': 'Envoyer',
+                'intro.title': 'Votre commande',
+                'intro.titleTogo': 'Commande à emporter',
+                'intro.subtitle': 'Composez votre repas. Le paiement se fait à la caisse en partant.',
+                'noTable.title': 'Numéro de table manquant',
+                'noTable.body': 'Scannez le QR code de votre table pour commander, ou demandez au serveur.',
+                'cart.itemsLabel': 'article(s)',
+                'cart.viewBtn': 'Voir →',
+                'cart.recap': 'Récap',
+                'cart.empty': 'Votre commande est vide.',
+                'cart.send': 'Envoyer en cuisine',
+                'cart.disclaimer': 'Votre commande arrive directement en cuisine.',
+                'badge.togo': 'À emporter',
+                'form.firstname': 'Prénom',
+                'form.firstnamePh': 'Votre prénom',
+                'form.firstnameErr': 'Indique ton prénom pour qu\'on puisse t\'appeler.',
+                'form.email': 'Email',
+                'form.emailOpt': '(optionnel — pour nos news)',
+                'form.note': 'Note (allergies, préférences)',
+                'form.notePh': 'Sans piment, bien cuit, pas d\'oignon…',
+                'form.pickup': 'Heure de retrait souhaitée',
+                'pickup.asap': 'Dès que prêt (15-20 min)',
+                'pickup.30': 'Dans 30 min',
+                'pickup.45': 'Dans 45 min',
+                'pickup.60': 'Dans 1h',
+                'pickup.90': 'Dans 1h30',
+                'mods.quantity': 'Quantité',
+                'mods.addToCart': 'Ajouter au panier',
+                'mods.cuissonLabel': 'Cuisson',
+                'mods.cuissonRare': 'Saignant',
+                'mods.cuissonMed': 'À point',
+                'mods.cuissonWell': 'Bien cuit',
+                'mods.pimentLabel': 'Niveau de piment',
+                'mods.pimentMild': 'Doux',
+                'mods.pimentNormal': 'Normal',
+                'mods.pimentHot': 'Épicé',
+                'mods.oignonLabel': 'Oignon',
+                'mods.oignonWith': 'Avec oignon',
+                'mods.oignonWithout': 'Sans oignon',
+                'conf.title': 'Commande envoyée',
+                'conf.body1': 'Votre commande est arrivée en cuisine.',
+                'conf.body2': 'Bon appétit !',
+                'conf.addMore': 'Ajouter d\'autres plats',
+                'review.cta': 'Quand vous avez fini, donnez-nous votre avis',
+                'review.openBtn': 'Laisser un avis',
+                'review.title': 'Comment c\'était ?',
+                'review.rateLabel': 'Note ton expérience',
+                'review.thanksShort': 'Merci !',
+                'review.googleAsk': 'Si tu peux nous aider en quelques secondes, partage ton avis sur Google :',
+                'review.googleBtn': 'Laisser un avis Google',
+                'review.tellUs': 'Dis-nous ce qui n\'a pas marché',
+                'review.tellUsPh': 'Plat, service, attente… on veut comprendre pour s\'améliorer.',
+                'review.disclaimer': 'Ton retour va directement au manager. Pas publié.',
+                'review.thanksLong': 'Merci pour ton retour 🙏',
+                'review.improving': 'On va s\'améliorer.',
+                'cat.Entrées Froides': 'Entrées froides',
+                'cat.Entrées Chaudes': 'Entrées chaudes',
+                'cat.Grillades': 'Grillades',
+                'cat.Grillades aux Sauces': 'Grillades aux sauces',
+                'cat.Pide': 'Pide',
+                'cat.Poissons': 'Poissons',
+                'cat.Desserts': 'Desserts',
+                'sending': 'Envoi…',
+                'errSend': 'Erreur lors de l\'envoi : '
+            },
+            en: {
+                'common.table': 'Table',
+                'common.total': 'Total',
+                'common.send': 'Send',
+                'intro.title': 'Your order',
+                'intro.titleTogo': 'Takeaway order',
+                'intro.subtitle': 'Build your meal. Payment at the counter when leaving.',
+                'noTable.title': 'Missing table number',
+                'noTable.body': 'Scan your table QR code to order, or ask a server.',
+                'cart.itemsLabel': 'item(s)',
+                'cart.viewBtn': 'View →',
+                'cart.recap': 'Summary',
+                'cart.empty': 'Your order is empty.',
+                'cart.send': 'Send to kitchen',
+                'cart.disclaimer': 'Your order goes straight to the kitchen.',
+                'badge.togo': 'Takeaway',
+                'form.firstname': 'First name',
+                'form.firstnamePh': 'Your first name',
+                'form.firstnameErr': 'Please enter your name so we can call you.',
+                'form.email': 'Email',
+                'form.emailOpt': '(optional — for our news)',
+                'form.note': 'Note (allergies, preferences)',
+                'form.notePh': 'No spice, well-done, no onion…',
+                'form.pickup': 'Preferred pickup time',
+                'pickup.asap': 'As soon as ready (15-20 min)',
+                'pickup.30': 'In 30 min',
+                'pickup.45': 'In 45 min',
+                'pickup.60': 'In 1h',
+                'pickup.90': 'In 1h30',
+                'mods.quantity': 'Quantity',
+                'mods.addToCart': 'Add to cart',
+                'mods.cuissonLabel': 'Doneness',
+                'mods.cuissonRare': 'Rare',
+                'mods.cuissonMed': 'Medium',
+                'mods.cuissonWell': 'Well done',
+                'mods.pimentLabel': 'Spice level',
+                'mods.pimentMild': 'Mild',
+                'mods.pimentNormal': 'Normal',
+                'mods.pimentHot': 'Hot',
+                'mods.oignonLabel': 'Onion',
+                'mods.oignonWith': 'With onion',
+                'mods.oignonWithout': 'No onion',
+                'conf.title': 'Order sent',
+                'conf.body1': 'Your order is in the kitchen.',
+                'conf.body2': 'Enjoy your meal!',
+                'conf.addMore': 'Add more dishes',
+                'review.cta': 'When you\'re done, leave us a review',
+                'review.openBtn': 'Leave a review',
+                'review.title': 'How was it?',
+                'review.rateLabel': 'Rate your experience',
+                'review.thanksShort': 'Thank you!',
+                'review.googleAsk': 'If you can help us in a few seconds, share your review on Google:',
+                'review.googleBtn': 'Leave a Google review',
+                'review.tellUs': 'Tell us what went wrong',
+                'review.tellUsPh': 'Food, service, wait… we want to improve.',
+                'review.disclaimer': 'Your feedback goes directly to the manager. Not published.',
+                'review.thanksLong': 'Thanks for your feedback 🙏',
+                'review.improving': 'We will improve.',
+                'cat.Entrées Froides': 'Cold starters',
+                'cat.Entrées Chaudes': 'Hot starters',
+                'cat.Grillades': 'Grilled meats',
+                'cat.Grillades aux Sauces': 'Grilled with sauces',
+                'cat.Pide': 'Pide',
+                'cat.Poissons': 'Fish',
+                'cat.Desserts': 'Desserts',
+                'sending': 'Sending…',
+                'errSend': 'Error sending: '
+            },
+            tr: {
+                'common.table': 'Masa',
+                'common.total': 'Toplam',
+                'common.send': 'Gönder',
+                'intro.title': 'Siparişiniz',
+                'intro.titleTogo': 'Paket sipariş',
+                'intro.subtitle': 'Yemeğinizi seçin. Ödeme çıkışta kasada yapılır.',
+                'noTable.title': 'Masa numarası eksik',
+                'noTable.body': 'Sipariş için masanızdaki QR kodu okutun veya garsona sorun.',
+                'cart.itemsLabel': 'ürün',
+                'cart.viewBtn': 'Görüntüle →',
+                'cart.recap': 'Özet',
+                'cart.empty': 'Sipariş listesi boş.',
+                'cart.send': 'Mutfağa gönder',
+                'cart.disclaimer': 'Siparişiniz doğrudan mutfağa iletilir.',
+                'badge.togo': 'Paket',
+                'form.firstname': 'İsim',
+                'form.firstnamePh': 'İsminiz',
+                'form.firstnameErr': 'Sizi çağırabilmemiz için isminizi yazın.',
+                'form.email': 'E-posta',
+                'form.emailOpt': '(opsiyonel — haberlerimiz için)',
+                'form.note': 'Not (alerji, tercihler)',
+                'form.notePh': 'Acısız, iyi pişmiş, soğansız…',
+                'form.pickup': 'Tercih edilen alma saati',
+                'pickup.asap': 'Hazır olur olmaz (15-20 dk)',
+                'pickup.30': '30 dk içinde',
+                'pickup.45': '45 dk içinde',
+                'pickup.60': '1 saat içinde',
+                'pickup.90': '1.5 saat içinde',
+                'mods.quantity': 'Adet',
+                'mods.addToCart': 'Sepete ekle',
+                'mods.cuissonLabel': 'Pişirme',
+                'mods.cuissonRare': 'Az pişmiş',
+                'mods.cuissonMed': 'Orta',
+                'mods.cuissonWell': 'İyi pişmiş',
+                'mods.pimentLabel': 'Acılık seviyesi',
+                'mods.pimentMild': 'Acısız',
+                'mods.pimentNormal': 'Normal',
+                'mods.pimentHot': 'Acılı',
+                'mods.oignonLabel': 'Soğan',
+                'mods.oignonWith': 'Soğanlı',
+                'mods.oignonWithout': 'Soğansız',
+                'conf.title': 'Sipariş gönderildi',
+                'conf.body1': 'Siparişiniz mutfağa ulaştı.',
+                'conf.body2': 'Afiyet olsun!',
+                'conf.addMore': 'Yemek ekle',
+                'review.cta': 'Bitirdiğinizde yorumunuzu bırakın',
+                'review.openBtn': 'Yorum yap',
+                'review.title': 'Nasıldı?',
+                'review.rateLabel': 'Deneyiminizi puanlayın',
+                'review.thanksShort': 'Teşekkürler!',
+                'review.googleAsk': 'Birkaç saniyenizi ayırırsanız, Google\'da yorumunuzu paylaşın:',
+                'review.googleBtn': 'Google yorum bırak',
+                'review.tellUs': 'Neyin yolunda gitmediğini söyleyin',
+                'review.tellUsPh': 'Yemek, servis, bekleme… kendimizi geliştirmek için anlatın.',
+                'review.disclaimer': 'Geri bildiriminiz doğrudan müdüre gider. Yayınlanmaz.',
+                'review.thanksLong': 'Yorumunuz için teşekkürler 🙏',
+                'review.improving': 'Daha iyi olacağız.',
+                'cat.Entrées Froides': 'Soğuk başlangıçlar',
+                'cat.Entrées Chaudes': 'Sıcak başlangıçlar',
+                'cat.Grillades': 'Izgaralar',
+                'cat.Grillades aux Sauces': 'Soslu ızgaralar',
+                'cat.Pide': 'Pide',
+                'cat.Poissons': 'Balık',
+                'cat.Desserts': 'Tatlılar',
+                'sending': 'Gönderiliyor…',
+                'errSend': 'Gönderim hatası: '
+            }
         };
+
+        let currentLang = (() => {
+            const saved = localStorage.getItem('ella-lang');
+            if (saved && I18N[saved]) return saved;
+            const nav = (navigator.language || '').toLowerCase();
+            if (nav.startsWith('tr')) return 'tr';
+            if (nav.startsWith('en')) return 'en';
+            return 'fr';
+        })();
+
+        function t(key) {
+            return (I18N[currentLang] && I18N[currentLang][key]) || I18N.fr[key] || key;
+        }
+
+        function applyTranslations() {
+            // Texte des éléments avec data-i18n
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                el.textContent = t(el.dataset.i18n);
+            });
+            // Attributs (placeholder, etc.) avec data-i18n-attr="placeholder:key"
+            document.querySelectorAll('[data-i18n-attr]').forEach(el => {
+                el.dataset.i18nAttr.split(',').forEach(pair => {
+                    const [attr, key] = pair.split(':').map(s => s.trim());
+                    if (attr && key) el.setAttribute(attr, t(key));
+                });
+            });
+            document.documentElement.lang = currentLang;
+            // État du switcher
+            document.querySelectorAll('.lang-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.lang === currentLang);
+            });
+        }
+
+        // Switcher : clic sur FR / EN / TR
+        document.querySelectorAll('.lang-btn').forEach(b => {
+            b.addEventListener('click', () => {
+                currentLang = b.dataset.lang;
+                localStorage.setItem('ella-lang', currentLang);
+                applyTranslations();
+                // Re-render des contenus dynamiques (menu, panier, badge, etc.)
+                if (typeof rerenderDynamic === 'function') rerenderDynamic();
+            });
+        });
+
+        // ===== Personnalisation des plats =====
+        // Les valeurs stockées en base restent en FR (la cuisine lit FR).
+        // L'affichage est traduit via les clés i18n correspondantes.
+        const MENU_MODS = {
+            cuisson: {
+                labelKey: 'mods.cuissonLabel',
+                options: ['Saignant', 'À point', 'Bien cuit'],
+                optionKeys: { 'Saignant': 'mods.cuissonRare', 'À point': 'mods.cuissonMed', 'Bien cuit': 'mods.cuissonWell' },
+                default: 'À point'
+            },
+            piment: {
+                labelKey: 'mods.pimentLabel',
+                options: ['Doux', 'Normal', 'Épicé'],
+                optionKeys: { 'Doux': 'mods.pimentMild', 'Normal': 'mods.pimentNormal', 'Épicé': 'mods.pimentHot' },
+                default: 'Normal'
+            },
+            oignon: {
+                labelKey: 'mods.oignonLabel',
+                options: ['Avec oignon', 'Sans oignon'],
+                optionKeys: { 'Avec oignon': 'mods.oignonWith', 'Sans oignon': 'mods.oignonWithout' },
+                default: 'Avec oignon'
+            }
+        };
+        // Helper : traduit une valeur de mod stockée en FR vers la langue courante
+        function tMod(val) {
+            for (const m of Object.values(MENU_MODS)) {
+                if (m.optionKeys && m.optionKeys[val]) return t(m.optionKeys[val]);
+            }
+            return val;
+        }
         // Auto-attribution selon la catégorie
         MENU_ITEMS.forEach(it => {
             if (it.cat === 'Grillades' || it.cat === 'Grillades aux Sauces') {
@@ -698,21 +1000,49 @@
         const tableBadge = document.getElementById('table-badge');
         const introH1 = document.querySelector('.intro h1');
 
+        function refreshHeader() {
+            if (isTogo) {
+                tableBadge.textContent = t('badge.togo');
+                tableBadge.style.background = 'var(--ember-glow)';
+                tableBadge.style.color = 'var(--charcoal)';
+                if (introH1) introH1.textContent = t('intro.titleTogo');
+            } else if (tableNum) {
+                tableBadge.textContent = `${t('common.table')} ${tableNum}`;
+            }
+        }
+
         if (!tableNum && !isTogo) {
             noTableEl.style.display = 'block';
         } else {
             if (isTogo) {
-                tableBadge.textContent = "À emporter";
-                tableBadge.style.background = 'var(--ember-glow)';
-                tableBadge.style.color = 'var(--charcoal)';
-                if (introH1) introH1.textContent = 'Commande à emporter';
                 document.getElementById('pickup-block').style.display = 'block';
-            } else {
-                tableBadge.textContent = `Table ${tableNum}`;
             }
+            refreshHeader();
             menuListEl.style.display = 'block';
             renderMenu();
         }
+
+        // Re-rend tout ce qui est dynamique après un changement de langue
+        function rerenderDynamic() {
+            refreshHeader();
+            // Re-render menu (categories changent)
+            if (menuListEl.style.display !== 'none') renderMenu();
+            // Update modal-table prefix (langue à jour si déjà ouvert)
+            const modalPrefix = document.getElementById('modal-prefix');
+            if (modalPrefix) modalPrefix.textContent = isTogo ? '' : t('common.table');
+            // Re-render cart
+            updateUI();
+            // Bouton Envoyer si pas en cours d'envoi
+            const sendBtn = document.getElementById('send-btn');
+            if (sendBtn && !sendBtn.disabled) sendBtn.textContent = t('cart.send');
+            // Mods modal si ouverte
+            if (currentModsItem && modsModal.classList.contains('show')) {
+                openModsModal(currentModsItem.id);
+            }
+        }
+
+        // Application initiale (DOM peut maintenant utiliser data-i18n)
+        applyTranslations();
 
         // cart key = id si pas de mods, sinon id + '|' + JSON.stringify(modsValues)
         // Chaque entrée : { key, id, name, price, qty, mods (objet) }
@@ -734,10 +1064,10 @@
             return n;
         }
 
-        // Texte humain résumant les mods d'une ligne (ex: "Bien cuit · Sans oignon")
+        // Texte humain résumant les mods d'une ligne (traduit si possible)
         function modsText(mods) {
             if (!mods) return '';
-            return Object.values(mods).filter(Boolean).join(' · ');
+            return Object.values(mods).filter(Boolean).map(tMod).join(' · ');
         }
 
         function renderMenu() {
@@ -751,7 +1081,7 @@
             Object.entries(cats).forEach(([catName, items]) => {
                 const sec = document.createElement('section');
                 sec.className = 'cat';
-                sec.innerHTML = `<h2>${catName}</h2>`;
+                sec.innerHTML = `<h2>${esc(t('cat.' + catName) || catName)}</h2>`;
                 items.forEach((item) => {
                     const hasMods = item.mods && item.mods.length > 0;
                     const thumb = item.image ? `<img class="item-thumb" src="${item.image}" alt="${esc(item.name)}" loading="lazy">` : '';
@@ -846,7 +1176,7 @@
             const list = document.getElementById('cart-list');
             list.innerHTML = '';
             if (cart.size === 0) {
-                list.innerHTML = '<p class="cart-empty">Votre commande est vide.</p>';
+                list.innerHTML = `<p class="cart-empty">${esc(t('cart.empty'))}</p>`;
                 return;
             }
             cart.forEach((v) => {
@@ -906,16 +1236,19 @@
             body.innerHTML = item.mods.map(modKey => {
                 const mod = MENU_MODS[modKey];
                 if (!mod) return '';
+                const labelTxt = t(mod.labelKey) || modKey;
                 return `
                     <div style="margin-bottom:1.2rem;">
-                        <label style="display:block; color:var(--gold); font-style:italic; font-family:'Fraunces',serif; font-size:0.95rem; margin-bottom:0.5rem;">${mod.label}</label>
+                        <label style="display:block; color:var(--gold); font-style:italic; font-family:'Fraunces',serif; font-size:0.95rem; margin-bottom:0.5rem;">${esc(labelTxt)}</label>
                         <div style="display:flex; flex-wrap:wrap; gap:0.4rem;">
-                            ${mod.options.map(opt => `
+                            ${mod.options.map(opt => {
+                                const display = t(mod.optionKeys[opt]) || opt;
+                                return `
                                 <button type="button"
                                   class="mod-opt ${opt === mod.default ? 'selected' : ''}"
                                   data-mod="${modKey}" data-val="${esc(opt)}"
-                                  style="padding:0.55rem 0.9rem; background:transparent; border:1px solid rgba(203,181,148,0.3); color:var(--cream); font-family:inherit; font-size:0.9rem; cursor:pointer; border-radius:3px;">${opt}</button>
-                            `).join('')}
+                                  style="padding:0.55rem 0.9rem; background:transparent; border:1px solid rgba(203,181,148,0.3); color:var(--cream); font-family:inherit; font-size:0.9rem; cursor:pointer; border-radius:3px;">${esc(display)}</button>`;
+                            }).join('')}
                         </div>
                     </div>
                 `;
@@ -986,7 +1319,9 @@
         // Modal open/close
         const modal = document.getElementById('cart-modal');
         document.getElementById('open-cart').addEventListener('click', () => {
-            document.getElementById('modal-table').textContent = isTogo ? 'À emporter' : tableNum;
+            const modalPrefix = document.getElementById('modal-prefix');
+            if (modalPrefix) modalPrefix.textContent = isTogo ? '' : t('common.table');
+            document.getElementById('modal-table').textContent = isTogo ? t('badge.togo') : tableNum;
             modal.classList.add('show');
             document.body.style.overflow = 'hidden';
         });
@@ -1014,7 +1349,7 @@
             const email = (emailRaw && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailRaw)) ? emailRaw : "";
 
             btn.disabled = true;
-            btn.textContent = 'Envoi…';
+            btn.textContent = t('sending');
 
             const items = [...cart.values()].map(({ id, name, qty, price, mods }) => {
                 const o = { id, name, qty, price };
@@ -1041,14 +1376,14 @@
                 document.getElementById('note').value = '';
                 modal.classList.remove('show');
                 document.body.style.overflow = '';
-                document.getElementById('conf-prefix').textContent = isTogo ? '' : 'Table ';
-                document.getElementById('conf-table').textContent = isTogo ? `À emporter${pickupTime ? ' · ' + pickupTime : ''}` : tableNum;
+                document.getElementById('conf-prefix').textContent = isTogo ? '' : (t('common.table') + ' ');
+                document.getElementById('conf-table').textContent = isTogo ? `${t('badge.togo')}${pickupTime ? ' · ' + pickupTime : ''}` : tableNum;
                 document.getElementById('conf').classList.add('show');
                 updateUI();
             } catch (err) {
-                alert('Erreur lors de l\'envoi : ' + err.message + '\n\nRéessayez ou demandez au serveur.');
+                alert(t('errSend') + err.message);
                 btn.disabled = false;
-                btn.textContent = 'Envoyer en cuisine';
+                btn.textContent = t('cart.send');
             }
         });
 
@@ -1056,7 +1391,7 @@
             document.getElementById('conf').classList.remove('show');
             const btn = document.getElementById('send-btn');
             btn.disabled = false;
-            btn.textContent = 'Envoyer en cuisine';
+            btn.textContent = t('cart.send');
         });
 
         // ===== Flow d'avis =====
@@ -1141,7 +1476,7 @@
             const comment = document.getElementById('review-comment').value.trim();
             if (sb.disabled) return;
             sb.disabled = true;
-            sb.textContent = 'Envoi…';
+            sb.textContent = t('sending');
             try {
                 await addDoc(collection(db, 'feedbacks'), {
                     rating: selectedRating,
@@ -1160,9 +1495,9 @@
                 reviewFeedback.classList.remove('show');
                 reviewThanks.classList.add('show');
             } catch (err) {
-                alert('Erreur : ' + err.message);
+                alert(t('errSend') + err.message);
                 sb.disabled = false;
-                sb.textContent = 'Envoyer';
+                sb.textContent = t('common.send');
             }
         });
     </script>
