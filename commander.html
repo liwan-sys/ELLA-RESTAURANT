@@ -613,8 +613,13 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Lien Google Reviews — à remplacer par le vrai lien d'Ella (voir instructions à la fin du commit)
-        const GOOGLE_REVIEW_URL = "https://search.google.com/local/writereview?placeid=REPLACE_WITH_PLACE_ID";
+        // Lien Google Reviews.
+        // Pour le lien direct vers le formulaire d'avis (recommandé) :
+        //   1. Connecte-toi à https://business.google.com/ avec le compte qui gere la fiche Ella
+        //   2. Sur la fiche -> bouton "Demandez plus d'avis" / "Get more reviews"
+        //   3. Copie le lien court "g.page/r/..../review" et remplace l'URL ci-dessous
+        // Fallback actuel : recherche Google de la fiche (le client clique "Ecrire un avis" depuis la fiche).
+        const GOOGLE_REVIEW_URL = "https://www.google.com/search?q=Restaurant+Ella+14+rue+du+Faubourg+Saint-Denis+Paris+10&hl=fr";
 
         let lastOrderId = null; // pour lier l'avis à la commande
 
