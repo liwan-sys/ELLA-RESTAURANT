@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Ella · Admin Clients & Avis</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Manrope:wght@400..700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --night: #0E0C0A;
+            --charcoal: #1C1A17;
+            --charcoal-soft: #14110D;
+            --ember-orange: #C75D2C;
+            --ember-glow: #E89B40;
+            --gold: #D4A661;
+            --cream: #EFE4D2;
+            --stone-beige: #CBB594;
+            --stone-muted: rgba(203, 181, 148, 0.6);
+            --green: #5B9B6E;
+            --red: #C85A5A;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--charcoal); color: var(--cream);
+            font-family: 'Manrope', sans-serif;
+            min-height: 100vh; padding: 1rem;
+        }
+        header.bar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 1.5rem; margin-bottom: 1.5rem;
+            background: var(--night);
+            border-bottom: 1px solid rgba(212,166,97,0.3);
+            flex-wrap: wrap; gap: 1rem;
+        }
+        h1 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 1.6rem; color: var(--cream); }
+
+        .tabs { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+        .tab {
+            background: transparent; border: 1px solid rgba(212,166,97,0.3);
+            color: var(--stone-beige); padding: 0.55rem 1rem;
+            cursor: pointer; font-family: inherit; font-size: 0.9rem; font-weight: 500;
+        }
+        .tab.active { background: var(--gold); color: var(--charcoal); border-color: var(--gold); }
+        .tab:hover:not(.active) { color: var(--cream); border-color: var(--gold); }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Stats cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem; margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: var(--charcoal-soft);
+            border: 1px solid rgba(212,166,97,0.3);
+            padding: 1.5rem;
+        }
+        .stat-card .label {
+            color: var(--stone-beige); font-size: 0.85rem; font-weight: 500;
+            text-transform: uppercase; letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+        .stat-card .value {
+            font-family: 'Fraunces', serif;
+            font-size: 2.2rem; color: var(--ember-glow);
+            font-weight: 500;
+        }
+        .stat-card .sub {
+            color: var(--stone-muted); font-size: 0.85rem;
+            margin-top: 0.3rem; font-style: italic;
+        }
+
+        h2 {
+            font-family: 'Fraunces', serif; font-weight: 500;
+            font-size: 1.3rem; color: var(--cream);
+            margin: 1.5rem 0 1rem;
+        }
+
+        .top-list {
+            background: var(--charcoal-soft);
+            border: 1px solid rgba(212,166,97,0.2);
+            padding: 1rem 1.2rem;
+        }
+        .top-row {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0.6rem 0;
+            border-bottom: 1px dashed rgba(203,181,148,0.1);
+        }
+        .top-row:last-child { border: none; }
+        .top-row .name { color: var(--cream); }
+        .top-row .count {
+            color: var(--ember-glow); font-weight: 600;
+            font-family: 'Fraunces', serif; font-style: italic;
+        }
+
+        /* Clients table */
+        .toolbar {
+            display: flex; gap: 0.8rem; align-items: center;
+            margin-bottom: 1rem; flex-wrap: wrap;
+        }
+        .toolbar input {
+            flex: 1; min-width: 200px;
+            background: transparent;
+            border: 1px solid rgba(212,166,97,0.3);
+            color: var(--cream); padding: 0.6rem 0.8rem;
+            font-family: inherit; font-size: 0.9rem;
+        }
+        .toolbar input:focus { outline: none; border-color: var(--ember-glow); }
+        .toolbar button {
+            background: var(--ember-orange); color: var(--cream);
+            border: none; padding: 0.6rem 1.1rem;
+            font-family: inherit; font-weight: 600; font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .toolbar button:hover { background: var(--ember-glow); color: var(--charcoal); }
+
+        .table-wrap {
+            overflow-x: auto;
+            background: var(--charcoal-soft);
+            border: 1px solid rgba(212,166,97,0.2);
+        }
+        table {
+            width: 100%; border-collapse: collapse;
+        }
+        thead th {
+            background: var(--night); color: var(--gold);
+            text-align: left; padding: 0.8rem 1rem;
+            font-weight: 600; font-size: 0.8rem;
+            text-transform: uppercase; letter-spacing: 0.05em;
+            border-bottom: 1px solid rgba(212,166,97,0.3);
+        }
+        tbody td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid rgba(203,181,148,0.08);
+            color: var(--cream); font-size: 0.92rem;
+        }
+        tbody tr:hover { background: rgba(212,166,97,0.05); }
+        td.num { text-align: right; font-family: 'Fraunces', serif; font-style: italic; color: var(--ember-glow); }
+
+        /* Feedbacks */
+        .feedback-filters {
+            display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 0.5rem 1rem; border: 1px solid rgba(212,166,97,0.3);
+            background: transparent; color: var(--stone-beige);
+            cursor: pointer; font-family: inherit; font-size: 0.85rem; font-weight: 500;
+        }
+        .filter-btn.active { background: var(--gold); color: var(--charcoal); border-color: var(--gold); }
+
+        .feedback-card {
+            background: var(--charcoal-soft);
+            border: 1px solid rgba(212,166,97,0.2);
+            padding: 1rem 1.2rem;
+            margin-bottom: 0.8rem;
+        }
+        .feedback-card.negative { border-left: 4px solid var(--red); }
+        .feedback-card.positive { border-left: 4px solid var(--green); }
+        .feedback-head {
+            display: flex; justify-content: space-between; align-items: baseline;
+            margin-bottom: 0.4rem; gap: 1rem; flex-wrap: wrap;
+        }
+        .stars { font-size: 1.1rem; letter-spacing: 0.1em; }
+        .stars .on { color: var(--ember-glow); }
+        .stars .off { color: rgba(203,181,148,0.2); }
+        .feedback-meta {
+            color: var(--stone-muted); font-size: 0.85rem;
+        }
+        .feedback-comment {
+            color: var(--cream); font-size: 0.95rem; line-height: 1.5;
+            margin-top: 0.3rem;
+        }
+        .feedback-empty {
+            text-align: center; padding: 3rem 1rem;
+            color: var(--stone-muted); font-style: italic;
+            font-family: 'Fraunces', serif;
+        }
+
+        /* Login overlay (réutilise cuisine-commandes.html) */
+        .login-overlay {
+            position: fixed; inset: 0; background: var(--night);
+            display: flex; align-items: center; justify-content: center; z-index: 100;
+        }
+        .login-box {
+            background: var(--charcoal-soft); padding: 2.5rem;
+            border: 1px solid rgba(212,166,97,0.3);
+            width: 100%; max-width: 360px; text-align: center;
+        }
+        .login-box h2 {
+            font-family: 'Fraunces', serif; font-size: 1.8rem;
+            color: var(--cream); margin-bottom: 1.5rem;
+        }
+        .login-box p { color: var(--stone-beige); margin-bottom: 1rem; }
+        .login-box input {
+            width: 100%; padding: 0.9rem;
+            background: transparent;
+            border: 1px solid rgba(212,166,97,0.3);
+            color: var(--cream); font-size: 1rem;
+            text-align: center; letter-spacing: 0.2em;
+            margin-bottom: 1rem; font-family: inherit;
+        }
+        .login-box input:focus { outline: none; border-color: var(--ember-glow); }
+        .login-box button {
+            width: 100%; padding: 0.9rem;
+            background: var(--ember-orange); color: var(--cream);
+            border: none; font-size: 1rem; cursor: pointer;
+            font-family: inherit; font-weight: 600;
+        }
+        .login-box .err {
+            color: var(--ember-orange); margin-top: 0.8rem;
+            font-size: 0.9rem; display: none;
+        }
+        .login-box .err.show { display: block; }
+
+        @media (max-width: 600px) {
+            header.bar { flex-direction: column; align-items: flex-start; }
+            .stat-card .value { font-size: 1.7rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Login overlay -->
+    <div class="login-overlay" id="login-overlay">
+        <div class="login-box">
+            <h2>Admin Ella</h2>
+            <p>Mot de passe :</p>
+            <input type="password" id="pwd" autocomplete="off" autofocus>
+            <button type="button" id="login-btn">Entrer</button>
+            <p class="err" id="err">Mot de passe incorrect.</p>
+        </div>
+    </div>
+
+    <header class="bar">
+        <h1>Admin · Ella</h1>
+        <nav class="tabs">
+            <button type="button" class="tab active" data-tab="stats">Stats</button>
+            <button type="button" class="tab" data-tab="clients">Clients <span id="t-clients">(0)</span></button>
+            <button type="button" class="tab" data-tab="feedbacks">Avis <span id="t-feedbacks">(0)</span></button>
+        </nav>
+    </header>
+
+    <!-- TAB : STATS -->
+    <section class="tab-content active" id="tab-stats">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="label">Commandes totales</div>
+                <div class="value" id="s-orders">—</div>
+                <div class="sub" id="s-orders-sub"></div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Chiffre d'affaires</div>
+                <div class="value" id="s-revenue">—</div>
+                <div class="sub" id="s-revenue-sub"></div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Note moyenne</div>
+                <div class="value" id="s-rating">—</div>
+                <div class="sub" id="s-rating-sub"></div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Taux satisfaction</div>
+                <div class="value" id="s-satisf">—</div>
+                <div class="sub" id="s-satisf-sub">Avis 4-5★ / total</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Emails captés</div>
+                <div class="value" id="s-emails">—</div>
+                <div class="sub" id="s-emails-sub"></div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Panier moyen</div>
+                <div class="value" id="s-avg-cart">—</div>
+                <div class="sub">par commande</div>
+            </div>
+        </div>
+
+        <h2>Top 5 plats commandés</h2>
+        <div class="top-list" id="top-dishes">—</div>
+
+        <h2>Tables les plus actives</h2>
+        <div class="top-list" id="top-tables">—</div>
+    </section>
+
+    <!-- TAB : CLIENTS -->
+    <section class="tab-content" id="tab-clients-content">
+        <div class="toolbar">
+            <input type="text" id="client-search" placeholder="Rechercher par prénom ou email…">
+            <button type="button" id="export-csv">Export CSV</button>
+        </div>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Prénom</th>
+                        <th>Email</th>
+                        <th>Dernière commande</th>
+                        <th class="num">Commandes</th>
+                        <th class="num">Total dépensé</th>
+                    </tr>
+                </thead>
+                <tbody id="clients-tbody">
+                    <tr><td colspan="5" style="text-align:center; padding:2rem; color:var(--stone-muted);">Chargement…</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- TAB : AVIS -->
+    <section class="tab-content" id="tab-feedbacks-content">
+        <div class="feedback-filters">
+            <button type="button" class="filter-btn active" data-fb-filter="all">Tous</button>
+            <button type="button" class="filter-btn" data-fb-filter="positive">Positifs (4-5★)</button>
+            <button type="button" class="filter-btn" data-fb-filter="negative">Négatifs (1-3★)</button>
+            <button type="button" class="filter-btn" data-fb-filter="commented">Avec commentaire</button>
+        </div>
+        <div id="feedbacks-list">
+            <p class="feedback-empty">Chargement…</p>
+        </div>
+    </section>
+
+    <script src="firebase-config.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+        import { getFirestore, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+
+        // === Auth ===
+        const PASSWORD = "ella2026";
+        const overlay = document.getElementById('login-overlay');
+        if (sessionStorage.getItem('admin-clients-auth') === 'ok') overlay.style.display = 'none';
+        function tryLogin() {
+            const v = document.getElementById('pwd').value;
+            if (v === PASSWORD) {
+                sessionStorage.setItem('admin-clients-auth', 'ok');
+                overlay.style.display = 'none';
+            } else {
+                document.getElementById('err').classList.add('show');
+                document.getElementById('pwd').value = '';
+            }
+        }
+        document.getElementById('login-btn').addEventListener('click', tryLogin);
+        document.getElementById('pwd').addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
+
+        // === Firestore ===
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        let allOrders = [];
+        let allFeedbacks = [];
+        let fbFilter = 'all';
+        let clientSearch = '';
+
+        const ordersQ = query(collection(db, 'commandes-table'), orderBy('createdAt', 'desc'));
+        onSnapshot(ordersQ, snap => {
+            allOrders = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+            renderAll();
+        }, (err) => console.error('orders', err));
+
+        const fbQ = query(collection(db, 'feedbacks'), orderBy('createdAt', 'desc'));
+        onSnapshot(fbQ, snap => {
+            allFeedbacks = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+            renderAll();
+        }, (err) => console.error('feedbacks', err));
+
+        // === Helpers ===
+        function fmtEur(n) {
+            return n.toFixed(2).replace('.', ',') + ' €';
+        }
+        function fmtDate(ts) {
+            if (!ts?.toDate) return '—';
+            const d = ts.toDate();
+            return d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: '2-digit' })
+                + ' · ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+        }
+        function esc(s) {
+            return String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+        }
+        function stars(n) {
+            const v = Math.max(0, Math.min(5, n || 0));
+            let html = '';
+            for (let i = 1; i <= 5; i++) {
+                html += `<span class="${i <= v ? 'on' : 'off'}">★</span>`;
+            }
+            return `<span class="stars">${html}</span>`;
+        }
+
+        // === Render Stats ===
+        function renderStats() {
+            const total = allOrders.length;
+            const revenue = allOrders.reduce((s, o) => s + (o.total || 0), 0);
+            const avgCart = total ? revenue / total : 0;
+            const emails = new Set(allOrders.map(o => (o.email || '').toLowerCase()).filter(Boolean));
+
+            const fbCount = allFeedbacks.length;
+            const fbAvg = fbCount ? allFeedbacks.reduce((s, f) => s + (f.rating || 0), 0) / fbCount : 0;
+            const fbPositive = allFeedbacks.filter(f => (f.rating || 0) >= 4).length;
+            const satisf = fbCount ? Math.round((fbPositive / fbCount) * 100) : 0;
+
+            document.getElementById('s-orders').textContent = total;
+            document.getElementById('s-orders-sub').textContent = total ? `dont ${allOrders.filter(o => o.status === 'servie').length} servies` : '';
+            document.getElementById('s-revenue').textContent = fmtEur(revenue);
+            document.getElementById('s-revenue-sub').textContent = total ? `panier moyen ${fmtEur(avgCart)}` : '';
+            document.getElementById('s-rating').textContent = fbCount ? fbAvg.toFixed(1) + ' / 5' : '—';
+            document.getElementById('s-rating-sub').textContent = fbCount ? `sur ${fbCount} avis` : 'aucun avis';
+            document.getElementById('s-satisf').textContent = fbCount ? satisf + ' %' : '—';
+            document.getElementById('s-emails').textContent = emails.size;
+            document.getElementById('s-emails-sub').textContent = total ? `${Math.round(emails.size / total * 100)}% de captation` : '';
+            document.getElementById('s-avg-cart').textContent = total ? fmtEur(avgCart) : '—';
+
+            // Top dishes
+            const dishCount = new Map();
+            allOrders.forEach(o => (o.items || []).forEach(it => {
+                dishCount.set(it.name, (dishCount.get(it.name) || 0) + (it.qty || 0));
+            }));
+            const topDishes = [...dishCount.entries()].sort((a, b) => b[1] - a[1]).slice(0, 5);
+            document.getElementById('top-dishes').innerHTML = topDishes.length === 0
+                ? '<p style="color:var(--stone-muted); font-style:italic; padding:0.6rem 0;">Pas encore de données.</p>'
+                : topDishes.map(([n, c]) => `<div class="top-row"><span class="name">${esc(n)}</span><span class="count">${c}×</span></div>`).join('');
+
+            // Top tables
+            const tableCount = new Map();
+            allOrders.forEach(o => {
+                if (o.table != null) tableCount.set(o.table, (tableCount.get(o.table) || 0) + 1);
+            });
+            const topTables = [...tableCount.entries()].sort((a, b) => b[1] - a[1]).slice(0, 5);
+            document.getElementById('top-tables').innerHTML = topTables.length === 0
+                ? '<p style="color:var(--stone-muted); font-style:italic; padding:0.6rem 0;">Pas encore de données.</p>'
+                : topTables.map(([t, c]) => `<div class="top-row"><span class="name">Table ${esc(t)}</span><span class="count">${c} commandes</span></div>`).join('');
+        }
+
+        // === Render Clients ===
+        // Groupe par email (si présent), sinon par prénom + table (proxy d'unicité, imparfait)
+        function buildClients() {
+            const map = new Map();
+            allOrders.forEach(o => {
+                const email = (o.email || '').toLowerCase().trim();
+                const firstName = (o.firstName || '').trim();
+                const key = email || `_anon_${firstName}_${o.table}_${o.id}`; // sans email = chaque commande compte comme client distinct
+                if (!map.has(key)) {
+                    map.set(key, {
+                        firstName, email,
+                        firstOrder: o.createdAt, lastOrder: o.createdAt,
+                        count: 0, total: 0
+                    });
+                }
+                const c = map.get(key);
+                c.count++;
+                c.total += (o.total || 0);
+                // firstName : prend le 1er non-vide
+                if (!c.firstName && firstName) c.firstName = firstName;
+                // dates : compare en ms
+                const ms = o.createdAt?.toMillis?.() || 0;
+                if (ms > (c.lastOrder?.toMillis?.() || 0)) c.lastOrder = o.createdAt;
+                if (ms < (c.firstOrder?.toMillis?.() || Infinity)) c.firstOrder = o.createdAt;
+            });
+            return [...map.values()].sort((a, b) => (b.lastOrder?.toMillis?.() || 0) - (a.lastOrder?.toMillis?.() || 0));
+        }
+
+        function renderClients() {
+            const clients = buildClients();
+            const term = clientSearch.toLowerCase();
+            const filtered = term
+                ? clients.filter(c => c.firstName.toLowerCase().includes(term) || c.email.toLowerCase().includes(term))
+                : clients;
+
+            document.getElementById('t-clients').textContent = `(${clients.length})`;
+
+            const tbody = document.getElementById('clients-tbody');
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:2rem; color:var(--stone-muted);">Aucun client.</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = filtered.map(c => `
+                <tr>
+                    <td>${esc(c.firstName) || '<span style="color:var(--stone-muted)">—</span>'}</td>
+                    <td>${c.email ? esc(c.email) : '<span style="color:var(--stone-muted); font-style:italic;">non renseigné</span>'}</td>
+                    <td>${fmtDate(c.lastOrder)}</td>
+                    <td class="num">${c.count}</td>
+                    <td class="num">${fmtEur(c.total)}</td>
+                </tr>
+            `).join('');
+        }
+
+        // === Render Feedbacks ===
+        function renderFeedbacks() {
+            document.getElementById('t-feedbacks').textContent = `(${allFeedbacks.length})`;
+
+            const filtered = allFeedbacks.filter(f => {
+                if (fbFilter === 'all') return true;
+                if (fbFilter === 'positive') return (f.rating || 0) >= 4;
+                if (fbFilter === 'negative') return (f.rating || 0) <= 3 && (f.rating || 0) >= 1;
+                if (fbFilter === 'commented') return (f.comment || '').trim().length > 0;
+                return true;
+            });
+
+            const list = document.getElementById('feedbacks-list');
+            if (filtered.length === 0) {
+                list.innerHTML = '<p class="feedback-empty">Aucun avis pour ce filtre.</p>';
+                return;
+            }
+            list.innerHTML = filtered.map(f => {
+                const r = f.rating || 0;
+                const cls = r >= 4 ? 'positive' : (r >= 1 && r <= 3 ? 'negative' : '');
+                const tableTxt = f.table != null ? `Table ${esc(f.table)}` : '';
+                return `
+                    <div class="feedback-card ${cls}">
+                        <div class="feedback-head">
+                            ${stars(r)}
+                            <span class="feedback-meta">${tableTxt}${tableTxt ? ' · ' : ''}${fmtDate(f.createdAt)}</span>
+                        </div>
+                        ${f.comment ? `<p class="feedback-comment">${esc(f.comment)}</p>` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderAll() {
+            renderStats();
+            renderClients();
+            renderFeedbacks();
+        }
+
+        // === Tab navigation ===
+        document.querySelectorAll('.tab').forEach(t => {
+            t.addEventListener('click', () => {
+                const tab = t.dataset.tab;
+                document.querySelectorAll('.tab').forEach(x => x.classList.toggle('active', x === t));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                const map = { stats: 'tab-stats', clients: 'tab-clients-content', feedbacks: 'tab-feedbacks-content' };
+                document.getElementById(map[tab])?.classList.add('active');
+            });
+        });
+
+        // === Filters ===
+        document.querySelectorAll('[data-fb-filter]').forEach(b => {
+            b.addEventListener('click', () => {
+                fbFilter = b.dataset.fbFilter;
+                document.querySelectorAll('[data-fb-filter]').forEach(x => x.classList.toggle('active', x === b));
+                renderFeedbacks();
+            });
+        });
+
+        // === Search ===
+        document.getElementById('client-search').addEventListener('input', (e) => {
+            clientSearch = e.target.value;
+            renderClients();
+        });
+
+        // === Export CSV ===
+        document.getElementById('export-csv').addEventListener('click', () => {
+            const clients = buildClients();
+            const rows = [
+                ['Prenom', 'Email', 'Premiere commande', 'Derniere commande', 'Nb commandes', 'Total depense (EUR)']
+            ];
+            clients.forEach(c => {
+                const fmt = (ts) => ts?.toDate ? ts.toDate().toISOString() : '';
+                rows.push([
+                    c.firstName,
+                    c.email,
+                    fmt(c.firstOrder),
+                    fmt(c.lastOrder),
+                    c.count,
+                    c.total.toFixed(2)
+                ]);
+            });
+            const csv = rows.map(r => r.map(v => `"${String(v ?? '').replace(/"/g, '""')}"`).join(',')).join('\n');
+            const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `ella-clients-${new Date().toISOString().slice(0, 10)}.csv`;
+            document.body.appendChild(a); a.click(); a.remove();
+            URL.revokeObjectURL(url);
+        });
+    </script>
+</body>
+</html>
